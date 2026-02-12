@@ -1,543 +1,934 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="American Home Warranty Service (AHWS) provides comprehensive home warranty solutions for appliances and HVAC systems in Casablanca, Morocco. Our mission is to ensure peace of mind with reliable home care services.">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <title>American Home Warranty Service</title>
+    <title>AHWS | Vous n'appelez pas un réparateur. Vous appelez quelqu'un qui sait.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .serif { font-family: 'Crimson Pro', serif; }
+        
+        .grain {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.02;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+        
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.3);
+        }
+        
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            .smooth-scroll { scroll-behavior: auto; }
+            .fade-up { opacity: 1; transform: none; }
+        }
+    </style>
 </head>
-<body>
-    <div class="background-pattern"></div>
-     <!-- Navigation Bar -->
-    <nav>
-        <div class="container">
-            <div class="logo"><img src="images/logo2.png" alt=""></div>
-            <div class="hamburger">☰</div>
-            <div class="nav-links">
-                <a href="#home"><i class="fas fa-home"></i>Home</a>
-                <div class="dropdown">
-                    <a href="#about"><i class="fas fa-info-circle"></i>About</a>
-                    <div class="dropdown-content">
-                        <a href="#mission"><i class="fas fa-bullseye"></i>Mission</a>
-                        <a href="#about"><i class="fas fa-info-circle"></i>About Us</a>
-                        <a href="#testimonials"><i class="fas fa-star"></i>Testimonials</a>
-                    </div>
+<body class="bg-stone-50 text-stone-900 antialiased smooth-scroll">
+
+    <div class="grain"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-stone-50/90 backdrop-blur-md z-40 border-b border-stone-200 transition-all duration-300" id="navbar">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="#" class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-stone-900 rounded-sm flex items-center justify-center">
+                    <span class="text-stone-50 font-bold text-sm">A</span>
                 </div>
-                <div class="dropdown">
-                    <a href="#services"><i class="fas fa-tools"></i>Solutions</a>
-                    <div class="dropdown-content">
-                        <a href="#services"><i class="fas fa-tools"></i>Services</a>
-                        <a href="#pricing"><i class="fas fa-dollar-sign"></i>Pricing</a>
-                        <a href="#coverage"><i class="fas fa-map-marker-alt"></i>Coverage Area</a>
-                    </div>
-                </div>
-                <div class="dropdown">
-                    <a href="#faqs"><i class="fas fa-question-circle"></i>Resources</a>
-                    <div class="dropdown-content">
-                        <a href="#faqs"><i class="fas fa-question-circle"></i>FAQs</a>
-                        <a href="#blog"><i class="fas fa-blog"></i>Blog</a>
-                        <a href="#partners"><i class="fas fa-handshake"></i>Partners</a>
-                    </div>
-                </div>
-                <a href="#careers"><i class="fas fa-briefcase"></i>Careers</a>
-                <a href="#contact"><i class="fas fa-envelope"></i>Contact</a>
-                <a href="#services" class="cta-button"><i class="fas fa-rocket"></i>Get Started</a>
+                <span class="font-semibold tracking-tight">AHWS</span>
+            </a>
+            
+            <div class="hidden md:flex items-center space-x-8 text-sm">
+                <a href="#pourquoi" class="text-stone-600 hover:text-stone-900 transition-colors">Pourquoi adhérer</a>
+                <a href="#professionnels" class="text-stone-600 hover:text-stone-900 transition-colors">Professionnels</a>
+                <a href="#difference" class="text-stone-600 hover:text-stone-900 transition-colors">Notre différence</a>
+                <a href="#tarifs" class="text-stone-600 hover:text-stone-900 transition-colors">Tarifs</a>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                <a href="tel:0522980958" class="hidden lg:flex items-center space-x-2 text-sm text-stone-600 hover:text-stone-900">
+                    <i data-lucide="phone" class="w-4 h-4"></i>
+                    <span>05 22 98 09 58</span>
+                </a>
+                <button onclick="openModal()" class="bg-stone-900 text-stone-50 px-5 py-2.5 text-sm font-medium hover:bg-stone-800 transition-colors rounded-sm">
+                    Devenir membre
+                </button>
             </div>
         </div>
     </nav>
-    <div class="backdrop"></div>
 
-    <!-- Welcome Section -->
-    <section id="home">
-        <div class="container">
-            <div class="content">
-                <div class="illustration">
-                    <img src="images/image1.png" alt="Photorealistic render of technicians repairing a washing machine">
-                </div>
-                <div class="text">
-                    <h1><span>Welcome to</span> American Home Warranty Service</h1>
-                    <h2>Protect Your Home with Confidence</h2>
-                    <p>Hassle-free home warranty services for appliances and HVAC systems in Casablanca, Morocco.</p>
-                    <a href="#services" class="cta-button">Get Started <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 px-6 min-h-screen flex items-center">
+        <div class="max-w-6xl mx-auto w-full">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <div class="inline-flex items-center space-x-2 px-3 py-1.5 bg-red-50 border border-red-200 rounded-full text-red-700 text-xs font-medium">
+                        <span class="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span>
+                        <span>Intervention en cours à Maarif - 12 min de réponse</span>
+                    </div>
 
-    <!-- Mission Section -->
-    <section id="mission">
-        <div class="container">
-            <h2>Our Mission & Vision</h2>
-            <div class="grid">
-                <div class="card mission">
-                    <div class="card-header">
-                        <i class="fas fa-bullseye"></i>
-                        <h3>Mission</h3>
-                    </div>
-                    <div class="tagline">Committed to Excellence</div>
-                    <p>American Home Warranty Service (AHWS) is committed to providing comprehensive repair and maintenance coverage for household appliances and HVAC systems in Casablanca. Our tiered subscription plans (Standard, Gold, Platinum) cater to various needs, ensuring peace of mind with reliable home care solutions.</p>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        <i class="fas fa-eye"></i>
-                        <h3>Vision</h3>
-                    </div>
-                    <div class="tagline">Leading the Future</div>
-                    <p>To be Casablanca's leading home warranty provider, known for exceptional service, reliable coverage, and strong customer relationships. We aim to expand our offerings to provide affordable home care solutions across the region.</p>
-                </div>
-                <div class="card core-values">
-                    <div class="card-header">
-                        <i class="fas fa-heart"></i>
-                        <h3>Our Core Values </h3>
-                    </div>
-                    <div class="tagline">What We Stand For </div>
-                    <ul>
-                        <li><strong>Reliability</strong></li>
-                        <li><strong>Customer-Centricity</strong></li>
-                        <li><strong>Innovation</strong></li>
-                        <li><strong>Integrity</strong></li>
-                        <li><strong>Proactive Service</strong></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+                    <h1 class="serif text-4xl md:text-6xl font-semibold leading-tight text-stone-900">
+                        Votre frigo est mort.<br>
+                        Il est 19h.<br>
+                        <span class="text-stone-400">Demain, vous recevez du monde.</span>
+                    </h1>
 
-    <!-- Services Section -->
-    <section id="services">
-        <div class="container">
-            <h2>Our Services</h2>
-            <div class="grid">
-                <div class="card washing-machine" role="region" aria-label="Washing Machine Repair Service">
-                    <i class="fas fa-tshirt background-icon"></i>
-                    <div class="card-header">
-                        <div class="icon-wrapper">
-                            <i class="fas fa-tshirt"></i>
+                    <p class="text-lg text-stone-600 leading-relaxed max-w-lg">
+                        Les membres AHWS ont un numéro qui répond à 19h un samedi. 
+                        Les autres ont un répondeur, une liste de numéros barrés, 
+                        et 3,000 DH de courses qui périment.
+                    </p>
+
+                    <!-- Calculator Widget -->
+                    <div class="bg-white border border-stone-200 rounded-lg p-6 shadow-sm">
+                        <h3 class="font-semibold mb-4 text-sm uppercase tracking-wider text-stone-500">Calculez ce qu'une panne vous coûte vraiment</h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="text-sm text-stone-600 mb-1.5 block">Contenu de votre frigo actuellement</label>
+                                <select id="calc-content" class="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none bg-white">
+                                    <option value="0">Rien de spécial</option>
+                                    <option value="1500">Courses de la semaine (~1,500 DH)</option>
+                                    <option value="3000">Préparation d'événement (~3,000 DH)</option>
+                                    <option value="8000">Viande pour l'Aïd / Mariage (~8,000 DH)</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="text-sm text-stone-600 mb-1.5 block">Votre situation demain</label>
+                                <select id="calc-event" class="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none bg-white">
+                                    <option value="0">Rien de prévu</option>
+                                    <option value="2000">Invités à dîner (honte + 2,000 DH de resto)</option>
+                                    <option value="5000">Événement familial (annulation + 5,000 DH)</option>
+                                </select>
+                            </div>
+
+                            <div class="bg-stone-100 rounded p-4 flex items-center justify-between">
+                                <span class="text-sm text-stone-600">Coût total d'une panne ce soir</span>
+                                <span class="text-2xl font-bold text-red-600" id="calc-total">0 DH</span>
+                            </div>
+
+                            <div class="flex items-center justify-between pt-2">
+                                <span class="text-sm text-stone-500">Abonnement AHWS : 279 DH/mois</span>
+                                <button onclick="openModal()" class="bg-stone-900 text-white px-6 py-2.5 rounded text-sm font-medium hover:bg-stone-800 transition-colors">
+                                    Sécuriser ce soir
+                                </button>
+                            </div>
                         </div>
-                        <h3>Washing Machine Repair</h3>
                     </div>
-                    <p>Comprehensive repair services for all washing machine brands.</p>
+
+                    <div class="flex items-center space-x-6 text-sm text-stone-500">
+                        <div class="flex items-center space-x-2">
+                            <i data-lucide="phone-call" class="w-4 h-4"></i>
+                            <span>Réponse garantie 24/7</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i data-lucide="clock" class="w-4 h-4"></i>
+                            <span>Intervention 2h en moyenne</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=800&q=80" alt="Frigo ouvert" class="rounded-lg shadow-2xl w-full">
                     
-                    <ul>
-                        <li>24/7 emergency support</li>
-                        <li>Certified technicians</li>
-                        <li>Quick turnaround time</li>
-                    </ul>
-                    <a href="#contact" class="cta-button" aria-label="Learn more about washing machine repair">Learn More <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <div class="card oven" role="region" aria-label="Oven Repair Service">
-                    <i class="fas fa-fire-burner background-icon"></i>
-                    <div class="card-header">
-                        <div class="icon-wrapper">
-                            <i class="fas fa-fire-burner"></i>
+                    <div class="absolute -bottom-6 -left-6 bg-white rounded-lg shadow-xl p-4 max-w-xs">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="check" class="w-5 h-5 text-green-600"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-stone-900">Membre AHWS - Maarif</p>
+                                <p class="text-xs text-stone-500 mt-1">"Frigo réparé à 20h30. Dîner sauvé. 3,200 DH de viande préservés."</p>
+                                <p class="text-xs text-stone-400 mt-2">— Karim B., intervention #2 avec Youssef</p>
+                            </div>
                         </div>
-                        <h3>Oven Repair</h3>
                     </div>
-                    <p>Expert oven repair to keep your kitchen running smoothly.</p>
-                    <ul>
-                        <li>Same-day service available</li>
-                        <li>Gas and electric oven repairs</li>
-                        <li>90-day repair guarantee</li>
-                    </ul>
-                    <a href="#contact" class="cta-button" aria-label="Learn more about oven repair">Learn More <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <div class="card cooktop" role="region" aria-label="Cooktop Repair Service">
-                    <i class="fas fa-fire background-icon"></i>
-                    <div class="card-header">
-                        <div class="icon-wrapper">
-                            <i class="fas fa-fire"></i>
-                        </div>
-                        <h3>Cooktop Repair</h3>
-                    </div>
-                    <p>Fast and reliable cooktop repair services. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                    <br>
-                    <ul>
-                        <li>All brands supported</li>
-                        <li>Expert diagnostics</li>
-                        <li>Flexible scheduling</li>
-                    </ul>
-                    <a href="#contact" class="cta-button" aria-label="Learn more about cooktop repair">Learn More <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <div class="card dishwasher" role="region" aria-label="Dishwasher Repair Service">
-                    <i class="fas fa-sink background-icon"></i>
-                    <div class="card-header">
-                        <div class="icon-wrapper">
-                            <i class="fas fa-sink"></i>
-                        </div>
-                        <h3>Dishwasher Repair</h3>
-                    </div>
-                    <p>Professional dishwasher repair for efficient cleaning.</p>
-                    <ul>
-                        <li>Leak and drainage solutions</li>
-                        <li>Energy-efficient repairs</li>
-                        <li>Extended warranty options</li>
-                    </ul>
-                    <a href="#contact" class="cta-button" aria-label="Learn more about dishwasher repair">Learn More <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <div class="card refrigerator" role="region" aria-label="Refrigerator Repair Service">
-                    <i class="fas fa-snowflake background-icon"></i>
-                    <div class="card-header">
-                        <div class="icon-wrapper">
-                            <i class="fas fa-snowflake"></i>
-                        </div>
-                        <h3>Refrigerator Repair</h3>
-                    </div>
-                    <p>Keep your fridge running with our expert repair services.</p>
-                    <ul>
-                        <li>Cooling system fixes</li>
-                        <li>Door seal replacements</li>
-                        <li>24/7 emergency repairs</li>
-                    </ul>
-                    <a href="#contact" class="cta-button" aria-label="Learn more about refrigerator repair">Learn More <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <div class="card hvac" role="region" aria-label="HVAC Maintenance Service">
-                    <i class="fas fa-fan background-icon"></i>
-                    <div class="card-header">
-                        <div class="icon-wrapper">
-                            <i class="fas fa-fan"></i>
-                        </div>
-                        <h3>HVAC Maintenance</h3>
-                    </div>
-                    <p>Regular maintenance and repair for your HVAC systems.</p>
-                    <ul>
-                        <li>Quarterly maintenance plans</li>
-                        <li>Air quality improvements</li>
-                        <li>Emergency repair support</li>
-                    </ul>
-                    <a href="#contact" class="cta-button" aria-label="Learn more about HVAC maintenance">Learn More <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Pricing Section -->
-<section id="pricing">
-    <div class="container">
-        <h2>Plans & Pricing</h2>
-        <div class="toggle-container">
-            <span class="toggle-label-yearly">Yearly</span>
-            <label class="toggle-switch">
-                <input type="checkbox" id="pricing-toggle" aria-label="Toggle between yearly and monthly pricing">
-                <span class="toggle-slider"></span>
-            </label>
-            <span class="toggle-label-monthly">Monthly</span>
-        </div>
-        <div class="grid">
-            <div class="card standard">
-                <div class="card-header">
-                    <div class="icon-wrapper">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Standard Plan</h3>
-                </div>
-                <div class="price">
-                    <span class="price-main" data-yearly="2,500 Dhs" data-monthly="208 Dhs">2,500 Dhs</span>
-                    <span class="price-sub" data-yearly="/ year (208 Dhs / month)" data-monthly="/ month">/ year (208 Dhs / month)</span>
-                </div>
-                <ul>
-                    <li>Covers 1 appliance (excl. refrigerators)</li>
-                    <li>Service call: 150 Dhs/visit</li>
-                </ul>
-                <a href="#contact" class="cta-button signup-button" aria-label="Sign up for Standard Plan" data-plan="Standard">Sign Up <i class="fas fa-arrow-right"></i></a>
-            </div>
-            <div class="card gold">
-                <div class="card-header">
-                    <div class="icon-wrapper">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <h3>Gold Plan</h3>
-                </div>
-                <div class="price">
-                    <span class="price-main" data-yearly="6,200 Dhs" data-monthly="516 Dhs">6,200 Dhs</span>
-                    <span class="price-sub" data-yearly="/ year (516 Dhs / month)" data-monthly="/ month">/ year (516 Dhs / month)</span>
-                </div>
-                <ul>
-                    <li>Covers washer, refrigerator, oven</li>
-                    <li>Service call: 100 Dhs/visit</li>
-                </ul>
-                <a href="#contact" class="cta-button signup-button" aria-label="Sign up for Gold Plan" data-plan="Gold">Sign Up <i class="fas fa-arrow-right"></i></a>
-            </div>
-            <div class="card platinum recommended">
-                <div class="card-header">
-                    <div class="icon-wrapper">
-                        <i class="fas fa-crown"></i>
-                    </div>
-                    <h3>Platinum Plan</h3>
-                </div>
-                <div class="price">
-                    <span class="price-main" data-yearly="12,500 Dhs" data-monthly="1,042 Dhs">12,500 Dhs</span>
-                    <span class="price-sub" data-yearly="/ year" data-monthly="/ month">/ year</span>
-                </div>
-                <ul>
-                    <li>Covers all appliances, cooktop, exhaust fan, HVAC</li>
-                    <li>Service call: 50 Dhs/visit</li>
-                </ul>
-                <a href="#contact" class="cta-button signup-button" aria-label="Sign up for Platinum Plan" data-plan="Platinum">Sign Up <i class="fas fa-arrow-right"></i></a>
-            </div>
-            <div class="card one-time">
-                <div class="card-header">
-                    <div class="icon-wrapper">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <h3>One-Time Repair</h3>
-                </div>
-                <div class="price">
-                    <span class="price-main">250 Dhs</span>
-                    <span class="price-sub">/ appliance</span>
-                </div>
-                <ul>
-                    <li>Walk-in repair service</li>
-                </ul>
-                <a href="#contact" class="cta-button signup-button" aria-label="Request a one-time repair" data-plan="One-Time">Request Repair <i class="fas fa-arrow-right"></i></a>
-            </div>
-        </div>
-        <!-- <div class="comparison-table">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Feature</th>
-                        <th>Standard</th>
-                        <th>Gold</th>
-                        <th class="highlight-header">Platinum</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Appliances Covered</td>
-                        <td>1 (excl. refrigerators)</td>
-                        <td>Washer, refrigerator, oven</td>
-                        <td class="highlight"><i class="fas fa-check-circle icon"></i> All appliances, cooktop, exhaust fan, HVAC</td>
-                    </tr>
-                    <tr>
-                        <td>Service Call Fee</td>
-                        <td>150 Dhs/visit</td>
-                        <td>100 Dhs/visit</td>
-                        <td class="highlight"><i class="fas fa-check-circle icon"></i> 50 Dhs/visit</td>
-                    </tr>
-                    <tr>
-                        <td>Emergency Support</td>
-                        <td><i class="fas fa-times-circle icon"></i> No</td>
-                        <td><i class="fas fa-check-circle icon"></i> Yes</td>
-                        <td class="highlight"><i class="fas fa-check-circle icon"></i> Yes</td>
-                    </tr>
-                    <tr>
-                        <td>Annual Inspections</td>
-                        <td><i class="fas fa-times-circle icon"></i> No</td>
-                        <td><i class="fas fa-times-circle icon"></i> No</td>
-                        <td class="highlight"><i class="fas fa-check-circle icon"></i> Yes</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div> -->
-    </div>
-</section>
+    <!-- Section : Ce que vous évitez -->
+    <section id="pourquoi" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="serif text-3xl md:text-4xl font-semibold text-center mb-16 fade-up">
+                L'abonnement n'est pas une dépense.<br>
+                <span class="text-stone-400">C'est ce que vous ne payez pas.</span>
+            </h2>
 
-<!-- Popup Form -->
-<div id="signup-popup" class="popup">
-    <div class="popup-content">
-        <span class="close-btn">×</span>
-        <div class="popup-header">
-            <h3>Complete Your Signup</h3>
-            <div class="progress-steps">
-                <span class="step active">1. Enter Details</span>
-                <span class="step">2. Payment</span>
-            </div>
-        </div>
-        <form id="signup-form">
-  <!-- Step 1: User Info -->
-  <div id="step-one">
-    <div class="form-group">
-      <input type="text" id="name" name="name" required placeholder=" ">
-      <label for="name">Full Name</label>
-    </div>
-    <div class="form-group">
-      <input type="text" id="address" name="address" required placeholder=" ">
-      <label for="address">Address</label>
-    </div>
-    <div class="form-group">
-      <input type="tel" id="phone" name="phone" required placeholder=" ">
-      <label for="phone">Phone Number</label>
-    </div>
-    <div class="form-group">
-      <input type="email" id="email" name="email" required placeholder=" ">
-      <label for="email">Email Address</label>
-    </div>
-    <button type="button" id="next-button" class="cta-button">Next</button>
-  </div>
-
-  <!-- Step 2: Payment -->
-  <div id="payment" style="display: none;">
-    <div class="payment-method">
-      <p>Payment Method: Mobile Money</p>
-      <label>
-        <input type="radio" name="payment" value="mobile-money" checked>
-        Mobile Money
-      </label>
-    </div>
-    <div class="mobile-money-details">
-      <p class="payment-instruction">
-        Please send payment to: <strong>Company Mobile Number: +1234567890</strong>
-      </p>
-      <div class="form-group">
-        <input type="tel" id="mobile-money-phone" name="mobile-money-phone" required placeholder=" ">
-        <label for="mobile-money-phone">Your Mobile Money Phone Number</label>
-      </div>
-      <div class="form-group">
-        <input type="text" id="mobile-money-identifier" name="mobile-money-identifier" required placeholder=" ">
-        <label for="mobile-money-identifier">Mobile Money Identifier (Name)</label>
-      </div>
-    </div>
-    <button type="submit" class="cta-button">Submit & Proceed</button>
-  </div>
-</form>
-
-    </div>
-</div>
-    <!-- Coverage Area Section -->
-    <!-- Coverage Area Section -->
-<section id="coverage-area">
-    <div class="container">
-        <h2>Service Coverage Area</h2>
-       
-        <section class="map-section">
-            <div id="map" role="region" aria-label="Map of service locations in Casablanca"></div>
-        </section>
-    </div>
-</section>
-
-
-    <!-- Contact Section -->
-<section id="contact">
-    <div class="container">
-        <h2>Contact Us</h2>
-        <div class="contact-wrapper">
-            <!-- Contact Information -->
-            <div class="contact-info">
-                <h3>Get in Touch</h3>
-                <ul>
-                    <li>
-                        <span class="icon">✉️</span>
-                        <span>Email: <a href="van11bvd@gmail.com">van11bvd@gmail.com</a></span>
-                    </li>
-                    <li>
-                        <span class="icon">📞</span>
-                        <span>Phone: +212 600 123 456</span>
-                    </li>
-                    <li>
-                        <span class="icon">📍</span>
-                        <span>Address: 123 Rue de la Liberté, Casablanca, Morocco</span>
-                    </li>
-                </ul>
-                <div class="qr-code">
-                    <img src="images/frame.png" alt="Map Placeholder" class="map-image">
-                </div> 
-            </div>
-            <!-- Contact Form -->
-            <div class="contact-form">
-                <h3>Send a Message</h3>
-                <form id="contact-form" action="https://formspree.io/f/mdobgzjy" method="POST">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required placeholder="Your Name">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="border border-stone-200 rounded-lg p-6 hover-lift fade-up">
+                    <div class="w-12 h-12 bg-red-50 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="phone-off" class="w-6 h-6 text-red-600"></i>
                     </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required placeholder="your@email.com">
+                    <h3 class="font-semibold text-lg mb-2">Le répondeur à 19h</h3>
+                    <p class="text-stone-600 text-sm leading-relaxed">
+                        Vous appelez 4 numéros. 3 boîtes vocales. Le 4ème dit "lundi". 
+                        Votre frigo ne connaît pas le weekend.
+                    </p>
+                    <div class="mt-4 pt-4 border-t border-stone-100">
+                        <span class="text-green-600 text-sm font-medium">✓ Membres : Youssef répond. 90 minutes.</span>
                     </div>
-                    <div class="form-group">
-                        <label for="subject">Subject</label>
-                        <input type="text" id="subject" name="subject" required placeholder="Subject">
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" required rows="5" placeholder="Your Message"></textarea>
-                    </div>
-                    <button type="submit">Send Message</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</section>
-
-    <!-- FAQs Section -->
-<section id="faqs-section">
-    <div class="container">
-        <h2>Frequently Asked Questions</h2>
-        <div class="faq-list">
-            <div class="faq-item">
-                <button class="faq-question">How do I sign up for a subscription plan?</button>
-                <div class="faq-answer">
-                    <p>You can easily sign up on our website or call our customer service to help you choose the best plan for your needs.</p>
                 </div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">What happens if I need a repair outside of my coverage?</button>
-                <div class="faq-answer">
-                    <p>We offer one-time repairs for non-members at a higher deductible. However, signing up for a plan will give you a discount on out-of-warranty repairs.</p>
+
+                <div class="border border-stone-200 rounded-lg p-6 hover-lift fade-up" style="transition-delay: 100ms;">
+                    <div class="w-12 h-12 bg-amber-50 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="help-circle" class="w-6 h-6 text-amber-600"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">"C'est compliqué, ça coûte cher"</h3>
+                    <p class="text-stone-600 text-sm leading-relaxed">
+                        Vous ne savez pas si 1,800 DH est juste. Vous payez parce que vous êtes désarmé. 
+                        Et parce que vous n'avez pas le choix.
+                    </p>
+                    <div class="mt-4 pt-4 border-t border-stone-100">
+                        <span class="text-green-600 text-sm font-medium">✓ Membres : Prix contractuel. Signé d'avance.</span>
+                    </div>
                 </div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">How do I schedule a service?</button>
-                <div class="faq-answer">
-                    <p>Simply contact us via our website or call our dispatch line. We will send a technician to your home at a time that suits you.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">What happens if my appliance needs to be replaced?</button>
-                <div class="faq-answer">
-                    <p>If the repair cost exceeds the value of a new unit, we offer the option to replace the appliance with a new one or provide a cash-in-lieu amount.</p>
+
+                <div class="border border-stone-200 rounded-lg p-6 hover-lift fade-up" style="transition-delay: 200ms;">
+                    <div class="w-12 h-12 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="repeat" class="w-6 h-6 text-stone-600"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">Répéter votre histoire</h3>
+                    <p class="text-stone-600 text-sm leading-relaxed">
+                        "C'est quoi déjà le modèle ? Le problème ?" Chaque panne, vous repartez de zéro.
+                    </p>
+                    <div class="mt-4 pt-4 border-t border-stone-100">
+                        <span class="text-green-600 text-sm font-medium">✓ Membres : On se souvient. De tout.</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
+    <!-- Section Mémoire -->
+    <section class="py-20 bg-stone-900 text-stone-50">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="fade-up">
+                    <h2 class="serif text-3xl md:text-4xl font-semibold mb-6">
+                        Votre maison a un dossier médical.<br>
+                        <span class="text-stone-400">Enfin.</span>
+                    </h2>
+                    
+                    <p class="text-stone-300 mb-8 leading-relaxed">
+                        Quand Youssef arrive pour la 3ème fois, 
+                        il ne demande pas "c'est quoi déjà le problème ?". 
+                        Il sait que votre lave-linge surchauffe en été. 
+                        Il a prévu la pièce.
+                    </p>
+
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-8 h-8 rounded bg-stone-800 flex items-center justify-center flex-shrink-0 mt-1 text-sm text-stone-400">01</div>
+                            <div>
+                                <h4 class="font-medium mb-1">Historique complet</h4>
+                                <p class="text-sm text-stone-400">Chaque intervention, chaque pièce. Consultable par vous.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-8 h-8 rounded bg-stone-800 flex items-center justify-center flex-shrink-0 mt-1 text-sm text-stone-400">02</div>
+                            <div>
+                                <h4 class="font-medium mb-1">Anticipation</h4>
+                                <p class="text-sm text-stone-400">"Votre frigo montre des signes. On passe ?"</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-8 h-8 rounded bg-stone-800 flex items-center justify-center flex-shrink-0 mt-1 text-sm text-stone-400">03</div>
+                            <div>
+                                <h4 class="font-medium mb-1">Transférable</h4>
+                                <p class="text-sm text-stone-400">Vendez votre appartement ? Le dossier augmente la valeur.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-stone-800 rounded-lg p-6 border border-stone-700 fade-up">
+                    <div class="flex items-center justify-between mb-6 pb-4 border-b border-stone-700">
+                        <span class="text-sm font-medium text-stone-400">DOSSIER AHWS #2847</span>
+                        <span class="text-xs bg-green-900 text-green-400 px-2 py-1 rounded">ACTIF</span>
+                    </div>
+                    
+                    <div class="space-y-4 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-stone-400">Adresse</span>
+                            <span>Résidence Les Oliviers, Apt 12B</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-stone-400">Membre depuis</span>
+                            <span>Mars 2022 (2 ans 4 mois)</span>
+                        </div>
+                        
+                        <div class="pt-4 border-t border-stone-700">
+                            <p class="text-stone-400 mb-3">Appareils suivis</p>
+                            
+                            <div class="space-y-3">
+                                <div class="bg-stone-900 rounded p-3">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="font-medium">Lave-linge Samsung WW80T</span>
+                                        <span class="text-xs text-green-400">● Optimal</span>
+                                    </div>
+                                    <p class="text-xs text-stone-500">3 interventions • Joint 06/2023 • Surveillance vibration</p>
+                                </div>
+                                
+                                <div class="bg-stone-900 rounded p-3">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="font-medium">Réfrigérateur Bosch KGN39</span>
+                                        <span class="text-xs text-amber-400">● Surveillance</span>
+                                    </div>
+                                    <p class="text-xs text-stone-500">1 intervention • Thermostat surveillé • Maintenance 09/2024</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="pt-4 border-t border-stone-700 flex items-center justify-between">
+                            <span class="text-stone-400">Économies réalisées</span>
+                            <span class="text-2xl font-bold text-green-400">4,850 DH</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Professionnels -->
+    <section id="professionnels" class="py-20 bg-stone-100">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 fade-up">
+                <span class="text-sm font-medium text-stone-500 uppercase tracking-wider">Professionnels</span>
+                <h2 class="serif text-3xl md:text-4xl font-semibold mt-4">
+                    Une fermeture coûte plus cher qu'un abonnement
+                </h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <div class="bg-white rounded-lg shadow-sm border border-stone-200 overflow-hidden hover-lift fade-up">
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80" alt="Restaurant" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-semibold text-lg mb-2">Restaurants & Traiteurs</h3>
+                        <p class="text-stone-600 text-sm mb-4">
+                            Vendredi 20h. Votre frigo tombe en panne. 
+                            Vous ouvrez samedi ou vous fermez ?
+                        </p>
+                        <ul class="space-y-2 text-sm mb-6">
+                            <li class="flex items-center space-x-2">
+                                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
+                                <span>Réponse 1H garantie</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
+                                <span>Appareil de prêt si réparation >4h</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
+                                <span>Intervention nuit après service</span>
+                            </li>
+                        </ul>
+                        <button onclick="openModal('restaurant')" class="w-full bg-stone-900 text-white py-3 rounded font-medium hover:bg-stone-800 transition-colors">
+                            Devis personnalisé
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm border border-stone-200 overflow-hidden hover-lift fade-up" style="transition-delay: 100ms;">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80" alt="Hôtel" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-semibold text-lg mb-2">Hôtels & Riads</h3>
+                        <p class="text-stone-600 text-sm mb-4">
+                            Un client insatisfait à cause d'une clim défectueuse. 
+                            Combien coûte cet avis négatif ?
+                        </p>
+                        <ul class="space-y-2 text-sm mb-6">
+                            <li class="flex items-center space-x-2">
+                                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
+                                <span>Technicien dédié (même visage)</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
+                                <span>Multi-sites, une seule facture</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
+                                <span>Reporting mensuel</span>
+                            </li>
+                        </ul>
+                        <button onclick="openModal('hotel')" class="w-full bg-stone-900 text-white py-3 rounded font-medium hover:bg-stone-800 transition-colors">
+                            Audit gratuit
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-stone-900 rounded-lg p-8 text-white fade-up">
+                <div class="grid md:grid-cols-3 gap-8 text-center">
+                    <div>
+                        <div class="text-3xl font-bold text-stone-400 mb-1">0</div>
+                        <p class="text-sm text-stone-500">fermetures pour panne ce trimestre</p>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold text-stone-400 mb-1">23 min</div>
+                        <p class="text-sm text-stone-500">temps de réponse moyen Pro</p>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold text-stone-400 mb-1">47</div>
+                        <p class="text-sm text-stone-500">établissements protégés</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Notre Différence -->
+    <section id="difference" class="py-20">
+        <div class="max-w-4xl mx-auto px-6">
+            <h1 class="serif text-4xl font-semibold mb-12 text-center fade-up">
+                Pourquoi nous ne sommes pas<br>"un réparateur de plus"
+            </h1>
+
+            <div class="space-y-16">
+                <div class="fade-up">
+                    <h2 class="text-2xl font-semibold mb-4">Nous ne réparons pas. Nous connaissons.</h2>
+                    <div class="grid md:grid-cols-2 gap-8 items-center">
+                        <div class="space-y-4 text-stone-600">
+                            <p>Un réparateur arrive. Il regarde votre appareil pour la première fois. Il devine. Il facture le temps de découverte.</p>
+                            <p>Nous, nous arrivons avec un dossier. Votre lave-linge a 3 ans, a eu un joint remplacé en 2023, a tendance à vibrer. Nous avons prévu la pièce.</p>
+                            <p class="font-medium text-stone-900">Vous ne payez pas notre apprentissage. Vous payez notre expertise déjà acquise.</p>
+                        </div>
+                        <div class="bg-stone-100 p-6 rounded-lg">
+                            <div class="text-sm text-stone-500 mb-2">Dossier AHWS #2847</div>
+                            <div class="space-y-3 text-sm">
+                                <div class="flex justify-between">
+                                    <span>Lave-linge Samsung</span>
+                                    <span class="text-green-600">● Suivi</span>
+                                </div>
+                                <div class="text-stone-400 text-xs">3 interventions • Joint 06/2023 • Vibration surveillée</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fade-up" style="transition-delay: 100ms;">
+                    <h2 class="text-2xl font-semibold mb-4">Nous ne facturons pas l'urgence. Nous la prévenons.</h2>
+                    <p class="text-stone-600 mb-6">Le marché facture 50% plus cher le weekend. 100% plus cher la nuit. Nous facturons la même chose à 3h du matin qu'à 10h du matin. Parce que nous ne voulons pas que vous hésitiez à appeler quand ça compte vraiment.</p>
+                </div>
+
+                <div class="fade-up" style="transition-delay: 200ms;">
+                    <h2 class="text-2xl font-semibold mb-4">Nous ne grandissons pas. Nous approfondissons.</h2>
+                    <p class="text-stone-600 mb-6">Nous pourrions recruter 50 techniciens et couvrir tout le Maroc. Nous ne le faisons pas. Nous restons à Casablanca. 12 techniciens. 12 visages connus. Parce que la confiance ne se délègue pas à des inconnus.</p>
+                </div>
+            </div>
+
+            <div class="bg-stone-900 text-white p-8 rounded-lg mt-16 fade-up">
+                <h2 class="text-xl font-semibold mb-4">Notre comptabilité ouverte</h2>
+                <p class="text-stone-300 mb-6">Nous gagnons de l'argent quand vous restez membre longtemps. Pas quand vous payez cher.</p>
+                <div class="grid md:grid-cols-3 gap-6 text-center">
+                    <div>
+                        <div class="text-3xl font-bold text-stone-400">2.4 ans</div>
+                        <div class="text-sm text-stone-500">Durée moyenne d'adhésion</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold text-stone-400">94%</div>
+                        <div class="text-sm text-stone-500">Taux de renouvellement</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold text-stone-400">1.2</div>
+                        <div class="text-sm text-stone-500">Interventions par membre/an</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Tarifs -->
+    <section id="tarifs" class="py-20 bg-stone-100">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 fade-up">
+                <h2 class="serif text-3xl md:text-4xl font-semibold mb-4">
+                    Le prix de la tranquillité
+                </h2>
+                <p class="text-stone-600">Comparez avec le coût d'une seule panne mal gérée.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Essentiel -->
+                <div class="bg-white border border-stone-200 rounded-lg p-6 fade-up">
+                    <h3 class="font-semibold text-lg mb-1">Essentiel</h3>
+                    <p class="text-sm text-stone-500 mb-4">Pour les petits appartements</p>
+                    <div class="text-3xl font-bold mb-6">199<span class="text-lg font-normal text-stone-500">/mois</span></div>
+                    
+                    <ul class="space-y-3 text-sm mb-6">
+                        <li class="flex items-center space-x-2">
+                            <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
+                            <span>3 appareils couverts</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
+                            <span>Réponse 4H garantie</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
+                            <span>Diagnostic gratuit</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
+                            <span>Prix bloqués 3 ans</span>
+                        </li>
+                    </ul>
+                    
+                    <button onclick="openModal()" class="w-full border border-stone-900 text-stone-900 py-3 rounded font-medium hover:bg-stone-900 hover:text-white transition-colors">
+                        Choisir Essentiel
+                    </button>
+                </div>
+
+                <!-- Confort -->
+                <div class="bg-white border-2 border-stone-900 rounded-lg p-6 relative fade-up" style="transition-delay: 100ms;">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-stone-900 text-white px-4 py-1 rounded-full text-xs font-medium">
+                        Le plus choisi
+                    </div>
+                    
+                    <h3 class="font-semibold text-lg mb-1">Confort</h3>
+                    <p class="text-sm text-stone-500 mb-4">Pour les familles</p>
+                    <div class="text-3xl font-bold mb-6">279<span class="text-lg font-normal text-stone-500">/mois</span></div>
+                    
+                    <ul class="space-y-3 text-sm mb-6">
+                        <li class="flex items-center space-x-2">
+                            <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
+                            <span class="font-semibold">6 appareils + CVC</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
+                            <span class="font-semibold">Réponse 2H garantie</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
+                            <span>Technicien dédié</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
+                            <span>Maintenance préventive</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
+                            <span>Remplacement si irréparable</span>
+                        </li>
+                    </ul>
+                    
+                    <button onclick="openModal()" class="w-full bg-stone-900 text-white py-3 rounded font-medium hover:bg-stone-800 transition-colors">
+                        Choisir Confort
+                    </button>
+                    
+                    <p class="text-xs text-center text-stone-500 mt-4">Économie moyenne : 1,650 DH/an</p>
+                </div>
+
+                <!-- Premium -->
+                <div class="bg-white border border-stone-200 rounded-lg p-6 fade-up" style="transition-delay: 200ms;">
+                    <h3 class="font-semibold text-lg mb-1">Premium</h3>
+                    <p class="text-sm text-stone-500 mb-4">Villas & résidences</p>
+                    <div class="text-3xl font-bold mb-6">479<span class="text-lg font-normal text-stone-500">/mois</span></div>
+                    
+                    <ul class="space-y-3 text-sm mb-6">
+                        <li class="flex items-center space-x-2">
+                            <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
+                            <span>Maison complète illimitée</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
+                            <span>Réponse immédiate 24/7</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
+                            <span>Conciergerie technique</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
+                            <span>Appareils de prêt premium</span>
+                        </li>
+                    </ul>
+                    
+                    <button onclick="openModal()" class="w-full border border-stone-900 text-stone-900 py-3 rounded font-medium hover:bg-stone-900 hover:text-white transition-colors">
+                        Choisir Premium
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Objections/Réponses -->
+    <section class="py-20">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="serif text-3xl font-semibold text-center mb-12 fade-up">Vos questions, nos réponses</h2>
+            
+            <div class="space-y-4" id="faq-container">
+                <div class="border border-stone-200 rounded-lg overflow-hidden fade-up">
+                    <button class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-stone-50 transition-colors" onclick="toggleFaq(this)">
+                        <span class="font-medium">"C'est cher, 279 DH/mois"</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 transition-transform"></i>
+                    </button>
+                    <div class="hidden px-6 pb-4 text-stone-600 text-sm leading-relaxed">
+                        <p class="mb-3">Combien vous a coûté votre dernière panne ? Pas la réparation - la panne.</p>
+                        <p class="mb-3">Le lave-linge en panne pendant 5 jours. Laverie : 150 DH. Demi-journée d'attente : 400 DH de salaire perdu. Stress, nuits courtes : pas de prix.</p>
+                        <p>279 DH, c'est 9 DH par jour. Moins qu'un café. Pour ne plus vivre ça.</p>
+                    </div>
+                </div>
+
+                <div class="border border-stone-200 rounded-lg overflow-hidden fade-up" style="transition-delay: 50ms;">
+                    <button class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-stone-50 transition-colors" onclick="toggleFaq(this)">
+                        <span class="font-medium">"Je ne suis pas sûr d'en avoir besoin, mes appareils sont neufs"</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 transition-transform"></i>
+                    </button>
+                    <div class="hidden px-6 pb-4 text-stone-600 text-sm leading-relaxed">
+                        <p class="mb-3">Parfait. C'est le meilleur moment.</p>
+                        <p class="mb-3">Vous souscrivez quand tout va bien. Pas quand vous êtes désespéré. C'est comme l'assurance : elle coûte moins cher avant l'accident.</p>
+                        <p>Vos appareils neufs ont 2 ans de garantie constructeur. Après ? C'est vous seul contre le marché. Nous, on s'en occupe maintenant. On apprend votre maison. Quand la panne arrivera - et elle arrivera - on sera déjà là.</p>
+                    </div>
+                </div>
+
+                <div class="border border-stone-200 rounded-lg overflow-hidden fade-up" style="transition-delay: 100ms;">
+                    <button class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-stone-50 transition-colors" onclick="toggleFaq(this)">
+                        <span class="font-medium">"Je connais déjà un bon réparateur"</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 transition-transform"></i>
+                    </button>
+                    <div class="hidden px-6 pb-4 text-stone-600 text-sm leading-relaxed">
+                        <p class="mb-3">Excellent. Gardez-le pour les petites bricoles.</p>
+                        <p class="mb-3">Mais quand il est débordé ? En vacances ? Malade ? Quand vous avez besoin de lui à 20h un samedi ?</p>
+                        <p>Nous, on est 12 techniciens. On se relaye. Vous avez toujours quelqu'un. Toujours le même dossier. C'est votre réparateur, multiplié par 12, avec une mémoire partagée.</p>
+                    </div>
+                </div>
+
+                <div class="border border-stone-200 rounded-lg overflow-hidden fade-up" style="transition-delay: 150ms;">
+                    <button class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-stone-50 transition-colors" onclick="toggleFaq(this)">
+                        <span class="font-medium">"Je préfère payer à la demande"</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 transition-transform"></i>
+                    </button>
+                    <div class="hidden px-6 pb-4 text-stone-600 text-sm leading-relaxed">
+                        <p class="mb-3">Je comprends. C'est ce que font 80% des gens. Et c'est pour ça qu'ils paient 40% plus cher.</p>
+                        <p class="mb-3">À la demande = prix d'urgence + frais de déplacement + diagnostic + majoration soir/weekend + pièce au prix fort + technicien qui ne vous connaît pas.</p>
+                        <p>Abonnement = prix négocié d'avance + 0 frais cachés + technicien qui connaît votre maison + réponse garantie. Ce n'est pas une dépense. C'est un achat groupé de réparations futures.</p>
+                    </div>
+                </div>
+
+                <div class="border border-stone-200 rounded-lg overflow-hidden fade-up" style="transition-delay: 200ms;">
+                    <button class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-stone-50 transition-colors" onclick="toggleFaq(this)">
+                        <span class="font-medium">"Et si je déménage ?"</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 transition-transform"></i>
+                    </button>
+                    <div class="hidden px-6 pb-4 text-stone-600 text-sm leading-relaxed">
+                        <p class="mb-3">Votre dossier suit. Ou il augmente la valeur de votre appartement.</p>
+                        <p class="mb-3">Vous vendez ? Le nouveau propriétaire voit : "Réfrigérateur suivi 3 ans, maintenance à jour, garantie 2 ans restante." C'est un argument de vente. Vous récupérez votre abonnement.</p>
+                        <p>Vous louez ? Vous transférez à votre locataire. Ou vous gardez pour votre nouveau logement. Pas de pénalité. Pas de questions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section class="py-20 bg-stone-900 text-white">
+        <div class="max-w-4xl mx-auto px-6 text-center fade-up">
+            <h2 class="serif text-3xl md:text-4xl font-semibold mb-6">
+                La tranquillité a un prix.<br>Le regret aussi.
+            </h2>
+            <p class="text-stone-400 mb-8 text-lg">
+                Vous pouvez attendre la panne. Et payer l'urgence. Et stresser.<br>
+                Ou anticiper maintenant. À prix calme.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button onclick="openModal()" class="bg-white text-stone-900 px-8 py-4 rounded font-semibold hover:bg-stone-200 transition-colors">
+                    Devenir membre
+                </button>
+                <a href="tel:0522980958" class="border border-white/30 text-white px-8 py-4 rounded font-medium hover:bg-white/10 transition-colors">
+                    Parler à un conseiller
+                </a>
+            </div>
+            
+            <p class="text-sm text-stone-500 mt-6">
+                Satisfait ou remboursé 30 jours. Sans engagement de durée.
+            </p>
+        </div>
+    </section>
+
     <!-- Footer -->
-<footer id="footer">
-    <div class="container">
-        <div class="footer-content">
-            <!-- Logo and Branding -->
-            <div class="footer-brand">
-                <!-- <a href="/" class="logo"><img src="images/logo2.png" alt="compagny logo"></a> -->
-                <p class="tagline">Your trusted appliance warranty service.</p>
-            </div>
-            <!-- Links -->
-            <div class="footer-links">
-                <div class="link-column">
-                    <h3>Company</h3>
-                    <ul>
-                        <li><a href="/about" target="_blank">About Us</a></li>
-                        <li><a href="/blog" target="_blank">Blog</a></li>
-                        <li><a href="/privacy-policy">Privacy Policy</a></li>
+    <footer class="bg-stone-950 text-stone-400 py-12 border-t border-stone-900">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-2">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-8 h-8 bg-stone-800 rounded-sm flex items-center justify-center">
+                            <span class="text-stone-50 font-bold text-sm">A</span>
+                        </div>
+                        <span class="font-semibold text-stone-50">AHWS</span>
+                    </div>
+                    <p class="text-sm mb-4">Vous n'appelez pas un réparateur. Vous appelez quelqu'un qui sait.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-stone-800 flex items-center justify-center hover:bg-stone-700 transition-colors">
+                            <i data-lucide="facebook" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-stone-800 flex items-center justify-center hover:bg-stone-700 transition-colors">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-stone-800 flex items-center justify-center hover:bg-stone-700 transition-colors">
+                            <i data-lucide="linkedin" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-stone-50 font-medium mb-4">Services</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#pourquoi" class="hover:text-white transition-colors">Particuliers</a></li>
+                        <li><a href="#professionnels" class="hover:text-white transition-colors">Restaurants</a></li>
+                        <li><a href="#professionnels" class="hover:text-white transition-colors">Hôtels</a></li>
+                        <li><a href="#professionnels" class="hover:text-white transition-colors">Commerces</a></li>
                     </ul>
                 </div>
-                <div class="link-column">
-                    <h3>Get Involved</h3>
-                    <ul>
-                        <li><a href="mailto:info@yourcompany.com">Partner With Us</a></li>
-                        <li><a href="mailto:careers@yourcompany.com">Join Our Team</a></li>
+
+                <div>
+                    <h4 class="text-stone-50 font-medium mb-4">Contact</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center space-x-2">
+                            <i data-lucide="phone" class="w-4 h-4"></i>
+                            <span>05 22 98 09 58</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i data-lucide="mail" class="w-4 h-4"></i>
+                            <span>contact@ahws.ma</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i data-lucide="map-pin" class="w-4 h-4"></i>
+                            <span>Maarif, Casablanca</span>
+                        </li>
                     </ul>
                 </div>
             </div>
-            <!-- Social Media -->
-            <div class="footer-social">
-                <h3>Follow Us</h3>
-                <div class="social-icons">
-                    <a href="https://facebook.com" target="_blank" aria-label="Facebook"><span class="icon">📘</span></a>
-                    <a href="https://twitter.com" target="_blank" aria-label="Twitter"><span class="icon">🐦</span></a>
-                    <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn"><span class="icon">💼</span></a>
+
+            <div class="border-t border-stone-900 pt-8 flex flex-col md:flex-row items-center justify-between text-sm">
+                <p>&copy; 2025 AHWS. Tous droits réservés.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition-colors">Confidentialité</a>
+                    <a href="#" class="hover:text-white transition-colors">CGV</a>
                 </div>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 AHWS. All rights reserved.</p>
+    </footer>
+
+    <!-- Modal -->
+    <div id="modal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeModal()"></div>
+        <div class="absolute inset-x-4 top-20 md:inset-x-auto md:left-1/2 md:-translate-x-1/2 md:w-full md:max-w-md bg-white rounded-lg shadow-2xl max-h-[80vh] overflow-y-auto">
+            <div class="p-6 border-b border-stone-200 flex items-center justify-between">
+                <h3 class="font-semibold text-lg">Devenir membre AHWS</h3>
+                <button onclick="closeModal()" class="p-2 hover:bg-stone-100 rounded transition-colors">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            
+            <div class="p-6">
+                <form id="member-form" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-stone-700 mb-1">Vous êtes</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button type="button" class="type-btn py-3 px-4 border border-stone-300 rounded text-sm hover:border-stone-900 transition-colors text-center" data-type="particulier">
+                                Un particulier
+                            </button>
+                            <button type="button" class="type-btn py-3 px-4 border border-stone-300 rounded text-sm hover:border-stone-900 transition-colors text-center" data-type="professionnel">
+                                Un professionnel
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="text" placeholder="Prénom" required class="border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none">
+                        <input type="text" placeholder="Nom" required class="border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none">
+                    </div>
+
+                    <input type="tel" placeholder="Téléphone" required class="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none">
+                    
+                    <input type="email" placeholder="Email" required class="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none">
+
+                    <select class="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none bg-white">
+                        <option value="" disabled selected>Quartier</option>
+                        <option>Maarif</option>
+                        <option>Anfa</option>
+                        <option>Gauthier</option>
+                        <option>Ain Diab</option>
+                        <option>Racine</option>
+                        <option>Sidi Maarouf</option>
+                        <option>Autre</option>
+                    </select>
+
+                    <select class="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none bg-white">
+                        <option value="" disabled selected>Abonnement souhaité</option>
+                        <option>Essentiel (199 DH/mois)</option>
+                        <option>Confort (279 DH/mois)</option>
+                        <option>Premium (479 DH/mois)</option>
+                        <option>Je ne sais pas encore</option>
+                    </select>
+
+                    <button type="submit" class="w-full bg-stone-900 text-white py-3 rounded font-medium hover:bg-stone-800 transition-colors">
+                        Être rappelé sous 2h
+                    </button>
+                </form>
+
+                <p class="text-xs text-stone-500 text-center mt-4">
+                    Un conseiller vous appelle pour finaliser. Aucun prélèvement avant confirmation orale.
+                </p>
+            </div>
         </div>
     </div>
-</footer>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="index.js"></script>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-4 right-4 bg-stone-900 text-white px-6 py-4 rounded-lg shadow-xl transform translate-y-20 opacity-0 transition-all duration-300 z-50 max-w-sm">
+        <div class="flex items-center space-x-3">
+            <i data-lucide="check-circle" class="w-5 h-5 text-green-400"></i>
+            <span id="toast-message">Message</span>
+        </div>
+    </div>
+
+    <script>
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            initCalculator();
+            initScrollReveal();
+            initNavbar();
+        });
+
+        // Navbar scroll effect
+        function initNavbar() {
+            const nav = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    nav.classList.add('shadow-sm');
+                } else {
+                    nav.classList.remove('shadow-sm');
+                }
+            }, { passive: true });
+        }
+
+        // Calculator
+        function initCalculator() {
+            const content = document.getElementById('calc-content');
+            const event = document.getElementById('calc-event');
+            const total = document.getElementById('calc-total');
+
+            function update() {
+                const sum = parseInt(content.value) + parseInt(event.value);
+                total.textContent = sum.toLocaleString() + ' DH';
+            }
+
+            content.addEventListener('change', update);
+            event.addEventListener('change', update);
+        }
+
+        // Scroll reveal
+        function initScrollReveal() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+            document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+        }
+
+        // Modal
+        function openModal(type) {
+            document.getElementById('modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            
+            if (type) {
+                const btn = document.querySelector(`[data-type="${type === 'restaurant' || type === 'hotel' ? 'professionnel' : 'particulier'}"]`);
+                if (btn) btn.click();
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        // Type selection
+        document.querySelectorAll('.type-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.type-btn').forEach(b => {
+                    b.classList.remove('border-stone-900', 'bg-stone-900', 'text-white');
+                    b.classList.add('border-stone-300');
+                });
+                btn.classList.remove('border-stone-300');
+                btn.classList.add('border-stone-900', 'bg-stone-900', 'text-white');
+            });
+        });
+
+        // Form submit
+        document.getElementById('member-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            closeModal();
+            showToast('Merci. Un conseiller vous rappelle dans les 2 prochaines heures.');
+        });
+
+        // FAQ toggle
+        function toggleFaq(button) {
+            const answer = button.nextElementSibling;
+            const icon = button.querySelector('[data-lucide="chevron-down"]');
+            
+            if (answer.classList.contains('hidden')) {
+                answer.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                answer.classList.add('hidden');
+                icon.style.transform = 'rotate(0)';
+            }
+        }
+
+        // Toast
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').textContent = message;
+            
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 4000);
+        }
+
+        // Close modal on escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+    </script>
 </body>
 </html>
