@@ -1,12 +1,46 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AHWS | Vous n'appelez pas un réparateur. Vous appelez quelqu'un qui sait.</title>
+    <title>Central Appliance Repair | Same-Day Appliance Repair | (555) 123-4567</title>
+    <meta name="description" content="Same-day appliance repair. $65 first service call. 24/7 live answer. Serving downtown and surrounding areas since 2010.">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Schema Markup for LocalBusiness -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Central Appliance Repair",
+        "image": "https://centralappliancerepair.com/logo.jpg",
+        "telephone": "+15551234567",
+        "email": "service@centralappliancerepair.com",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "123 Oak Street",
+            "addressLocality": "Your City",
+            "addressRegion": "ST",
+            "postalCode": "12345",
+            "addressCountry": "US"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 40.7128,
+            "longitude": -74.0060
+        },
+        "url": "https://centralappliancerepair.com",
+        "priceRange": "$$",
+        "openingHours": "Mo-Su 00:00-23:59",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "247"
+        }
+    }
+    </script>
     
     <style>
         body { font-family: 'Inter', sans-serif; }
@@ -49,6 +83,74 @@
             .smooth-scroll { scroll-behavior: auto; }
             .fade-up { opacity: 1; transform: none; }
         }
+        
+        /* Smart navbar hide/show */
+        .nav-hidden {
+            transform: translateY(-100%);
+        }
+        
+        /* Loading spinner */
+        .spinner {
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            width: 16px;
+            height: 16px;
+            animation: spin 0.8s linear infinite;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Mobile bottom CTA */
+        @media (max-width: 768px) {
+            .mobile-cta {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: white;
+                border-top: 1px solid #e7e5e4;
+                padding: 12px 16px;
+                z-index: 40;
+                display: flex;
+                gap: 12px;
+            }
+            
+            .mobile-cta-spacer {
+                height: 80px;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .mobile-cta {
+                display: none;
+            }
+        }
+        
+        /* Sticky calculator on mobile */
+        @media (max-width: 1024px) {
+            .sticky-calc {
+                position: sticky;
+                top: 80px;
+                z-index: 30;
+            }
+        }
+        
+        /* Brand logo grayscale hover */
+        .brand-logo {
+            filter: grayscale(100%);
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+        
+        .brand-logo:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
     </style>
 </head>
 <body class="bg-stone-50 text-stone-900 antialiased smooth-scroll">
@@ -56,89 +158,129 @@
     <div class="grain"></div>
 
     <!-- Navigation -->
-    <nav class="fixed w-full bg-stone-50/90 backdrop-blur-md z-40 border-b border-stone-200 transition-all duration-300" id="navbar">
+    <nav class="fixed w-full bg-stone-50/95 backdrop-blur-md z-40 border-b border-stone-200 transition-all duration-300" id="navbar">
         <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
             <a href="#" class="flex items-center space-x-2">
                 <div class="w-8 h-8 bg-stone-900 rounded-sm flex items-center justify-center">
-                    <span class="text-stone-50 font-bold text-sm">A</span>
+                    <span class="text-stone-50 font-bold text-sm">C</span>
                 </div>
-                <span class="font-semibold tracking-tight">AHWS</span>
+                <span class="font-semibold tracking-tight">Central Appliance Repair</span>
             </a>
             
             <div class="hidden md:flex items-center space-x-8 text-sm">
-                <a href="#pourquoi" class="text-stone-600 hover:text-stone-900 transition-colors">Pourquoi adhérer</a>
-                <a href="#professionnels" class="text-stone-600 hover:text-stone-900 transition-colors">Professionnels</a>
-                <a href="#difference" class="text-stone-600 hover:text-stone-900 transition-colors">Notre différence</a>
-                <a href="#tarifs" class="text-stone-600 hover:text-stone-900 transition-colors">Tarifs</a>
+                <a href="#services" class="text-stone-600 hover:text-stone-900 transition-colors">Services</a>
+                <a href="#how-it-works" class="text-stone-600 hover:text-stone-900 transition-colors">How It Works</a>
+                <a href="#commercial" class="text-stone-600 hover:text-stone-900 transition-colors">Commercial</a>
+                <a href="#pricing" class="text-stone-600 hover:text-stone-900 transition-colors">Pricing</a>
+                <a href="#areas" class="text-stone-600 hover:text-stone-900 transition-colors">Service Area</a>
             </div>
 
             <div class="flex items-center space-x-4">
-                <a href="tel:0522980958" class="hidden lg:flex items-center space-x-2 text-sm text-stone-600 hover:text-stone-900">
+                <a href="tel:+15551234567" class="hidden lg:flex items-center space-x-2 text-sm text-stone-600 hover:text-stone-900">
                     <i data-lucide="phone" class="w-4 h-4"></i>
-                    <span>05 22 98 09 58</span>
+                    <span>(555) 123-4567</span>
                 </a>
                 <button onclick="openModal()" class="bg-stone-900 text-stone-50 px-5 py-2.5 text-sm font-medium hover:bg-stone-800 transition-colors rounded-sm">
-                    Devenir membre
+                    Book Now
                 </button>
             </div>
         </div>
     </nav>
 
+    <!-- Trust Bar -->
+    <div class="fixed top-[72px] w-full bg-stone-900 text-stone-300 text-xs py-2 z-30 hidden md:block">
+        <div class="max-w-6xl mx-auto px-6 flex items-center justify-center space-x-8">
+            <span class="flex items-center space-x-1">
+                <i data-lucide="star" class="w-3 h-3 text-yellow-500 fill-yellow-500"></i>
+                <span class="font-medium text-white">4.9</span>
+                <span>(247 reviews)</span>
+            </span>
+            <span class="w-px h-3 bg-stone-700"></span>
+            <span>Serving [Your City] since 2010</span>
+            <span class="w-px h-3 bg-stone-700"></span>
+            <span class="flex items-center space-x-1">
+                <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+                <span>3 repairs completed today</span>
+            </span>
+            <span class="w-px h-3 bg-stone-700"></span>
+            <span class="text-green-400 font-medium">Open 24/7</span>
+        </div>
+    </div>
+
     <!-- Hero Section -->
-    <section class="pt-32 pb-20 px-6 min-h-screen flex items-center">
+    <section class="pt-32 md:pt-40 pb-20 px-6 min-h-screen flex items-center">
         <div class="max-w-6xl mx-auto w-full">
+            <!-- First-time offer banner -->
+            <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-8 flex items-center justify-between fade-up">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                        <i data-lucide="gift" class="w-5 h-5 text-green-600"></i>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-green-900">First-time customer special</p>
+                        <p class="text-sm text-green-700">$65 service call (normally $85). Limited time.</p>
+                    </div>
+                </div>
+                <button onclick="openModal()" class="bg-green-600 text-white px-4 py-2 rounded text-sm font-medium hover:bg-green-700 transition-colors hidden sm:block">
+                    Claim Offer
+                </button>
+            </div>
+
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <div class="space-y-8">
                     <div class="inline-flex items-center space-x-2 px-3 py-1.5 bg-red-50 border border-red-200 rounded-full text-red-700 text-xs font-medium">
                         <span class="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span>
-                        <span>Intervention en cours à Maarif - 12 min de réponse</span>
+                        <span>Technician on call - 12 min response time</span>
                     </div>
 
                     <h1 class="serif text-4xl md:text-6xl font-semibold leading-tight text-stone-900">
-                        Votre frigo est mort.<br>
-                        Il est 19h.<br>
-                        <span class="text-stone-400">Demain, vous recevez du monde.</span>
+                        Your fridge is down.<br>
+                        It's 7 PM.<br>
+                        <span class="text-stone-400">Tomorrow, you have guests.</span>
                     </h1>
 
                     <p class="text-lg text-stone-600 leading-relaxed max-w-lg">
-                        Les membres AHWS ont un numéro qui répond à 19h un samedi. 
-                        Les autres ont un répondeur, une liste de numéros barrés, 
-                        et 3,000 DH de courses qui périment.
+                        When you call Central Appliance Repair, you get someone who answers at 7 PM on a Saturday. 
+                        The others send you to voicemail, a list of crossed-out numbers, 
+                        and $300 of groceries spoiling.
                     </p>
 
                     <!-- Calculator Widget -->
-                    <div class="bg-white border border-stone-200 rounded-lg p-6 shadow-sm">
-                        <h3 class="font-semibold mb-4 text-sm uppercase tracking-wider text-stone-500">Calculez ce qu'une panne vous coûte vraiment</h3>
+                    <div class="bg-white border border-stone-200 rounded-lg p-6 shadow-sm sticky-calc">
+                        <h3 class="font-semibold mb-4 text-sm uppercase tracking-wider text-stone-500">Calculate what a breakdown really costs you</h3>
                         
                         <div class="space-y-4">
                             <div>
-                                <label class="text-sm text-stone-600 mb-1.5 block">Contenu de votre frigo actuellement</label>
+                                <label class="text-sm text-stone-600 mb-1.5 block">Current fridge contents</label>
                                 <select id="calc-content" class="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none bg-white">
-                                    <option value="0">Rien de spécial</option>
-                                    <option value="1500">Courses de la semaine (~1,500 DH)</option>
-                                    <option value="3000">Préparation d'événement (~3,000 DH)</option>
-                                    <option value="8000">Viande pour l'Aïd / Mariage (~8,000 DH)</option>
+                                    <option value="0">Nothing special</option>
+                                    <option value="150">Weekly groceries (~$150)</option>
+                                    <option value="400">Event prep (~$400)</option>
+                                    <option value="800">Holiday meat/seafood (~$800)</option>
                                 </select>
                             </div>
                             
                             <div>
-                                <label class="text-sm text-stone-600 mb-1.5 block">Votre situation demain</label>
+                                <label class="text-sm text-stone-600 mb-1.5 block">Your situation tomorrow</label>
                                 <select id="calc-event" class="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none bg-white">
-                                    <option value="0">Rien de prévu</option>
-                                    <option value="2000">Invités à dîner (honte + 2,000 DH de resto)</option>
-                                    <option value="5000">Événement familial (annulation + 5,000 DH)</option>
+                                    <option value="0">Nothing planned</option>
+                                    <option value="200">Dinner guests (embarrassment + $200 takeout)</option>
+                                    <option value="500">Family event (cancellation + $500)</option>
                                 </select>
                             </div>
 
                             <div class="bg-stone-100 rounded p-4 flex items-center justify-between">
-                                <span class="text-sm text-stone-600">Coût total d'une panne ce soir</span>
-                                <span class="text-2xl font-bold text-red-600" id="calc-total">0 DH</span>
+                                <span class="text-sm text-stone-600">Total cost of waiting</span>
+                                <span class="text-2xl font-bold text-red-600" id="calc-total">$0</span>
                             </div>
 
                             <div class="flex items-center justify-between pt-2">
-                                <span class="text-sm text-stone-500">Abonnement AHWS : 279 DH/mois</span>
+                                <div>
+                                    <span class="text-sm text-stone-500 line-through">$85</span>
+                                    <span class="text-sm font-bold text-green-600 ml-1">$65 first call</span>
+                                </div>
                                 <button onclick="openModal()" class="bg-stone-900 text-white px-6 py-2.5 rounded text-sm font-medium hover:bg-stone-800 transition-colors">
-                                    Sécuriser ce soir
+                                    Book Tonight
                                 </button>
                             </div>
                         </div>
@@ -147,17 +289,21 @@
                     <div class="flex items-center space-x-6 text-sm text-stone-500">
                         <div class="flex items-center space-x-2">
                             <i data-lucide="phone-call" class="w-4 h-4"></i>
-                            <span>Réponse garantie 24/7</span>
+                            <span>24/7 Live Answer</span>
                         </div>
                         <div class="flex items-center space-x-2">
                             <i data-lucide="clock" class="w-4 h-4"></i>
-                            <span>Intervention 2h en moyenne</span>
+                            <span>Same-day service</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i data-lucide="shield-check" class="w-4 h-4"></i>
+                            <span>Price Match Guarantee</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="relative">
-                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=800&q=80" alt="Frigo ouvert" class="rounded-lg shadow-2xl w-full">
+                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=800&q=80" alt="Open refrigerator" class="rounded-lg shadow-2xl w-full">
                     
                     <div class="absolute -bottom-6 -left-6 bg-white rounded-lg shadow-xl p-4 max-w-xs">
                         <div class="flex items-start space-x-3">
@@ -165,23 +311,92 @@
                                 <i data-lucide="check" class="w-5 h-5 text-green-600"></i>
                             </div>
                             <div>
-                                <p class="text-sm font-medium text-stone-900">Membre AHWS - Maarif</p>
-                                <p class="text-xs text-stone-500 mt-1">"Frigo réparé à 20h30. Dîner sauvé. 3,200 DH de viande préservés."</p>
-                                <p class="text-xs text-stone-400 mt-2">— Karim B., intervention #2 avec Youssef</p>
+                                <p class="text-sm font-medium text-stone-900">The Johnson Residence</p>
+                                <p class="text-xs text-stone-500 mt-1">"Fridge fixed at 8:30 PM. Dinner saved. $400 of meat preserved."</p>
+                                <p class="text-xs text-stone-400 mt-2">— Michael R., 2nd repair with us</p>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- Urgency badge -->
+                    <div class="absolute -top-4 -right-4 bg-red-600 text-white px-4 py-2 rounded-lg shadow-lg animate-pulse">
+                        <p class="text-xs font-bold">URGENT</p>
+                        <p class="text-sm">Only 2 slots left today</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Section : Ce que vous évitez -->
-    <section id="pourquoi" class="py-20 bg-white">
+    <!-- Brands We Service -->
+    <section class="py-12 bg-white border-y border-stone-200">
+        <div class="max-w-6xl mx-auto px-6">
+            <p class="text-center text-sm text-stone-500 mb-6 uppercase tracking-wider">Authorized service for all major brands</p>
+            <div class="grid grid-cols-3 md:grid-cols-6 gap-8 items-center justify-items-center opacity-60">
+                <div class="brand-logo font-bold text-stone-400">Whirlpool</div>
+                <div class="brand-logo font-bold text-stone-400">GE</div>
+                <div class="brand-logo font-bold text-stone-400">Samsung</div>
+                <div class="brand-logo font-bold text-stone-400">LG</div>
+                <div class="brand-logo font-bold text-stone-400">KitchenAid</div>
+                <div class="brand-logo font-bold text-stone-400">Maytag</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="py-20 bg-stone-50">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 fade-up">
+                <h2 class="serif text-3xl md:text-4xl font-semibold mb-4">How it works</h2>
+                <p class="text-stone-600">Three simple steps to get your appliance running</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg p-8 text-center hover-lift fade-up relative">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 bg-stone-900 text-white rounded-full flex items-center justify-center font-bold text-sm">1</div>
+                    <div class="w-16 h-16 bg-stone-100 rounded-full flex items-center justify-center mx-auto mb-4 mt-4">
+                        <i data-lucide="phone" class="w-8 h-8 text-stone-600"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">Book Online or Call</h3>
+                    <p class="text-stone-600 text-sm">24/7 live answer. Tell us the problem and your location. We give you a real arrival window.</p>
+                </div>
+
+                <div class="bg-white rounded-lg p-8 text-center hover-lift fade-up relative" style="transition-delay: 100ms;">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 bg-stone-900 text-white rounded-full flex items-center justify-center font-bold text-sm">2</div>
+                    <div class="w-16 h-16 bg-stone-100 rounded-full flex items-center justify-center mx-auto mb-4 mt-4">
+                        <i data-lucide="search" class="w-8 h-8 text-stone-600"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">We Diagnose</h3>
+                    <p class="text-stone-600 text-sm">$65 service call (first-time). We inspect, identify the issue, and give you a written estimate.</p>
+                </div>
+
+                <div class="bg-white rounded-lg p-8 text-center hover-lift fade-up relative" style="transition-delay: 200ms;">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 bg-stone-900 text-white rounded-full flex items-center justify-center font-bold text-sm">3</div>
+                    <div class="w-16 h-16 bg-stone-100 rounded-full flex items-center justify-center mx-auto mb-4 mt-4">
+                        <i data-lucide="wrench" class="w-8 h-8 text-stone-600"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">We Fix It</h3>
+                    <p class="text-stone-600 text-sm">Most repairs done same-day. You approve the work first. No surprises, no hidden fees.</p>
+                </div>
+            </div>
+
+            <!-- Price Match Guarantee -->
+            <div class="mt-12 bg-stone-900 rounded-lg p-8 text-center text-white fade-up">
+                <div class="flex items-center justify-center space-x-2 mb-4">
+                    <i data-lucide="shield-check" class="w-8 h-8 text-green-400"></i>
+                    <h3 class="text-xl font-semibold">Fair Price Guarantee</h3>
+                </div>
+                <p class="text-stone-300 max-w-2xl mx-auto">Find a lower written quote for the exact same repair? We'll match it. We believe in fair pricing for expert work.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section : What You Avoid -->
+    <section id="why-us" class="py-20 bg-white">
         <div class="max-w-6xl mx-auto px-6">
             <h2 class="serif text-3xl md:text-4xl font-semibold text-center mb-16 fade-up">
-                L'abonnement n'est pas une dépense.<br>
-                <span class="text-stone-400">C'est ce que vous ne payez pas.</span>
+                We're not an expense.<br>
+                <span class="text-stone-400">We're what you don't pay.</span>
             </h2>
 
             <div class="grid md:grid-cols-3 gap-8">
@@ -189,13 +404,13 @@
                     <div class="w-12 h-12 bg-red-50 rounded-lg flex items-center justify-center mb-4">
                         <i data-lucide="phone-off" class="w-6 h-6 text-red-600"></i>
                     </div>
-                    <h3 class="font-semibold text-lg mb-2">Le répondeur à 19h</h3>
+                    <h3 class="font-semibold text-lg mb-2">The 7 PM Voicemail</h3>
                     <p class="text-stone-600 text-sm leading-relaxed">
-                        Vous appelez 4 numéros. 3 boîtes vocales. Le 4ème dit "lundi". 
-                        Votre frigo ne connaît pas le weekend.
+                        You call 4 numbers. 3 voicemails. The 4th says "Monday." 
+                        Your fridge doesn't know it's the weekend.
                     </p>
                     <div class="mt-4 pt-4 border-t border-stone-100">
-                        <span class="text-green-600 text-sm font-medium">✓ Membres : Youssef répond. 90 minutes.</span>
+                        <span class="text-green-600 text-sm font-medium">✓ Us: We answer. 90 minutes.</span>
                     </div>
                 </div>
 
@@ -203,13 +418,13 @@
                     <div class="w-12 h-12 bg-amber-50 rounded-lg flex items-center justify-center mb-4">
                         <i data-lucide="help-circle" class="w-6 h-6 text-amber-600"></i>
                     </div>
-                    <h3 class="font-semibold text-lg mb-2">"C'est compliqué, ça coûte cher"</h3>
+                    <h3 class="font-semibold text-lg mb-2">"It's complicated, it'll be expensive"</h3>
                     <p class="text-stone-600 text-sm leading-relaxed">
-                        Vous ne savez pas si 1,800 DH est juste. Vous payez parce que vous êtes désarmé. 
-                        Et parce que vous n'avez pas le choix.
+                        You don't know if $400 is fair. You pay because you're helpless. 
+                        And because you have no choice.
                     </p>
                     <div class="mt-4 pt-4 border-t border-stone-100">
-                        <span class="text-green-600 text-sm font-medium">✓ Membres : Prix contractuel. Signé d'avance.</span>
+                        <span class="text-green-600 text-sm font-medium">✓ Us: Upfront pricing. No surprises.</span>
                     </div>
                 </div>
 
@@ -217,57 +432,57 @@
                     <div class="w-12 h-12 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
                         <i data-lucide="repeat" class="w-6 h-6 text-stone-600"></i>
                     </div>
-                    <h3 class="font-semibold text-lg mb-2">Répéter votre histoire</h3>
+                    <h3 class="font-semibold text-lg mb-2">Repeating your story</h3>
                     <p class="text-stone-600 text-sm leading-relaxed">
-                        "C'est quoi déjà le modèle ? Le problème ?" Chaque panne, vous repartez de zéro.
+                        "What's the model again? The problem?" Every breakdown, you start from zero.
                     </p>
                     <div class="mt-4 pt-4 border-t border-stone-100">
-                        <span class="text-green-600 text-sm font-medium">✓ Membres : On se souvient. De tout.</span>
+                        <span class="text-green-600 text-sm font-medium">✓ Us: We remember. Everything.</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Section Mémoire -->
+    <!-- Section History -->
     <section class="py-20 bg-stone-900 text-stone-50">
         <div class="max-w-6xl mx-auto px-6">
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <div class="fade-up">
                     <h2 class="serif text-3xl md:text-4xl font-semibold mb-6">
-                        Votre maison a un dossier médical.<br>
-                        <span class="text-stone-400">Enfin.</span>
+                        Your home has a service history.<br>
+                        <span class="text-stone-400">Finally.</span>
                     </h2>
                     
                     <p class="text-stone-300 mb-8 leading-relaxed">
-                        Quand Youssef arrive pour la 3ème fois, 
-                        il ne demande pas "c'est quoi déjà le problème ?". 
-                        Il sait que votre lave-linge surchauffe en été. 
-                        Il a prévu la pièce.
+                        When Mike arrives for the 3rd time, 
+                        he doesn't ask "what's the problem again?" 
+                        He knows your washer overheats in summer. 
+                        He brought the part.
                     </p>
 
                     <div class="space-y-4">
                         <div class="flex items-start space-x-4">
                             <div class="w-8 h-8 rounded bg-stone-800 flex items-center justify-center flex-shrink-0 mt-1 text-sm text-stone-400">01</div>
                             <div>
-                                <h4 class="font-medium mb-1">Historique complet</h4>
-                                <p class="text-sm text-stone-400">Chaque intervention, chaque pièce. Consultable par vous.</p>
+                                <h4 class="font-medium mb-1">Complete Records</h4>
+                                <p class="text-sm text-stone-400">Every repair, every part. Accessible to you.</p>
                             </div>
                         </div>
                         
                         <div class="flex items-start space-x-4">
                             <div class="w-8 h-8 rounded bg-stone-800 flex items-center justify-center flex-shrink-0 mt-1 text-sm text-stone-400">02</div>
                             <div>
-                                <h4 class="font-medium mb-1">Anticipation</h4>
-                                <p class="text-sm text-stone-400">"Votre frigo montre des signes. On passe ?"</p>
+                                <h4 class="font-medium mb-1">Prevention</h4>
+                                <p class="text-sm text-stone-400">"Your fridge is showing signs. Should we check?"</p>
                             </div>
                         </div>
                         
                         <div class="flex items-start space-x-4">
                             <div class="w-8 h-8 rounded bg-stone-800 flex items-center justify-center flex-shrink-0 mt-1 text-sm text-stone-400">03</div>
                             <div>
-                                <h4 class="font-medium mb-1">Transférable</h4>
-                                <p class="text-sm text-stone-400">Vendez votre appartement ? Le dossier augmente la valeur.</p>
+                                <h4 class="font-medium mb-1">Transferable</h4>
+                                <p class="text-sm text-stone-400">Selling your home? The service history adds value.</p>
                             </div>
                         </div>
                     </div>
@@ -275,45 +490,45 @@
 
                 <div class="bg-stone-800 rounded-lg p-6 border border-stone-700 fade-up">
                     <div class="flex items-center justify-between mb-6 pb-4 border-b border-stone-700">
-                        <span class="text-sm font-medium text-stone-400">DOSSIER AHWS #2847</span>
-                        <span class="text-xs bg-green-900 text-green-400 px-2 py-1 rounded">ACTIF</span>
+                        <span class="text-sm font-medium text-stone-400">THE JOHNSON RESIDENCE</span>
+                        <span class="text-xs bg-green-900 text-green-400 px-2 py-1 rounded">ACTIVE</span>
                     </div>
                     
                     <div class="space-y-4 text-sm">
                         <div class="flex justify-between">
-                            <span class="text-stone-400">Adresse</span>
-                            <span>Résidence Les Oliviers, Apt 12B</span>
+                            <span class="text-stone-400">Address</span>
+                            <span>123 Oak Street, Apt 12B</span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-stone-400">Membre depuis</span>
-                            <span>Mars 2022 (2 ans 4 mois)</span>
+                            <span class="text-stone-400">Customer since</span>
+                            <span>March 2022 (3 years)</span>
                         </div>
                         
                         <div class="pt-4 border-t border-stone-700">
-                            <p class="text-stone-400 mb-3">Appareils suivis</p>
+                            <p class="text-stone-400 mb-3">Appliances serviced</p>
                             
                             <div class="space-y-3">
                                 <div class="bg-stone-900 rounded p-3">
                                     <div class="flex items-center justify-between mb-2">
-                                        <span class="font-medium">Lave-linge Samsung WW80T</span>
+                                        <span class="font-medium">Samsung Washer WW80T</span>
                                         <span class="text-xs text-green-400">● Optimal</span>
                                     </div>
-                                    <p class="text-xs text-stone-500">3 interventions • Joint 06/2023 • Surveillance vibration</p>
+                                    <p class="text-xs text-stone-500">3 service calls • Belt replaced 06/2023 • Vibration monitored</p>
                                 </div>
                                 
                                 <div class="bg-stone-900 rounded p-3">
                                     <div class="flex items-center justify-between mb-2">
-                                        <span class="font-medium">Réfrigérateur Bosch KGN39</span>
-                                        <span class="text-xs text-amber-400">● Surveillance</span>
+                                        <span class="font-medium">Bosch Fridge KGN39</span>
+                                        <span class="text-xs text-amber-400">● Watching</span>
                                     </div>
-                                    <p class="text-xs text-stone-500">1 intervention • Thermostat surveillé • Maintenance 09/2024</p>
+                                    <p class="text-xs text-stone-500">1 service call • Thermostat monitored • Service 09/2024</p>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="pt-4 border-t border-stone-700 flex items-center justify-between">
-                            <span class="text-stone-400">Économies réalisées</span>
-                            <span class="text-2xl font-bold text-green-400">4,850 DH</span>
+                            <span class="text-stone-400">Total savings vs replacement</span>
+                            <span class="text-2xl font-bold text-green-400">$2,400</span>
                         </div>
                     </div>
                 </div>
@@ -321,69 +536,117 @@
         </div>
     </section>
 
-    <!-- Section Professionnels -->
-    <section id="professionnels" class="py-20 bg-stone-100">
+    <!-- Service Area -->
+    <section id="areas" class="py-20 bg-stone-100">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="fade-up">
+                    <h2 class="serif text-3xl md:text-4xl font-semibold mb-6">
+                        Local technicians.<br>
+                        <span class="text-stone-400">Fast response.</span>
+                    </h2>
+                    <p class="text-stone-600 mb-6">We live and work in your neighborhood. That's why we can get to you fast—usually within 2 hours.</p>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-white rounded p-4 border border-stone-200">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-stone-400 mb-2"></i>
+                            <p class="font-medium text-sm">Downtown</p>
+                            <p class="text-xs text-stone-500">12 min avg</p>
+                        </div>
+                        <div class="bg-white rounded p-4 border border-stone-200">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-stone-400 mb-2"></i>
+                            <p class="font-medium text-sm">Midtown</p>
+                            <p class="text-xs text-stone-500">18 min avg</p>
+                        </div>
+                        <div class="bg-white rounded p-4 border border-stone-200">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-stone-400 mb-2"></i>
+                            <p class="font-medium text-sm">Westside</p>
+                            <p class="text-xs text-stone-500">22 min avg</p>
+                        </div>
+                        <div class="bg-white rounded p-4 border border-stone-200">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-stone-400 mb-2"></i>
+                            <p class="font-medium text-sm">Eastside</p>
+                            <p class="text-xs text-stone-500">25 min avg</p>
+                        </div>
+                    </div>
+                    
+                    <p class="text-sm text-stone-500 mt-4">Don't see your area? Call us—we probably cover it.</p>
+                </div>
+                
+                <div class="bg-stone-200 rounded-lg h-80 flex items-center justify-center fade-up">
+                    <div class="text-center text-stone-500">
+                        <i data-lucide="map" class="w-16 h-16 mx-auto mb-4 opacity-50"></i>
+                        <p class="font-medium">Service Area Map</p>
+                        <p class="text-sm">[Interactive map showing 15-mile service radius]</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Commercial -->
+    <section id="commercial" class="py-20 bg-white">
         <div class="max-w-6xl mx-auto px-6">
             <div class="text-center mb-16 fade-up">
-                <span class="text-sm font-medium text-stone-500 uppercase tracking-wider">Professionnels</span>
+                <span class="text-sm font-medium text-stone-500 uppercase tracking-wider">Commercial Services</span>
                 <h2 class="serif text-3xl md:text-4xl font-semibold mt-4">
-                    Une fermeture coûte plus cher qu'un abonnement
+                    A closed door costs more than a repair
                 </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-8 mb-12">
-                <div class="bg-white rounded-lg shadow-sm border border-stone-200 overflow-hidden hover-lift fade-up">
+                <div class="bg-stone-50 rounded-lg shadow-sm border border-stone-200 overflow-hidden hover-lift fade-up">
                     <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80" alt="Restaurant" class="w-full h-48 object-cover">
                     <div class="p-6">
-                        <h3 class="font-semibold text-lg mb-2">Restaurants & Traiteurs</h3>
+                        <h3 class="font-semibold text-lg mb-2">Restaurants & Catering</h3>
                         <p class="text-stone-600 text-sm mb-4">
-                            Vendredi 20h. Votre frigo tombe en panne. 
-                            Vous ouvrez samedi ou vous fermez ?
+                            Friday 8 PM. Your walk-in cooler fails. 
+                            Do you open Saturday or close?
                         </p>
                         <ul class="space-y-2 text-sm mb-6">
                             <li class="flex items-center space-x-2">
                                 <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
-                                <span>Réponse 1H garantie</span>
+                                <span>Emergency 1-hour response</span>
                             </li>
                             <li class="flex items-center space-x-2">
                                 <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
-                                <span>Appareil de prêt si réparation >4h</span>
+                                <span>Loaner equipment if repair >4hrs</span>
                             </li>
                             <li class="flex items-center space-x-2">
                                 <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
-                                <span>Intervention nuit après service</span>
+                                <span>After-hours service</span>
                             </li>
                         </ul>
                         <button onclick="openModal('restaurant')" class="w-full bg-stone-900 text-white py-3 rounded font-medium hover:bg-stone-800 transition-colors">
-                            Devis personnalisé
+                            Get Commercial Quote
                         </button>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-lg shadow-sm border border-stone-200 overflow-hidden hover-lift fade-up" style="transition-delay: 100ms;">
-                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80" alt="Hôtel" class="w-full h-48 object-cover">
+                <div class="bg-stone-50 rounded-lg shadow-sm border border-stone-200 overflow-hidden hover-lift fade-up" style="transition-delay: 100ms;">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80" alt="Hotel" class="w-full h-48 object-cover">
                     <div class="p-6">
-                        <h3 class="font-semibold text-lg mb-2">Hôtels & Riads</h3>
+                        <h3 class="font-semibold text-lg mb-2">Hotels & Hospitality</h3>
                         <p class="text-stone-600 text-sm mb-4">
-                            Un client insatisfait à cause d'une clim défectueuse. 
-                            Combien coûte cet avis négatif ?
+                            One guest complaint about a broken AC. 
+                            How much does that bad review cost you?
                         </p>
                         <ul class="space-y-2 text-sm mb-6">
                             <li class="flex items-center space-x-2">
                                 <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
-                                <span>Technicien dédié (même visage)</span>
+                                <span>Dedicated technician (same face)</span>
                             </li>
                             <li class="flex items-center space-x-2">
                                 <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
-                                <span>Multi-sites, une seule facture</span>
+                                <span>Multi-location, single invoice</span>
                             </li>
                             <li class="flex items-center space-x-2">
                                 <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
-                                <span>Reporting mensuel</span>
+                                <span>Monthly maintenance reports</span>
                             </li>
                         </ul>
                         <button onclick="openModal('hotel')" class="w-full bg-stone-900 text-white py-3 rounded font-medium hover:bg-stone-800 transition-colors">
-                            Audit gratuit
+                            Schedule Assessment
                         </button>
                     </div>
                 </div>
@@ -393,259 +656,198 @@
                 <div class="grid md:grid-cols-3 gap-8 text-center">
                     <div>
                         <div class="text-3xl font-bold text-stone-400 mb-1">0</div>
-                        <p class="text-sm text-stone-500">fermetures pour panne ce trimestre</p>
+                        <p class="text-sm text-stone-500">closures due to breakdown this quarter</p>
                     </div>
                     <div>
                         <div class="text-3xl font-bold text-stone-400 mb-1">23 min</div>
-                        <p class="text-sm text-stone-500">temps de réponse moyen Pro</p>
+                        <p class="text-sm text-stone-500">average commercial response time</p>
                     </div>
                     <div>
                         <div class="text-3xl font-bold text-stone-400 mb-1">47</div>
-                        <p class="text-sm text-stone-500">établissements protégés</p>
+                        <p class="text-sm text-stone-500">local businesses protected</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Section Notre Différence -->
-    <section id="difference" class="py-20">
-        <div class="max-w-4xl mx-auto px-6">
-            <h1 class="serif text-4xl font-semibold mb-12 text-center fade-up">
-                Pourquoi nous ne sommes pas<br>"un réparateur de plus"
-            </h1>
-
-            <div class="space-y-16">
-                <div class="fade-up">
-                    <h2 class="text-2xl font-semibold mb-4">Nous ne réparons pas. Nous connaissons.</h2>
-                    <div class="grid md:grid-cols-2 gap-8 items-center">
-                        <div class="space-y-4 text-stone-600">
-                            <p>Un réparateur arrive. Il regarde votre appareil pour la première fois. Il devine. Il facture le temps de découverte.</p>
-                            <p>Nous, nous arrivons avec un dossier. Votre lave-linge a 3 ans, a eu un joint remplacé en 2023, a tendance à vibrer. Nous avons prévu la pièce.</p>
-                            <p class="font-medium text-stone-900">Vous ne payez pas notre apprentissage. Vous payez notre expertise déjà acquise.</p>
-                        </div>
-                        <div class="bg-stone-100 p-6 rounded-lg">
-                            <div class="text-sm text-stone-500 mb-2">Dossier AHWS #2847</div>
-                            <div class="space-y-3 text-sm">
-                                <div class="flex justify-between">
-                                    <span>Lave-linge Samsung</span>
-                                    <span class="text-green-600">● Suivi</span>
-                                </div>
-                                <div class="text-stone-400 text-xs">3 interventions • Joint 06/2023 • Vibration surveillée</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="fade-up" style="transition-delay: 100ms;">
-                    <h2 class="text-2xl font-semibold mb-4">Nous ne facturons pas l'urgence. Nous la prévenons.</h2>
-                    <p class="text-stone-600 mb-6">Le marché facture 50% plus cher le weekend. 100% plus cher la nuit. Nous facturons la même chose à 3h du matin qu'à 10h du matin. Parce que nous ne voulons pas que vous hésitiez à appeler quand ça compte vraiment.</p>
-                </div>
-
-                <div class="fade-up" style="transition-delay: 200ms;">
-                    <h2 class="text-2xl font-semibold mb-4">Nous ne grandissons pas. Nous approfondissons.</h2>
-                    <p class="text-stone-600 mb-6">Nous pourrions recruter 50 techniciens et couvrir tout le Maroc. Nous ne le faisons pas. Nous restons à Casablanca. 12 techniciens. 12 visages connus. Parce que la confiance ne se délègue pas à des inconnus.</p>
-                </div>
-            </div>
-
-            <div class="bg-stone-900 text-white p-8 rounded-lg mt-16 fade-up">
-                <h2 class="text-xl font-semibold mb-4">Notre comptabilité ouverte</h2>
-                <p class="text-stone-300 mb-6">Nous gagnons de l'argent quand vous restez membre longtemps. Pas quand vous payez cher.</p>
-                <div class="grid md:grid-cols-3 gap-6 text-center">
-                    <div>
-                        <div class="text-3xl font-bold text-stone-400">2.4 ans</div>
-                        <div class="text-sm text-stone-500">Durée moyenne d'adhésion</div>
-                    </div>
-                    <div>
-                        <div class="text-3xl font-bold text-stone-400">94%</div>
-                        <div class="text-sm text-stone-500">Taux de renouvellement</div>
-                    </div>
-                    <div>
-                        <div class="text-3xl font-bold text-stone-400">1.2</div>
-                        <div class="text-sm text-stone-500">Interventions par membre/an</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section Tarifs -->
-    <section id="tarifs" class="py-20 bg-stone-100">
+    <!-- Section Pricing -->
+    <section id="pricing" class="py-20 bg-stone-50">
         <div class="max-w-6xl mx-auto px-6">
             <div class="text-center mb-16 fade-up">
                 <h2 class="serif text-3xl md:text-4xl font-semibold mb-4">
-                    Le prix de la tranquillité
+                    Simple, transparent pricing
                 </h2>
-                <p class="text-stone-600">Comparez avec le coût d'une seule panne mal gérée.</p>
+                <p class="text-stone-600">You pay per job. No monthly fees. No hidden charges.</p>
             </div>
 
             <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                <!-- Essentiel -->
-                <div class="bg-white border border-stone-200 rounded-lg p-6 fade-up">
-                    <h3 class="font-semibold text-lg mb-1">Essentiel</h3>
-                    <p class="text-sm text-stone-500 mb-4">Pour les petits appartements</p>
-                    <div class="text-3xl font-bold mb-6">199<span class="text-lg font-normal text-stone-500">/mois</span></div>
+                <!-- Service Call -->
+                <div class="bg-white border border-stone-200 rounded-lg p-6 fade-up relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-green-600 text-white text-xs px-3 py-1 rounded-bl-lg font-medium">FIRST TIME $65</div>
+                    <h3 class="font-semibold text-lg mb-1 mt-2">Service Call</h3>
+                    <p class="text-sm text-stone-500 mb-4">Diagnosis & estimate</p>
+                    <div class="text-3xl font-bold mb-6">
+                        <span class="text-lg text-stone-400 line-through mr-2">$85</span>
+                        $65<span class="text-lg font-normal text-stone-500"> flat</span>
+                    </div>
                     
                     <ul class="space-y-3 text-sm mb-6">
                         <li class="flex items-center space-x-2">
                             <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
-                            <span>3 appareils couverts</span>
+                            <span>In-home diagnosis</span>
                         </li>
                         <li class="flex items-center space-x-2">
                             <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
-                            <span>Réponse 4H garantie</span>
+                            <span>Written estimate</span>
                         </li>
                         <li class="flex items-center space-x-2">
                             <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
-                            <span>Diagnostic gratuit</span>
+                            <span>No obligation</span>
                         </li>
                         <li class="flex items-center space-x-2">
                             <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
-                            <span>Prix bloqués 3 ans</span>
+                            <span>Applied to repair if approved</span>
                         </li>
                     </ul>
                     
                     <button onclick="openModal()" class="w-full border border-stone-900 text-stone-900 py-3 rounded font-medium hover:bg-stone-900 hover:text-white transition-colors">
-                        Choisir Essentiel
+                        Book Now
                     </button>
                 </div>
 
-                <!-- Confort -->
+                <!-- Standard Repair -->
                 <div class="bg-white border-2 border-stone-900 rounded-lg p-6 relative fade-up" style="transition-delay: 100ms;">
                     <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-stone-900 text-white px-4 py-1 rounded-full text-xs font-medium">
-                        Le plus choisi
+                        Most Common
                     </div>
                     
-                    <h3 class="font-semibold text-lg mb-1">Confort</h3>
-                    <p class="text-sm text-stone-500 mb-4">Pour les familles</p>
-                    <div class="text-3xl font-bold mb-6">279<span class="text-lg font-normal text-stone-500">/mois</span></div>
+                    <h3 class="font-semibold text-lg mb-1">Standard Repair</h3>
+                    <p class="text-sm text-stone-500 mb-4">Labor + parts</p>
+                    <div class="text-3xl font-bold mb-6">$150-350<span class="text-lg font-normal text-stone-500"> avg</span></div>
                     
                     <ul class="space-y-3 text-sm mb-6">
                         <li class="flex items-center space-x-2">
                             <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
-                            <span class="font-semibold">6 appareils + CVC</span>
+                            <span class="font-semibold">Includes service call fee</span>
                         </li>
                         <li class="flex items-center space-x-2">
                             <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
-                            <span class="font-semibold">Réponse 2H garantie</span>
+                            <span>OEM parts</span>
                         </li>
                         <li class="flex items-center space-x-2">
                             <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
-                            <span>Technicien dédié</span>
+                            <span>Same-day completion</span>
                         </li>
                         <li class="flex items-center space-x-2">
                             <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
-                            <span>Maintenance préventive</span>
-                        </li>
-                        <li class="flex items-center space-x-2">
-                            <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
-                            <span>Remplacement si irréparable</span>
+                            <span>Service history tracking</span>
                         </li>
                     </ul>
                     
                     <button onclick="openModal()" class="w-full bg-stone-900 text-white py-3 rounded font-medium hover:bg-stone-800 transition-colors">
-                        Choisir Confort
+                        Get Estimate
                     </button>
                     
-                    <p class="text-xs text-center text-stone-500 mt-4">Économie moyenne : 1,650 DH/an</p>
+                    <p class="text-xs text-center text-stone-500 mt-4">Average savings vs replacement: $800</p>
                 </div>
 
-                <!-- Premium -->
+                <!-- Major Repair -->
                 <div class="bg-white border border-stone-200 rounded-lg p-6 fade-up" style="transition-delay: 200ms;">
-                    <h3 class="font-semibold text-lg mb-1">Premium</h3>
-                    <p class="text-sm text-stone-500 mb-4">Villas & résidences</p>
-                    <div class="text-3xl font-bold mb-6">479<span class="text-lg font-normal text-stone-500">/mois</span></div>
+                    <h3 class="font-semibold text-lg mb-1">Major Repair</h3>
+                    <p class="text-sm text-stone-500 mb-4">Complex jobs</p>
+                    <div class="text-3xl font-bold mb-6">$400-800<span class="text-lg font-normal text-stone-500"> avg</span></div>
                     
                     <ul class="space-y-3 text-sm mb-6">
                         <li class="flex items-center space-x-2">
                             <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
-                            <span>Maison complète illimitée</span>
+                            <span>Compressor, motor, control board</span>
                         </li>
                         <li class="flex items-center space-x-2">
                             <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
-                            <span>Réponse immédiate 24/7</span>
+                            <span>Priority scheduling</span>
                         </li>
                         <li class="flex items-center space-x-2">
                             <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
-                            <span>Conciergerie technique</span>
+                            <span>Replace vs repair advice</span>
                         </li>
                         <li class="flex items-center space-x-2">
                             <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
-                            <span>Appareils de prêt premium</span>
+                            <span>Detailed service report</span>
                         </li>
                     </ul>
                     
                     <button onclick="openModal()" class="w-full border border-stone-900 text-stone-900 py-3 rounded font-medium hover:bg-stone-900 hover:text-white transition-colors">
-                        Choisir Premium
+                        Discuss Options
                     </button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Objections/Réponses -->
-    <section class="py-20">
+    <!-- Objections/Responses -->
+    <section class="py-20 bg-white">
         <div class="max-w-4xl mx-auto px-6">
-            <h2 class="serif text-3xl font-semibold text-center mb-12 fade-up">Vos questions, nos réponses</h2>
+            <h2 class="serif text-3xl font-semibold text-center mb-12 fade-up">Your questions, our answers</h2>
             
             <div class="space-y-4" id="faq-container">
                 <div class="border border-stone-200 rounded-lg overflow-hidden fade-up">
                     <button class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-stone-50 transition-colors" onclick="toggleFaq(this)">
-                        <span class="font-medium">"C'est cher, 279 DH/mois"</span>
+                        <span class="font-medium">"How much will it cost?"</span>
                         <i data-lucide="chevron-down" class="w-5 h-5 transition-transform"></i>
                     </button>
                     <div class="hidden px-6 pb-4 text-stone-600 text-sm leading-relaxed">
-                        <p class="mb-3">Combien vous a coûté votre dernière panne ? Pas la réparation - la panne.</p>
-                        <p class="mb-3">Le lave-linge en panne pendant 5 jours. Laverie : 150 DH. Demi-journée d'attente : 400 DH de salaire perdu. Stress, nuits courtes : pas de prix.</p>
-                        <p>279 DH, c'est 9 DH par jour. Moins qu'un café. Pour ne plus vivre ça.</p>
+                        <p class="mb-3">$65 for first-time customers ($85 after that) for us to come diagnose. Then you get a written estimate before any work begins.</p>
+                        <p class="mb-3">Most repairs run $150-350 total (including the service call). Major repairs like compressors or control boards can run $400-800.</p>
+                        <p>If it makes more sense to replace, we'll tell you. We don't fix things that aren't worth fixing.</p>
                     </div>
                 </div>
 
                 <div class="border border-stone-200 rounded-lg overflow-hidden fade-up" style="transition-delay: 50ms;">
                     <button class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-stone-50 transition-colors" onclick="toggleFaq(this)">
-                        <span class="font-medium">"Je ne suis pas sûr d'en avoir besoin, mes appareils sont neufs"</span>
+                        <span class="font-medium">"Do you charge extra for nights and weekends?"</span>
                         <i data-lucide="chevron-down" class="w-5 h-5 transition-transform"></i>
                     </button>
                     <div class="hidden px-6 pb-4 text-stone-600 text-sm leading-relaxed">
-                        <p class="mb-3">Parfait. C'est le meilleur moment.</p>
-                        <p class="mb-3">Vous souscrivez quand tout va bien. Pas quand vous êtes désespéré. C'est comme l'assurance : elle coûte moins cher avant l'accident.</p>
-                        <p>Vos appareils neufs ont 2 ans de garantie constructeur. Après ? C'est vous seul contre le marché. Nous, on s'en occupe maintenant. On apprend votre maison. Quand la panne arrivera - et elle arrivera - on sera déjà là.</p>
+                        <p class="mb-3">No. We charge the same at 9 PM Saturday as 9 AM Tuesday.</p>
+                        <p class="mb-3">Most companies charge 1.5x or 2x for after-hours. We don't think you should pay more because your fridge broke at the wrong time.</p>
+                        <p>Emergency service is available 24/7 at standard rates.</p>
                     </div>
                 </div>
 
                 <div class="border border-stone-200 rounded-lg overflow-hidden fade-up" style="transition-delay: 100ms;">
                     <button class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-stone-50 transition-colors" onclick="toggleFaq(this)">
-                        <span class="font-medium">"Je connais déjà un bon réparateur"</span>
+                        <span class="font-medium">"How fast can you get here?"</span>
                         <i data-lucide="chevron-down" class="w-5 h-5 transition-transform"></i>
                     </button>
                     <div class="hidden px-6 pb-4 text-stone-600 text-sm leading-relaxed">
-                        <p class="mb-3">Excellent. Gardez-le pour les petites bricoles.</p>
-                        <p class="mb-3">Mais quand il est débordé ? En vacances ? Malade ? Quand vous avez besoin de lui à 20h un samedi ?</p>
-                        <p>Nous, on est 12 techniciens. On se relaye. Vous avez toujours quelqu'un. Toujours le même dossier. C'est votre réparateur, multiplié par 12, avec une mémoire partagée.</p>
+                        <p class="mb-3">Same day, usually within 2-4 hours. Emergencies within 90 minutes.</p>
+                        <p class="mb-3">We live here. We're not dispatching from three counties away.</p>
+                        <p>When you call, we give you a real arrival window. Not "sometime between 8 and 5."</p>
                     </div>
                 </div>
 
                 <div class="border border-stone-200 rounded-lg overflow-hidden fade-up" style="transition-delay: 150ms;">
                     <button class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-stone-50 transition-colors" onclick="toggleFaq(this)">
-                        <span class="font-medium">"Je préfère payer à la demande"</span>
+                        <span class="font-medium">"Is it worth repairing or should I replace?"</span>
                         <i data-lucide="chevron-down" class="w-5 h-5 transition-transform"></i>
                     </button>
                     <div class="hidden px-6 pb-4 text-stone-600 text-sm leading-relaxed">
-                        <p class="mb-3">Je comprends. C'est ce que font 80% des gens. Et c'est pour ça qu'ils paient 40% plus cher.</p>
-                        <p class="mb-3">À la demande = prix d'urgence + frais de déplacement + diagnostic + majoration soir/weekend + pièce au prix fort + technicien qui ne vous connaît pas.</p>
-                        <p>Abonnement = prix négocié d'avance + 0 frais cachés + technicien qui connaît votre maison + réponse garantie. Ce n'est pas une dépense. C'est un achat groupé de réparations futures.</p>
+                        <p class="mb-3">We'll tell you straight. If a repair is more than half the cost of a new unit and your appliance is over 8 years old, replacement usually makes sense.</p>
+                        <p class="mb-3">But many "dead" appliances just need a $200 part. We've saved customers thousands by repairing when others said "replace."</p>
+                        <p>We give you the numbers. You decide.</p>
                     </div>
                 </div>
 
                 <div class="border border-stone-200 rounded-lg overflow-hidden fade-up" style="transition-delay: 200ms;">
                     <button class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-stone-50 transition-colors" onclick="toggleFaq(this)">
-                        <span class="font-medium">"Et si je déménage ?"</span>
+                        <span class="font-medium">"What if it breaks again after you fix it?"</span>
                         <i data-lucide="chevron-down" class="w-5 h-5 transition-transform"></i>
                     </button>
                     <div class="hidden px-6 pb-4 text-stone-600 text-sm leading-relaxed">
-                        <p class="mb-3">Votre dossier suit. Ou il augmente la valeur de votre appartement.</p>
-                        <p class="mb-3">Vous vendez ? Le nouveau propriétaire voit : "Réfrigérateur suivi 3 ans, maintenance à jour, garantie 2 ans restante." C'est un argument de vente. Vous récupérez votre abonnement.</p>
-                        <p>Vous louez ? Vous transférez à votre locataire. Ou vous gardez pour votre nouveau logement. Pas de pénalité. Pas de questions.</p>
+                        <p class="mb-3">Call us. We'll come back and diagnose it. If it's the same issue we fixed, we'll make it right.</p>
+                        <p class="mb-3">We don't sell warranties—we sell good work. But we stand behind what we do. We've been here 15 years. We're not going anywhere.</p>
+                        <p>Fair warning: Sometimes appliances have multiple issues. We'll tell you if we see other problems brewing.</p>
                     </div>
                 </div>
             </div>
@@ -653,43 +855,64 @@
     </section>
 
     <!-- CTA Final -->
-    <section class="py-20 bg-stone-900 text-white">
+    <section class="py-20 bg-stone-900 text-white mobile-cta-spacer">
         <div class="max-w-4xl mx-auto px-6 text-center fade-up">
             <h2 class="serif text-3xl md:text-4xl font-semibold mb-6">
-                La tranquillité a un prix.<br>Le regret aussi.
+                Peace of mind has a price.<br>So does regret.
             </h2>
             <p class="text-stone-400 mb-8 text-lg">
-                Vous pouvez attendre la panne. Et payer l'urgence. Et stresser.<br>
-                Ou anticiper maintenant. À prix calme.
+                You can wait for the breakdown. And pay the emergency rate. And stress.<br>
+                Or call now. While it's calm.
             </p>
             
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <button onclick="openModal()" class="bg-white text-stone-900 px-8 py-4 rounded font-semibold hover:bg-stone-200 transition-colors">
-                    Devenir membre
+                    Book Repair
                 </button>
-                <a href="tel:0522980958" class="border border-white/30 text-white px-8 py-4 rounded font-medium hover:bg-white/10 transition-colors">
-                    Parler à un conseiller
+                <a href="tel:+15551234567" class="border border-white/30 text-white px-8 py-4 rounded font-medium hover:bg-white/10 transition-colors">
+                    Speak to a Technician
                 </a>
             </div>
             
             <p class="text-sm text-stone-500 mt-6">
-                Satisfait ou remboursé 30 jours. Sans engagement de durée.
+                $65 first service call. Applied to repair if approved. No hidden fees.
             </p>
         </div>
     </section>
 
+    <!-- Mobile Fixed CTA -->
+    <div class="mobile-cta">
+        <a href="tel:+15551234567" class="flex-1 bg-stone-100 text-stone-900 py-3 rounded font-semibold text-center flex items-center justify-center space-x-2">
+            <i data-lucide="phone" class="w-5 h-5"></i>
+            <span>Call Now</span>
+        </a>
+        <button onclick="openModal()" class="flex-1 bg-stone-900 text-white py-3 rounded font-semibold">
+            Book Online
+        </button>
+    </div>
+
     <!-- Footer -->
-    <footer class="bg-stone-950 text-stone-400 py-12 border-t border-stone-900">
+    <footer class="bg-stone-950 text-stone-400 py-12 border-t border-stone-900 mobile-cta-spacer">
         <div class="max-w-6xl mx-auto px-6">
             <div class="grid md:grid-cols-4 gap-8 mb-8">
                 <div class="col-span-2">
                     <div class="flex items-center space-x-2 mb-4">
                         <div class="w-8 h-8 bg-stone-800 rounded-sm flex items-center justify-center">
-                            <span class="text-stone-50 font-bold text-sm">A</span>
+                            <span class="text-stone-50 font-bold text-sm">C</span>
                         </div>
-                        <span class="font-semibold text-stone-50">AHWS</span>
+                        <span class="font-semibold text-stone-50">Central Appliance Repair</span>
                     </div>
-                    <p class="text-sm mb-4">Vous n'appelez pas un réparateur. Vous appelez quelqu'un qui sait.</p>
+                    <p class="text-sm mb-4">You don't call a repairman. You call someone who knows.</p>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="flex text-yellow-500">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <span class="text-sm text-stone-300">4.9 (247 reviews)</span>
+                    </div>
                     <div class="flex space-x-4">
                         <a href="#" class="w-10 h-10 rounded-full bg-stone-800 flex items-center justify-center hover:bg-stone-700 transition-colors">
                             <i data-lucide="facebook" class="w-5 h-5"></i>
@@ -706,10 +929,10 @@
                 <div>
                     <h4 class="text-stone-50 font-medium mb-4">Services</h4>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="#pourquoi" class="hover:text-white transition-colors">Particuliers</a></li>
-                        <li><a href="#professionnels" class="hover:text-white transition-colors">Restaurants</a></li>
-                        <li><a href="#professionnels" class="hover:text-white transition-colors">Hôtels</a></li>
-                        <li><a href="#professionnels" class="hover:text-white transition-colors">Commerces</a></li>
+                        <li><a href="#services" class="hover:text-white transition-colors">Residential</a></li>
+                        <li><a href="#commercial" class="hover:text-white transition-colors">Restaurants</a></li>
+                        <li><a href="#commercial" class="hover:text-white transition-colors">Hotels</a></li>
+                        <li><a href="#commercial" class="hover:text-white transition-colors">Property Management</a></li>
                     </ul>
                 </div>
 
@@ -718,25 +941,29 @@
                     <ul class="space-y-2 text-sm">
                         <li class="flex items-center space-x-2">
                             <i data-lucide="phone" class="w-4 h-4"></i>
-                            <span>05 22 98 09 58</span>
+                            <span>(555) 123-4567</span>
                         </li>
                         <li class="flex items-center space-x-2">
                             <i data-lucide="mail" class="w-4 h-4"></i>
-                            <span>contact@ahws.ma</span>
+                            <span>service@centralappliancerepair.com</span>
                         </li>
                         <li class="flex items-center space-x-2">
                             <i data-lucide="map-pin" class="w-4 h-4"></i>
-                            <span>Maarif, Casablanca</span>
+                            <span>Downtown, Your City</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i data-lucide="clock" class="w-4 h-4"></i>
+                            <span>Open 24/7</span>
                         </li>
                     </ul>
                 </div>
             </div>
 
             <div class="border-t border-stone-900 pt-8 flex flex-col md:flex-row items-center justify-between text-sm">
-                <p>&copy; 2025 AHWS. Tous droits réservés.</p>
+                <p>&copy; 2025 Central Appliance Repair. All rights reserved.</p>
                 <div class="flex space-x-6 mt-4 md:mt-0">
-                    <a href="#" class="hover:text-white transition-colors">Confidentialité</a>
-                    <a href="#" class="hover:text-white transition-colors">CGV</a>
+                    <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms</a>
                 </div>
             </div>
         </div>
@@ -747,7 +974,7 @@
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeModal()"></div>
         <div class="absolute inset-x-4 top-20 md:inset-x-auto md:left-1/2 md:-translate-x-1/2 md:w-full md:max-w-md bg-white rounded-lg shadow-2xl max-h-[80vh] overflow-y-auto">
             <div class="p-6 border-b border-stone-200 flex items-center justify-between">
-                <h3 class="font-semibold text-lg">Devenir membre AHWS</h3>
+                <h3 class="font-semibold text-lg">Book a Repair</h3>
                 <button onclick="closeModal()" class="p-2 hover:bg-stone-100 rounded transition-colors">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
@@ -756,52 +983,55 @@
             <div class="p-6">
                 <form id="member-form" class="space-y-4">
                     <div>
-                        <label class="block text-sm font-medium text-stone-700 mb-1">Vous êtes</label>
+                        <label class="block text-sm font-medium text-stone-700 mb-1">You are</label>
                         <div class="grid grid-cols-2 gap-3">
-                            <button type="button" class="type-btn py-3 px-4 border border-stone-300 rounded text-sm hover:border-stone-900 transition-colors text-center" data-type="particulier">
-                                Un particulier
+                            <button type="button" class="type-btn py-3 px-4 border border-stone-300 rounded text-sm hover:border-stone-900 transition-colors text-center" data-type="residential">
+                                Residential
                             </button>
-                            <button type="button" class="type-btn py-3 px-4 border border-stone-300 rounded text-sm hover:border-stone-900 transition-colors text-center" data-type="professionnel">
-                                Un professionnel
+                            <button type="button" class="type-btn py-3 px-4 border border-stone-300 rounded text-sm hover:border-stone-900 transition-colors text-center" data-type="commercial">
+                                Commercial
                             </button>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-2 gap-4">
-                        <input type="text" placeholder="Prénom" required class="border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none">
-                        <input type="text" placeholder="Nom" required class="border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none">
+                        <input type="text" placeholder="First Name" required class="border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none">
+                        <input type="text" placeholder="Last Name" required class="border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none">
                     </div>
 
-                    <input type="tel" placeholder="Téléphone" required class="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none">
+                    <input type="tel" placeholder="Phone" required class="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none">
                     
                     <input type="email" placeholder="Email" required class="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none">
 
+                    <input type="text" placeholder="Address" required class="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none">
+
                     <select class="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none bg-white">
-                        <option value="" disabled selected>Quartier</option>
-                        <option>Maarif</option>
-                        <option>Anfa</option>
-                        <option>Gauthier</option>
-                        <option>Ain Diab</option>
-                        <option>Racine</option>
-                        <option>Sidi Maarouf</option>
-                        <option>Autre</option>
+                        <option value="" disabled selected>Appliance Type</option>
+                        <option>Refrigerator/Freezer</option>
+                        <option>Washer</option>
+                        <option>Dryer</option>
+                        <option>Dishwasher</option>
+                        <option>Oven/Range</option>
+                        <option>Microwave</option>
+                        <option>Other</option>
                     </select>
 
                     <select class="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none bg-white">
-                        <option value="" disabled selected>Abonnement souhaité</option>
-                        <option>Essentiel (199 DH/mois)</option>
-                        <option>Confort (279 DH/mois)</option>
-                        <option>Premium (479 DH/mois)</option>
-                        <option>Je ne sais pas encore</option>
+                        <option value="" disabled selected>Urgency</option>
+                        <option>Emergency (Tonight)</option>
+                        <option>Same Day (Today)</option>
+                        <option>Next Day (Tomorrow)</option>
+                        <option>This Week</option>
+                        <option>Just Planning</option>
                     </select>
 
-                    <button type="submit" class="w-full bg-stone-900 text-white py-3 rounded font-medium hover:bg-stone-800 transition-colors">
-                        Être rappelé sous 2h
+                    <button type="submit" id="submit-btn" class="w-full bg-stone-900 text-white py-3 rounded font-medium hover:bg-stone-800 transition-colors flex items-center justify-center">
+                        <span>Request Callback</span>
                     </button>
                 </form>
 
                 <p class="text-xs text-stone-500 text-center mt-4">
-                    Un conseiller vous appelle pour finaliser. Aucun prélèvement avant confirmation orale.
+                    We'll call within 30 minutes to confirm timing. No charge until we arrive.
                 </p>
             </div>
         </div>
@@ -822,17 +1052,37 @@
             initCalculator();
             initScrollReveal();
             initNavbar();
+            initFormHandler();
         });
 
-        // Navbar scroll effect
+        // Smart Navbar hide/show on scroll
+        let lastScroll = 0;
         function initNavbar() {
             const nav = document.getElementById('navbar');
+            const trustBar = document.querySelector('.fixed.top-\\[72px\\]');
+            
             window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
+                const currentScroll = window.scrollY;
+                
+                // Add shadow when scrolled
+                if (currentScroll > 50) {
                     nav.classList.add('shadow-sm');
                 } else {
                     nav.classList.remove('shadow-sm');
                 }
+                
+                // Hide/show on scroll direction (mobile only)
+                if (window.innerWidth < 768) {
+                    if (currentScroll > lastScroll && currentScroll > 100) {
+                        nav.classList.add('nav-hidden');
+                        if (trustBar) trustBar.classList.add('nav-hidden');
+                    } else {
+                        nav.classList.remove('nav-hidden');
+                        if (trustBar) trustBar.classList.remove('nav-hidden');
+                    }
+                }
+                
+                lastScroll = currentScroll;
             }, { passive: true });
         }
 
@@ -844,7 +1094,7 @@
 
             function update() {
                 const sum = parseInt(content.value) + parseInt(event.value);
-                total.textContent = sum.toLocaleString() + ' DH';
+                total.textContent = '$' + sum.toLocaleString();
             }
 
             content.addEventListener('change', update);
@@ -870,7 +1120,7 @@
             document.body.style.overflow = 'hidden';
             
             if (type) {
-                const btn = document.querySelector(`[data-type="${type === 'restaurant' || type === 'hotel' ? 'professionnel' : 'particulier'}"]`);
+                const btn = document.querySelector(`[data-type="${type === 'restaurant' || type === 'hotel' ? 'commercial' : 'residential'}"]`);
                 if (btn) btn.click();
             }
         }
@@ -892,12 +1142,33 @@
             });
         });
 
-        // Form submit
-        document.getElementById('member-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            closeModal();
-            showToast('Merci. Un conseiller vous rappelle dans les 2 prochaines heures.');
-        });
+        // Form handler with loading state
+        function initFormHandler() {
+            const form = document.getElementById('member-form');
+            const submitBtn = document.getElementById('submit-btn');
+            
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Show loading state
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
+                submitBtn.disabled = true;
+                submitBtn.classList.add('opacity-75');
+                
+                // Simulate API call
+                setTimeout(() => {
+                    closeModal();
+                    showToast('Thank you! We will call you within 30 minutes.');
+                    
+                    // Reset button
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('opacity-75');
+                    form.reset();
+                }, 1500);
+            });
+        }
 
         // FAQ toggle
         function toggleFaq(button) {
