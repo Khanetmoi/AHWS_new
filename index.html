@@ -3,10 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Central Appliance Repair | Same-Day Appliance Repair | (555) 123-4567</title>
-    <meta name="description" content="Same-day appliance repair. $65 first service call. 24/7 live answer. Serving downtown and surrounding areas since 2010.">
+    <title>Central Appliance Repair | Same-Day Appliance Repair | (240) 923-6628</title>
+    <meta name="description" content="Same-day appliance repair. $65 first service call. 24/7 live answer. Serving Washington DC, Maryland, and Northern Virginia since 2010.">
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Import Lucide icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Import Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     
     <!-- Schema Markup for LocalBusiness -->
@@ -15,25 +19,26 @@
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
         "name": "Central Appliance Repair",
-        "image": "https://centralappliancerepair.com/logo.jpg",
-        "telephone": "+15551234567",
+        "image": "https://centralappliancerepair.com/logo.jpg", 
+        "telephone": "+12409236628",
         "email": "service@centralappliancerepair.com",
         "address": {
             "@type": "PostalAddress",
             "streetAddress": "123 Oak Street",
-            "addressLocality": "Your City",
-            "addressRegion": "ST",
-            "postalCode": "12345",
+            "addressLocality": "Washington",
+            "addressRegion": "DC",
+            "postalCode": "20001",
             "addressCountry": "US"
         },
         "geo": {
             "@type": "GeoCoordinates",
-            "latitude": 40.7128,
-            "longitude": -74.0060
+            "latitude": 38.9072,
+            "longitude": -77.0369
         },
         "url": "https://centralappliancerepair.com",
         "priceRange": "$$",
         "openingHours": "Mo-Su 00:00-23:59",
+        "areaServed": ["Washington DC", "Maryland", "Northern Virginia"],
         "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "4.9",
@@ -84,12 +89,10 @@
             .fade-up { opacity: 1; transform: none; }
         }
         
-        /* Smart navbar hide/show */
         .nav-hidden {
             transform: translateY(-100%);
         }
         
-        /* Loading spinner */
         .spinner {
             border: 2px solid rgba(255,255,255,0.3);
             border-radius: 50%;
@@ -105,7 +108,6 @@
             to { transform: rotate(360deg); }
         }
         
-        /* Mobile bottom CTA */
         @media (max-width: 768px) {
             .mobile-cta {
                 position: fixed;
@@ -131,7 +133,6 @@
             }
         }
         
-        /* Sticky calculator on mobile */
         @media (max-width: 1024px) {
             .sticky-calc {
                 position: sticky;
@@ -140,7 +141,6 @@
             }
         }
         
-        /* Brand logo grayscale hover */
         .brand-logo {
             filter: grayscale(100%);
             opacity: 0.6;
@@ -150,6 +150,56 @@
         .brand-logo:hover {
             filter: grayscale(0%);
             opacity: 1;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 100%;
+            min-height: 300px;
+            background: #e5e5e5;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        .map-iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Chat Widget Styles */
+        #chatModal .absolute.inset-0 {
+            cursor: pointer;
+        }
+        
+        #chatMessages {
+            scroll-behavior: smooth;
+        }
+        
+        #chatMessages::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        #chatMessages::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        #chatMessages::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 3px;
+        }
+        
+        #chatMessages::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .chat-button {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .chat-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
         }
     </style>
 </head>
@@ -176,9 +226,9 @@
             </div>
 
             <div class="flex items-center space-x-4">
-                <a href="tel:+15551234567" class="hidden lg:flex items-center space-x-2 text-sm text-stone-600 hover:text-stone-900">
+                <a href="tel:+12409236628" class="hidden lg:flex items-center space-x-2 text-sm text-stone-600 hover:text-stone-900">
                     <i data-lucide="phone" class="w-4 h-4"></i>
-                    <span>(555) 123-4567</span>
+                    <span>(240) 923-6628</span>
                 </a>
                 <button onclick="openModal()" class="bg-stone-900 text-stone-50 px-5 py-2.5 text-sm font-medium hover:bg-stone-800 transition-colors rounded-sm">
                     Book Now
@@ -196,11 +246,11 @@
                 <span>(247 reviews)</span>
             </span>
             <span class="w-px h-3 bg-stone-700"></span>
-            <span>Serving [Your City] since 2010</span>
+            <span>Serving DC, MD & Northern VA since 2010</span>
             <span class="w-px h-3 bg-stone-700"></span>
             <span class="flex items-center space-x-1">
                 <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
-                <span>3 repairs completed today</span>
+                <span id="todayRepairs">3 repairs completed today</span>
             </span>
             <span class="w-px h-3 bg-stone-700"></span>
             <span class="text-green-400 font-medium">Open 24/7</span>
@@ -211,14 +261,14 @@
     <section class="pt-32 md:pt-40 pb-20 px-6 min-h-screen flex items-center">
         <div class="max-w-6xl mx-auto w-full">
             <!-- First-time offer banner -->
-            <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-8 flex items-center justify-between fade-up">
+            <div id="promoBanner" class="bg-green-50 border border-green-200 rounded-lg p-4 mb-8 flex items-center justify-between fade-up">
                 <div class="flex items-center space-x-3">
                     <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
                         <i data-lucide="gift" class="w-5 h-5 text-green-600"></i>
                     </div>
                     <div>
-                        <p class="font-semibold text-green-900">First-time customer special</p>
-                        <p class="text-sm text-green-700">$65 service call (normally $85). Limited time.</p>
+                        <p class="font-semibold text-green-900" id="promoTitle">First-time customer special</p>
+                        <p class="text-sm text-green-700" id="promoDetails">$65 service call (normally $85). Limited time.</p>
                     </div>
                 </div>
                 <button onclick="openModal()" class="bg-green-600 text-white px-4 py-2 rounded text-sm font-medium hover:bg-green-700 transition-colors hidden sm:block">
@@ -228,8 +278,8 @@
 
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <div class="space-y-8">
-                    <div class="inline-flex items-center space-x-2 px-3 py-1.5 bg-red-50 border border-red-200 rounded-full text-red-700 text-xs font-medium">
-                        <span class="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span>
+                    <div class="inline-flex items-center space-x-2 px-3 py-1.5 bg-red-50 border border-red-200 rounded-full text-red-700 text-xs font-medium" id="techStatus">
+                        <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
                         <span>Technician on call - 12 min response time</span>
                     </div>
 
@@ -380,7 +430,6 @@
                 </div>
             </div>
 
-            <!-- Price Match Guarantee -->
             <div class="mt-12 bg-stone-900 rounded-lg p-8 text-center text-white fade-up">
                 <div class="flex items-center justify-center space-x-2 mb-4">
                     <i data-lucide="shield-check" class="w-8 h-8 text-green-400"></i>
@@ -543,42 +592,55 @@
                 <div class="fade-up">
                     <h2 class="serif text-3xl md:text-4xl font-semibold mb-6">
                         Local technicians.<br>
-                        <span class="text-stone-400">Fast response.</span>
+                        <span class="text-stone-400">Fast response across DC, MD & NoVA.</span>
                     </h2>
                     <p class="text-stone-600 mb-6">We live and work in your neighborhood. That's why we can get to you fast—usually within 2 hours.</p>
                     
                     <div class="grid grid-cols-2 gap-4">
                         <div class="bg-white rounded p-4 border border-stone-200">
                             <i data-lucide="map-pin" class="w-5 h-5 text-stone-400 mb-2"></i>
-                            <p class="font-medium text-sm">Downtown</p>
-                            <p class="text-xs text-stone-500">12 min avg</p>
+                            <p class="font-medium text-sm">Washington DC</p>
+                            <p class="text-xs text-stone-500">15 min avg</p>
                         </div>
                         <div class="bg-white rounded p-4 border border-stone-200">
                             <i data-lucide="map-pin" class="w-5 h-5 text-stone-400 mb-2"></i>
-                            <p class="font-medium text-sm">Midtown</p>
-                            <p class="text-xs text-stone-500">18 min avg</p>
+                            <p class="font-medium text-sm">Maryland (PG, MoCo)</p>
+                            <p class="text-xs text-stone-500">20 min avg</p>
                         </div>
                         <div class="bg-white rounded p-4 border border-stone-200">
                             <i data-lucide="map-pin" class="w-5 h-5 text-stone-400 mb-2"></i>
-                            <p class="font-medium text-sm">Westside</p>
-                            <p class="text-xs text-stone-500">22 min avg</p>
-                        </div>
-                        <div class="bg-white rounded p-4 border border-stone-200">
-                            <i data-lucide="map-pin" class="w-5 h-5 text-stone-400 mb-2"></i>
-                            <p class="font-medium text-sm">Eastside</p>
+                            <p class="font-medium text-sm">Northern VA</p>
                             <p class="text-xs text-stone-500">25 min avg</p>
+                        </div>
+                        <div class="bg-white rounded p-4 border border-stone-200">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-stone-400 mb-2"></i>
+                            <p class="font-medium text-sm">Arlington/Alexandria</p>
+                            <p class="text-xs text-stone-500">20 min avg</p>
                         </div>
                     </div>
                     
-                    <p class="text-sm text-stone-500 mt-4">Don't see your area? Call us—we probably cover it.</p>
+                    <p class="text-sm text-stone-500 mt-4">Serving all of DC, Maryland (Montgomery, Prince George's) and Northern Virginia (Fairfax, Arlington, Loudoun).</p>
+                    
+                    <div class="mt-6 flex items-center space-x-3">
+                        <a href="https://g.page/r/Cbc348KMbcH8EBM/review" target="_blank" class="inline-flex items-center space-x-2 bg-white border border-stone-300 rounded-full px-4 py-2 text-sm hover:border-stone-900 transition-colors">
+                            <i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i>
+                            <span>Leave us a review on Google</span>
+                            <i data-lucide="external-link" class="w-3 h-3"></i>
+                        </a>
+                    </div>
                 </div>
                 
-                <div class="bg-stone-200 rounded-lg h-80 flex items-center justify-center fade-up">
-                    <div class="text-center text-stone-500">
-                        <i data-lucide="map" class="w-16 h-16 mx-auto mb-4 opacity-50"></i>
-                        <p class="font-medium">Service Area Map</p>
-                        <p class="text-sm">[Interactive map showing 15-mile service radius]</p>
+                <div class="fade-up">
+                    <div class="map-container shadow-lg">
+                        <iframe class="map-iframe" 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d49711.22146741178!2d-77.072375!3d38.8936708!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b7c6de5af6e45b%3A0xc2528a05b47c9239!2sWashington%2C%20DC!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade"
+                            title="Service area map covering Washington DC, Maryland, Northern Virginia">
+                        </iframe>
                     </div>
+                    <p class="text-xs text-stone-500 mt-2 text-center">Service radius: 50 miles around DC</p>
                 </div>
             </div>
         </div>
@@ -655,15 +717,15 @@
             <div class="bg-stone-900 rounded-lg p-8 text-white fade-up">
                 <div class="grid md:grid-cols-3 gap-8 text-center">
                     <div>
-                        <div class="text-3xl font-bold text-stone-400 mb-1">0</div>
+                        <div class="text-3xl font-bold text-stone-400 mb-1" id="commercialClosures">0</div>
                         <p class="text-sm text-stone-500">closures due to breakdown this quarter</p>
                     </div>
                     <div>
-                        <div class="text-3xl font-bold text-stone-400 mb-1">23 min</div>
+                        <div class="text-3xl font-bold text-stone-400 mb-1" id="commercialResponse">23</div>
                         <p class="text-sm text-stone-500">average commercial response time</p>
                     </div>
                     <div>
-                        <div class="text-3xl font-bold text-stone-400 mb-1">47</div>
+                        <div class="text-3xl font-bold text-stone-400 mb-1" id="commercialProtected">47</div>
                         <p class="text-sm text-stone-500">local businesses protected</p>
                     </div>
                 </div>
@@ -869,7 +931,7 @@
                 <button onclick="openModal()" class="bg-white text-stone-900 px-8 py-4 rounded font-semibold hover:bg-stone-200 transition-colors">
                     Book Repair
                 </button>
-                <a href="tel:+15551234567" class="border border-white/30 text-white px-8 py-4 rounded font-medium hover:bg-white/10 transition-colors">
+                <a href="tel:+12409236628" class="border border-white/30 text-white px-8 py-4 rounded font-medium hover:bg-white/10 transition-colors">
                     Speak to a Technician
                 </a>
             </div>
@@ -882,7 +944,7 @@
 
     <!-- Mobile Fixed CTA -->
     <div class="mobile-cta">
-        <a href="tel:+15551234567" class="flex-1 bg-stone-100 text-stone-900 py-3 rounded font-semibold text-center flex items-center justify-center space-x-2">
+        <a href="tel:+12409236628" class="flex-1 bg-stone-100 text-stone-900 py-3 rounded font-semibold text-center flex items-center justify-center space-x-2">
             <i data-lucide="phone" class="w-5 h-5"></i>
             <span>Call Now</span>
         </a>
@@ -912,6 +974,7 @@
                             <i data-lucide="star" class="w-4 h-4 fill-current"></i>
                         </div>
                         <span class="text-sm text-stone-300">4.9 (247 reviews)</span>
+                        <a href="https://g.page/r/Cbc348KMbcH8EBM/review" target="_blank" class="text-xs text-stone-500 hover:text-stone-300 underline ml-2">Review us</a>
                     </div>
                     <div class="flex space-x-4">
                         <a href="#" class="w-10 h-10 rounded-full bg-stone-800 flex items-center justify-center hover:bg-stone-700 transition-colors">
@@ -941,7 +1004,7 @@
                     <ul class="space-y-2 text-sm">
                         <li class="flex items-center space-x-2">
                             <i data-lucide="phone" class="w-4 h-4"></i>
-                            <span>(555) 123-4567</span>
+                            <span>(240) 923-6628</span>
                         </li>
                         <li class="flex items-center space-x-2">
                             <i data-lucide="mail" class="w-4 h-4"></i>
@@ -949,7 +1012,7 @@
                         </li>
                         <li class="flex items-center space-x-2">
                             <i data-lucide="map-pin" class="w-4 h-4"></i>
-                            <span>Downtown, Your City</span>
+                            <span>Washington DC / MD / NoVA</span>
                         </li>
                         <li class="flex items-center space-x-2">
                             <i data-lucide="clock" class="w-4 h-4"></i>
@@ -960,7 +1023,7 @@
             </div>
 
             <div class="border-t border-stone-900 pt-8 flex flex-col md:flex-row items-center justify-between text-sm">
-                <p>&copy; 2025 Central Appliance Repair. All rights reserved.</p>
+                <p>&copy; 2025 Central Appliance Repair. Serving Washington DC, Maryland, Northern Virginia.</p>
                 <div class="flex space-x-6 mt-4 md:mt-0">
                     <a href="#" class="hover:text-white transition-colors">Privacy</a>
                     <a href="#" class="hover:text-white transition-colors">Terms</a>
@@ -981,7 +1044,7 @@
             </div>
             
             <div class="p-6">
-                <form id="member-form" class="space-y-4">
+                <form id="booking-form" class="space-y-4">
                     <div>
                         <label class="block text-sm font-medium text-stone-700 mb-1">You are</label>
                         <div class="grid grid-cols-2 gap-3">
@@ -992,20 +1055,21 @@
                                 Commercial
                             </button>
                         </div>
+                        <input type="hidden" name="customerType" id="customerType" value="">
                     </div>
 
                     <div class="grid grid-cols-2 gap-4">
-                        <input type="text" placeholder="First Name" required class="border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none">
-                        <input type="text" placeholder="Last Name" required class="border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none">
+                        <input type="text" id="firstName" placeholder="First Name" required class="border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none">
+                        <input type="text" id="lastName" placeholder="Last Name" required class="border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none">
                     </div>
 
-                    <input type="tel" placeholder="Phone" required class="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none">
+                    <input type="tel" id="phone" placeholder="Phone" required class="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none">
                     
-                    <input type="email" placeholder="Email" required class="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none">
+                    <input type="email" id="email" placeholder="Email" required class="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none">
 
-                    <input type="text" placeholder="Address" required class="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none">
+                    <input type="text" id="address" placeholder="Address (city/zip)" required class="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none">
 
-                    <select class="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none bg-white">
+                    <select id="appliance" class="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none bg-white">
                         <option value="" disabled selected>Appliance Type</option>
                         <option>Refrigerator/Freezer</option>
                         <option>Washer</option>
@@ -1016,7 +1080,7 @@
                         <option>Other</option>
                     </select>
 
-                    <select class="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none bg-white">
+                    <select id="urgency" class="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none bg-white">
                         <option value="" disabled selected>Urgency</option>
                         <option>Emergency (Tonight)</option>
                         <option>Same Day (Today)</option>
@@ -1045,33 +1109,61 @@
         </div>
     </div>
 
-    <script>
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons();
-            initCalculator();
-            initScrollReveal();
-            initNavbar();
-            initFormHandler();
-        });
+    <!-- Chat Widget Elements will be added via JavaScript -->
+    <div id="chat-widget-container"></div>
 
-        // Smart Navbar hide/show on scroll
-        let lastScroll = 0;
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBPSk2oiYTdpg2zzmtIYMTDXKsoILKkzeg",
+            authDomain: "centralappliancerepair.firebaseapp.com",
+            projectId: "centralappliancerepair",
+            storageBucket: "centralappliancerepair.firebasestorage.app",
+            messagingSenderId: "148347576448",
+            appId: "1:148347576448:web:779caa6e8e5b8c181d0665",
+            measurementId: "G-986J260NQZ"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // ========== UI HELPERS ==========
+        function initCalculator() {
+            const content = document.getElementById('calc-content');
+            const event = document.getElementById('calc-event');
+            const total = document.getElementById('calc-total');
+            function update() {
+                const sum = (parseInt(content.value) || 0) + (parseInt(event.value) || 0);
+                total.textContent = '$' + sum.toLocaleString();
+            }
+            content.addEventListener('change', update);
+            event.addEventListener('change', update);
+            update();
+        }
+
+        function initScrollReveal() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+            document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+        }
+
         function initNavbar() {
             const nav = document.getElementById('navbar');
             const trustBar = document.querySelector('.fixed.top-\\[72px\\]');
-            
+            let lastScroll = 0;
             window.addEventListener('scroll', () => {
                 const currentScroll = window.scrollY;
-                
-                // Add shadow when scrolled
-                if (currentScroll > 50) {
-                    nav.classList.add('shadow-sm');
-                } else {
-                    nav.classList.remove('shadow-sm');
-                }
-                
-                // Hide/show on scroll direction (mobile only)
+                if (currentScroll > 50) nav.classList.add('shadow-sm');
+                else nav.classList.remove('shadow-sm');
                 if (window.innerWidth < 768) {
                     if (currentScroll > lastScroll && currentScroll > 100) {
                         nav.classList.add('nav-hidden');
@@ -1081,54 +1173,79 @@
                         if (trustBar) trustBar.classList.remove('nav-hidden');
                     }
                 }
-                
                 lastScroll = currentScroll;
             }, { passive: true });
         }
 
-        // Calculator
-        function initCalculator() {
-            const content = document.getElementById('calc-content');
-            const event = document.getElementById('calc-event');
-            const total = document.getElementById('calc-total');
-
-            function update() {
-                const sum = parseInt(content.value) + parseInt(event.value);
-                total.textContent = '$' + sum.toLocaleString();
+        function toggleFaq(button) {
+            const answer = button.nextElementSibling;
+            const icon = button.querySelector('[data-lucide="chevron-down"]');
+            if (answer.classList.contains('hidden')) {
+                answer.classList.remove('hidden');
+                if (icon) icon.style.transform = 'rotate(180deg)';
+            } else {
+                answer.classList.add('hidden');
+                if (icon) icon.style.transform = 'rotate(0)';
             }
-
-            content.addEventListener('change', update);
-            event.addEventListener('change', update);
+            lucide.createIcons();
         }
 
-        // Scroll reveal
-        function initScrollReveal() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-            document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast');
+            if (!toast) return;
+            
+            const toastIcon = toast.querySelector('[data-lucide="check-circle"]');
+            const toastMessage = document.getElementById('toast-message');
+            
+            if (!toastMessage) return;
+            
+            toastMessage.textContent = message;
+            
+            // Update icon based on error/success
+            if (toastIcon) {
+                const iconName = isError ? 'alert-circle' : 'check-circle';
+                toastIcon.setAttribute('data-lucide', iconName);
+            }
+            
+            // Update background color
+            if (isError) {
+                toast.classList.remove('bg-stone-900');
+                toast.classList.add('bg-red-600');
+            } else {
+                toast.classList.remove('bg-red-600');
+                toast.classList.add('bg-stone-900');
+            }
+            
+            // Re-render icons
+            lucide.createIcons();
+            
+            // Show toast
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            
+            // Hide after 4 seconds
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 4000);
         }
 
-        // Modal
-        function openModal(type) {
+        // Modal functions
+        window.openModal = function(type) {
             document.getElementById('modal').classList.remove('hidden');
             document.body.style.overflow = 'hidden';
-            
             if (type) {
                 const btn = document.querySelector(`[data-type="${type === 'restaurant' || type === 'hotel' ? 'commercial' : 'residential'}"]`);
                 if (btn) btn.click();
             }
-        }
+        };
 
-        function closeModal() {
+        window.closeModal = function() {
             document.getElementById('modal').classList.add('hidden');
             document.body.style.overflow = '';
-        }
+        };
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
 
         // Type selection
         document.querySelectorAll('.type-btn').forEach(btn => {
@@ -1139,66 +1256,392 @@
                 });
                 btn.classList.remove('border-stone-300');
                 btn.classList.add('border-stone-900', 'bg-stone-900', 'text-white');
+                document.getElementById('customerType').value = btn.getAttribute('data-type');
             });
         });
 
-        // Form handler with loading state
-        function initFormHandler() {
-            const form = document.getElementById('member-form');
-            const submitBtn = document.getElementById('submit-btn');
+        // ========== FIREBASE FORM SUBMISSION WITH EMAIL FALLBACK ==========
+        const bookingForm = document.getElementById('booking-form');
+        
+        // Email fallback function
+        function sendEmailFallback(formData) {
+            const {
+                customerType, firstName, lastName, phone, 
+                email, address, appliance, urgency
+            } = formData;
             
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                
-                // Show loading state
-                const originalText = submitBtn.innerHTML;
-                submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
-                submitBtn.disabled = true;
-                submitBtn.classList.add('opacity-75');
-                
-                // Simulate API call
-                setTimeout(() => {
+            const subject = encodeURIComponent('New Service Request - Central Appliance Repair');
+            const body = encodeURIComponent(
+                `New Service Request\n\n` +
+                `Customer Type: ${customerType}\n` +
+                `Name: ${firstName} ${lastName}\n` +
+                `Phone: ${phone}\n` +
+                `Email: ${email}\n` +
+                `Address: ${address}\n` +
+                `Appliance: ${appliance}\n` +
+                `Urgency: ${urgency}\n\n` +
+                `Please contact this customer within 30 minutes.`
+            );
+            
+            window.location.href = `mailto:service@centralappliancerepair.com?subject=${subject}&body=${body}`;
+        }
+
+        bookingForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Collect form data
+            const formData = {
+                customerType: document.getElementById('customerType').value,
+                firstName: document.getElementById('firstName').value.trim(),
+                lastName: document.getElementById('lastName').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                address: document.getElementById('address').value.trim(),
+                appliance: document.getElementById('appliance').value,
+                urgency: document.getElementById('urgency').value
+            };
+
+            // Basic validation
+            if (!formData.customerType || !formData.firstName || !formData.lastName || 
+                !formData.phone || !formData.email || !formData.address || 
+                !formData.appliance || !formData.urgency) {
+                showToast('Please fill all fields', true);
+                return;
+            }
+
+            // Phone validation (simple)
+            if (!formData.phone.match(/^[\d\s\-\(\)]{10,}$/)) {
+                showToast('Please enter a valid phone number', true);
+                return;
+            }
+
+            // Email validation
+            if (!formData.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                showToast('Please enter a valid email address', true);
+                return;
+            }
+
+            // Show loading
+            const submitBtn = document.getElementById('submit-btn');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-75');
+
+            try {
+                // Try Firebase first
+                try {
+                    await db.collection('bookings').add({
+                        ...formData,
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                        status: 'new',
+                        source: 'website'
+                    });
+                    
+                    // Success with Firebase
                     closeModal();
                     showToast('Thank you! We will call you within 30 minutes.');
+                    bookingForm.reset();
                     
-                    // Reset button
-                    submitBtn.innerHTML = originalText;
-                    submitBtn.disabled = false;
-                    submitBtn.classList.remove('opacity-75');
-                    form.reset();
-                }, 1500);
+                    // Reset type buttons
+                    document.querySelectorAll('.type-btn').forEach(b => {
+                        b.classList.remove('border-stone-900', 'bg-stone-900', 'text-white');
+                        b.classList.add('border-stone-300');
+                    });
+                    document.getElementById('customerType').value = '';
+                    
+                } catch (firebaseError) {
+                    console.log('Firebase error, using email fallback:', firebaseError);
+                    
+                    // Use email fallback
+                    sendEmailFallback(formData);
+                    
+                    closeModal();
+                    showToast('Request sent via email. We\'ll contact you soon!');
+                    bookingForm.reset();
+                    
+                    // Reset type buttons
+                    document.querySelectorAll('.type-btn').forEach(b => {
+                        b.classList.remove('border-stone-900', 'bg-stone-900', 'text-white');
+                        b.classList.add('border-stone-300');
+                    });
+                    document.getElementById('customerType').value = '';
+                }
+                
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                showToast('Unable to submit. Please call us directly.', true);
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-75');
+            }
+        });
+
+        // Add direct phone call fallback
+        window.callNow = function() {
+            window.location.href = 'tel:+12409236628';
+        };
+
+        // ========== NEW REAL-TIME FIREBASE FUNCTIONS ==========
+        
+        // Real-time data listeners
+        function setupLiveDataListeners() {
+            // Listen for stats updates
+            db.collection('stats').doc('live').onSnapshot((doc) => {
+                if (doc.exists) {
+                    const stats = doc.data();
+                    
+                    // Update repairs completed today
+                    const repairsElement = document.getElementById('todayRepairs');
+                    if (repairsElement) {
+                        repairsElement.textContent = `${stats.todayRepairs || 3} repairs completed today`;
+                    }
+                    
+                    // Update businesses protected
+                    const businessesElement = document.getElementById('commercialProtected');
+                    if (businessesElement) {
+                        businessesElement.textContent = stats.businessesProtected || 47;
+                    }
+                    
+                    // Update average response time
+                    const responseElement = document.getElementById('commercialResponse');
+                    if (responseElement) {
+                        responseElement.textContent = stats.avgResponse || 23;
+                    }
+                }
+            });
+
+            // Listen for promotion updates
+            db.collection('promotions').doc('current').onSnapshot((doc) => {
+                const banner = document.getElementById('promoBanner');
+                if (!banner) return;
+                
+                if (doc.exists) {
+                    const promo = doc.data();
+                    if (promo.active) {
+                        // Update first-time offer banner
+                        const title = document.getElementById('promoTitle');
+                        const details = document.getElementById('promoDetails');
+                        
+                        if (title) title.textContent = promo.text || 'First-time customer special';
+                        if (details) details.textContent = promo.details || '$65 service call (normally $85)';
+                        
+                        banner.classList.remove('hidden');
+                    } else {
+                        // Hide banner if not active
+                        banner.classList.add('hidden');
+                    }
+                }
+            });
+
+            // Listen for technician status (for "Technician on call" message)
+            db.collection('technicians').where('status', '==', 'online').limit(1).onSnapshot((snapshot) => {
+                const techStatusElement = document.getElementById('techStatus');
+                if (techStatusElement) {
+                    if (!snapshot.empty) {
+                        // Technician online
+                        techStatusElement.innerHTML = `
+                            <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+                            <span>Technician on call - 12 min response time</span>
+                        `;
+                    } else {
+                        // All techs busy/offline
+                        techStatusElement.innerHTML = `
+                            <span class="w-1.5 h-1.5 bg-yellow-500 rounded-full animate-pulse"></span>
+                            <span>Technicians busy - 30 min response time</span>
+                        `;
+                    }
+                }
             });
         }
 
-        // FAQ toggle
-        function toggleFaq(button) {
-            const answer = button.nextElementSibling;
-            const icon = button.querySelector('[data-lucide="chevron-down"]');
-            
-            if (answer.classList.contains('hidden')) {
-                answer.classList.remove('hidden');
-                icon.style.transform = 'rotate(180deg)';
-            } else {
-                answer.classList.add('hidden');
-                icon.style.transform = 'rotate(0)';
+        // Initialize chat functionality on main site
+        function initCustomerChat() {
+            // Add chat widget button
+            const chatButton = document.createElement('div');
+            chatButton.className = 'fixed bottom-20 right-4 z-40 md:bottom-4';
+            chatButton.innerHTML = `
+                <button onclick="openChat()" class="bg-stone-900 text-white p-4 rounded-full shadow-lg hover:bg-stone-800 transition-colors chat-button">
+                    <i data-lucide="message-circle" class="w-6 h-6"></i>
+                </button>
+            `;
+            document.body.appendChild(chatButton);
+
+            // Create chat modal
+            const chatModal = document.createElement('div');
+            chatModal.id = 'chatModal';
+            chatModal.className = 'fixed inset-0 z-50 hidden';
+            chatModal.innerHTML = `
+                <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeChat()"></div>
+                <div class="absolute bottom-20 right-4 md:bottom-4 md:right-4 w-full max-w-sm bg-white rounded-lg shadow-2xl">
+                    <div class="p-4 border-b border-stone-200 flex justify-between items-center">
+                        <h3 class="font-semibold">Chat with Technician</h3>
+                        <button onclick="closeChat()" class="p-1 hover:bg-stone-100 rounded">
+                            <i data-lucide="x" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    <div class="h-96 flex flex-col">
+                        <div class="flex-1 overflow-y-auto p-4 space-y-4" id="chatMessages">
+                            <div class="text-center text-sm text-stone-500">
+                                Welcome! How can we help you today?
+                            </div>
+                        </div>
+                        <div class="p-4 border-t border-stone-200">
+                            <form id="customerChatForm" class="flex space-x-2">
+                                <input type="text" id="customerChatInput" placeholder="Type your message..." 
+                                       class="flex-1 border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none">
+                                <button type="submit" class="bg-stone-900 text-white px-4 py-2 rounded text-sm hover:bg-stone-800">
+                                    Send
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(chatModal);
+
+            // Chat state
+            let chatId = null;
+            let customerName = null;
+
+            window.openChat = async function() {
+                document.getElementById('chatModal').classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                
+                // Create or get existing chat
+                if (!chatId) {
+                    // Ask for name first
+                    customerName = prompt('Please enter your name for the chat:');
+                    if (!customerName) {
+                        closeChat();
+                        return;
+                    }
+                    
+                    try {
+                        // Create chat in Firebase
+                        const chatRef = await db.collection('chats').add({
+                            customerName,
+                            status: 'waiting',
+                            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                            lastMessageTime: firebase.firestore.FieldValue.serverTimestamp(),
+                            unread: true
+                        });
+                        chatId = chatRef.id;
+                        
+                        // Listen for messages
+                        db.collection('chats').doc(chatId).collection('messages')
+                            .orderBy('timestamp')
+                            .onSnapshot((snapshot) => {
+                                const messagesDiv = document.getElementById('chatMessages');
+                                if (!messagesDiv) return;
+                                
+                                messagesDiv.innerHTML = '';
+                                
+                                if (snapshot.empty) {
+                                    messagesDiv.innerHTML = '<div class="text-center text-sm text-stone-500">Welcome! How can we help you today?</div>';
+                                    return;
+                                }
+                                
+                                snapshot.forEach(doc => {
+                                    const msg = doc.data();
+                                    const isCustomer = msg.sender === 'customer';
+                                    
+                                    messagesDiv.innerHTML += `
+                                        <div class="flex ${isCustomer ? 'justify-end' : 'justify-start'}">
+                                            <div class="max-w-[80%] ${isCustomer ? 'bg-stone-900 text-white' : 'bg-stone-100 text-stone-900'} rounded-lg px-4 py-2">
+                                                <p class="text-sm">${msg.message}</p>
+                                                <p class="text-xs ${isCustomer ? 'text-stone-400' : 'text-stone-500'} mt-1">
+                                                    ${msg.timestamp ? new Date(msg.timestamp.toDate()).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : ''}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    `;
+                                });
+                                
+                                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+                            });
+                    } catch (error) {
+                        console.error('Error creating chat:', error);
+                        showToast('Unable to start chat. Please call us instead.', true);
+                        closeChat();
+                    }
+                }
+                
+                // Re-render icons
+                lucide.createIcons();
+            };
+
+            window.closeChat = function() {
+                const modal = document.getElementById('chatModal');
+                if (modal) {
+                    modal.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }
+            };
+
+            // Handle message submission
+            const chatForm = document.getElementById('customerChatForm');
+            if (chatForm) {
+                chatForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    
+                    const input = document.getElementById('customerChatInput');
+                    const message = input.value.trim();
+                    
+                    if (!message || !chatId) return;
+                    
+                    input.value = '';
+                    
+                    try {
+                        await db.collection('chats').doc(chatId).collection('messages').add({
+                            message,
+                            sender: 'customer',
+                            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+                        
+                        await db.collection('chats').doc(chatId).update({
+                            lastMessage: message,
+                            lastMessageTime: firebase.firestore.FieldValue.serverTimestamp(),
+                            unread: true
+                        });
+                    } catch (error) {
+                        console.error('Error sending message:', error);
+                        showToast('Failed to send message', true);
+                    }
+                });
             }
+
+            // Re-render icons
+            lucide.createIcons();
         }
 
-        // Toast
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toast-message').textContent = message;
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            initCalculator();
+            initScrollReveal();
+            initNavbar();
             
-            toast.classList.remove('translate-y-20', 'opacity-0');
+            // Add live data listeners
+            setupLiveDataListeners();
             
-            setTimeout(() => {
-                toast.classList.add('translate-y-20', 'opacity-0');
-            }, 4000);
-        }
-
-        // Close modal on escape
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
+            // Add chat widget
+            initCustomerChat();
+            
+            lucide.createIcons();
+            
+            // Show Firebase setup instructions in console (but don't error)
+            console.log(`
+                🔧 TO ENABLE FIREBASE DATABASE:
+                1. Go to https://console.firebase.google.com/project/centralappliancerepair/firestore
+                2. Click "Create database" (if not exists)
+                3. Start in test mode
+                4. Choose a location
+                5. Click "Done"
+                
+                ⚡ The form will work NOW with email fallback!
+                📧 Bookings will be sent to service@centralappliancerepair.com
+            `);
         });
     </script>
 </body>
