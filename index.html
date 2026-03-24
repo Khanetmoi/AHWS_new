@@ -3,541 +3,1024 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="American Home Warranty Service (AHWS) provides comprehensive home warranty solutions for appliances and HVAC systems in Casablanca, Morocco. Our mission is to ensure peace of mind with reliable home care services.">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <title>American Home Warranty Service</title>
+    <title>Central Appliance Repair | Same-Day Appliance Repair | (240) 923-6628</title>
+    <meta name="description" content="Same-day appliance repair. $65 first service call. 24/7 live answer. Serving Washington DC, Maryland, and Northern Virginia since 2010.">
     
+    <!-- OpenGraph & Twitter Meta Tags -->
+    <meta property="og:title" content="Central Appliance Repair | Same-Day Service">
+    <meta property="og:description" content="Same-day appliance repair. $65 first service call. 24/7 live answer.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://centralappliancerepair.com">
+    <meta property="og:image" content="https://centralappliancerepair.com/logo.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Import Lucide icons -->
+    <script src="https://unpkg.com/lucide@latest" defer></script>
+    <!-- Import Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Schema Markup for LocalBusiness -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Central Appliance Repair",
+        "image": "https://centralappliancerepair.com/logo.jpg", 
+        "telephone": "+12409236628",
+        "email": "service@centralappliancerepair.com",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "123 Oak Street",
+            "addressLocality": "Washington",
+            "addressRegion": "DC",
+            "postalCode": "20001",
+            "addressCountry": "US"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 38.9072,
+            "longitude": -77.0369
+        },
+        "url": "https://centralappliancerepair.com",
+        "priceRange": "$$",
+        "openingHours": "Mo-Su 00:00-23:59",
+        "areaServed": ["Washington DC", "Maryland", "Northern Virginia"],
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "247"
+        }
+    }
+    </script>
+    
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="background-pattern"></div>
-     <!-- Navigation Bar -->
-    <nav>
-        <div class="container">
-            <div class="logo"><img src="images/logo2.png" alt=""></div>
-            <div class="hamburger">☰</div>
-            <div class="nav-links">
-                <a href="#home"><i class="fas fa-home"></i>Home</a>
-                <div class="dropdown">
-                    <a href="#about"><i class="fas fa-info-circle"></i>About</a>
-                    <div class="dropdown-content">
-                        <a href="#mission"><i class="fas fa-bullseye"></i>Mission</a>
-                        <a href="#about"><i class="fas fa-info-circle"></i>About Us</a>
-                        <a href="#testimonials"><i class="fas fa-star"></i>Testimonials</a>
-                    </div>
+<body class="bg-stone-50 text-stone-900 antialiased smooth-scroll">
+
+    <div class="grain"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-stone-50/95 backdrop-blur-md z-40 border-b border-stone-200 transition-all duration-300" id="navbar">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="#" class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-stone-900 rounded-sm flex items-center justify-center">
+                    <span class="text-stone-50 font-bold text-sm">C</span>
                 </div>
-                <div class="dropdown">
-                    <a href="#services"><i class="fas fa-tools"></i>Solutions</a>
-                    <div class="dropdown-content">
-                        <a href="#services"><i class="fas fa-tools"></i>Services</a>
-                        <a href="#pricing"><i class="fas fa-dollar-sign"></i>Pricing</a>
-                        <a href="#coverage"><i class="fas fa-map-marker-alt"></i>Coverage Area</a>
-                    </div>
-                </div>
-                <div class="dropdown">
-                    <a href="#faqs"><i class="fas fa-question-circle"></i>Resources</a>
-                    <div class="dropdown-content">
-                        <a href="#faqs"><i class="fas fa-question-circle"></i>FAQs</a>
-                        <a href="#blog"><i class="fas fa-blog"></i>Blog</a>
-                        <a href="#partners"><i class="fas fa-handshake"></i>Partners</a>
-                    </div>
-                </div>
-                <a href="#careers"><i class="fas fa-briefcase"></i>Careers</a>
-                <a href="#contact"><i class="fas fa-envelope"></i>Contact</a>
-                <a href="#services" class="cta-button"><i class="fas fa-rocket"></i>Get Started</a>
+                <span class="font-semibold tracking-tight">Central Appliance Repair</span>
+            </a>
+            
+            <div class="hidden md:flex items-center space-x-8 text-sm">
+                <a href="#services" class="text-stone-600 hover:text-stone-900 transition-colors">Services</a>
+                <a href="#how-it-works" class="text-stone-600 hover:text-stone-900 transition-colors">How It Works</a>
+                <a href="#commercial" class="text-stone-600 hover:text-stone-900 transition-colors">Commercial</a>
+                <a href="#pricing" class="text-stone-600 hover:text-stone-900 transition-colors">Pricing</a>
+                <a href="#areas" class="text-stone-600 hover:text-stone-900 transition-colors">Service Area</a>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                <a href="tel:+12409236628" class="hidden lg:flex items-center space-x-2 text-sm text-stone-600 hover:text-stone-900">
+                    <i data-lucide="phone" class="w-4 h-4"></i>
+                    <span>(240) 923-6628</span>
+                </a>
+                <button onclick="openPortalAuth()" class="border border-stone-300 text-stone-900 px-5 py-2.5 text-sm font-bold hover:bg-stone-100 transition-colors rounded-sm mr-2 flex items-center shadow-sm"><i data-lucide="user" class="w-4 h-4 mr-2"></i> My Account</button>
+                <button onclick="openModal()" class="bg-stone-900 text-stone-50 px-5 py-2.5 text-sm font-medium hover:bg-stone-800 transition-colors rounded-sm">
+                    Book Now
+                </button>
             </div>
         </div>
     </nav>
-    <div class="backdrop"></div>
 
-    <!-- Welcome Section -->
-    <section id="home">
-        <div class="container">
-            <div class="content">
-                <div class="illustration">
-                    <img src="images/image1.png" alt="Photorealistic render of technicians repairing a washing machine">
-                </div>
-                <div class="text">
-                    <h1><span>Welcome to</span> American Home Warranty Service</h1>
-                    <h2>Protect Your Home with Confidence</h2>
-                    <p>Hassle-free home warranty services for appliances and HVAC systems in Casablanca, Morocco.</p>
-                    <a href="#services" class="cta-button">Get Started <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
+    <!-- Trust Bar -->
+    <div class="fixed top-[72px] w-full bg-stone-900 text-stone-300 text-xs py-2 z-30 hidden md:block">
+        <div class="max-w-6xl mx-auto px-6 flex items-center justify-center space-x-8">
+            <span class="flex items-center space-x-1">
+                <i data-lucide="star" class="w-3 h-3 text-yellow-500 fill-yellow-500"></i>
+                <span class="font-medium text-white">4.9</span>
+                <span>(247 reviews)</span>
+            </span>
+            <span class="w-px h-3 bg-stone-700"></span>
+            <span>Serving DC, MD & Northern VA since 2010</span>
+            <span class="w-px h-3 bg-stone-700"></span>
+            <span class="flex items-center space-x-1">
+                <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+                <span id="todayRepairs">3 repairs completed today</span>
+            </span>
+            <span class="w-px h-3 bg-stone-700"></span>
+            <span class="text-green-400 font-medium">Open 24/7</span>
         </div>
-    </section>
+    </div>
 
-    <!-- Mission Section -->
-    <section id="mission">
-        <div class="container">
-            <h2>Our Mission & Vision</h2>
-            <div class="grid">
-                <div class="card mission">
-                    <div class="card-header">
-                        <i class="fas fa-bullseye"></i>
-                        <h3>Mission</h3>
+    <!-- Hero Section -->
+    <section class="pt-32 md:pt-40 pb-20 px-6 min-h-screen flex items-center">
+        <div class="max-w-6xl mx-auto w-full">
+            <!-- First-time offer banner -->
+            <div id="promoBanner" class="bg-green-50 border border-green-200 rounded-lg p-4 mb-8 flex items-center justify-between fade-up">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                        <i data-lucide="gift" class="w-5 h-5 text-green-600"></i>
                     </div>
-                    <div class="tagline">Committed to Excellence</div>
-                    <p>American Home Warranty Service (AHWS) is committed to providing comprehensive repair and maintenance coverage for household appliances and HVAC systems in Casablanca. Our tiered subscription plans (Standard, Gold, Platinum) cater to various needs, ensuring peace of mind with reliable home care solutions.</p>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        <i class="fas fa-eye"></i>
-                        <h3>Vision</h3>
+                    <div>
+                        <p class="font-semibold text-green-900" id="promoTitle">First-time customer special</p>
+                        <p class="text-sm text-green-700" id="promoDetails">$65 service call (normally $85). Limited time.</p>
                     </div>
-                    <div class="tagline">Leading the Future</div>
-                    <p>To be Casablanca's leading home warranty provider, known for exceptional service, reliable coverage, and strong customer relationships. We aim to expand our offerings to provide affordable home care solutions across the region.</p>
                 </div>
-                <div class="card core-values">
-                    <div class="card-header">
-                        <i class="fas fa-heart"></i>
-                        <h3>Our Core Values </h3>
-                    </div>
-                    <div class="tagline">What We Stand For </div>
-                    <ul>
-                        <li><strong>Reliability</strong></li>
-                        <li><strong>Customer-Centricity</strong></li>
-                        <li><strong>Innovation</strong></li>
-                        <li><strong>Integrity</strong></li>
-                        <li><strong>Proactive Service</strong></li>
-                    </ul>
-                </div>
+                <button onclick="openModal()" class="bg-green-600 text-white px-4 py-2 rounded text-sm font-medium hover:bg-green-700 transition-colors hidden sm:block">
+                    Claim Offer
+                </button>
             </div>
-        </div>
-    </section>
 
-    <!-- Services Section -->
-    <section id="services">
-        <div class="container">
-            <h2>Our Services</h2>
-            <div class="grid">
-                <div class="card washing-machine" role="region" aria-label="Washing Machine Repair Service">
-                    <i class="fas fa-tshirt background-icon"></i>
-                    <div class="card-header">
-                        <div class="icon-wrapper">
-                            <i class="fas fa-tshirt"></i>
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <div class="inline-flex items-center space-x-2 px-3 py-1.5 bg-red-50 border border-red-200 rounded-full text-red-700 text-xs font-medium" id="techStatus">
+                        <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+                        <span>Technician on call - 12 min response time</span>
+                    </div>
+
+                    <h1 class="serif text-4xl md:text-6xl font-semibold leading-tight text-stone-900">
+                        Your fridge is down.<br>
+                        It's 7 PM.<br>
+                        <span class="text-stone-400">Tomorrow, you have guests.</span>
+                    </h1>
+
+                    <p class="text-lg text-stone-600 leading-relaxed max-w-lg">
+                        When you call Central Appliance Repair, you get someone who answers at 7 PM on a Saturday. 
+                        The others send you to voicemail, a list of crossed-out numbers, 
+                        and $300 of groceries spoiling.
+                    </p>
+
+                    <!-- Calculator Widget -->
+                    <div class="bg-white border border-stone-200 rounded-lg p-6 shadow-sm sticky-calc">
+                        <h3 class="font-semibold mb-4 text-sm uppercase tracking-wider text-stone-500">Calculate what a breakdown really costs you</h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="text-sm text-stone-600 mb-1.5 block">Current fridge contents</label>
+                                <select id="calc-content" class="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none bg-white">
+                                    <option value="0">Nothing special</option>
+                                    <option value="150">Weekly groceries (~$150)</option>
+                                    <option value="400">Event prep (~$400)</option>
+                                    <option value="800">Holiday meat/seafood (~$800)</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="text-sm text-stone-600 mb-1.5 block">Your situation tomorrow</label>
+                                <select id="calc-event" class="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none bg-white">
+                                    <option value="0">Nothing planned</option>
+                                    <option value="200">Dinner guests (embarrassment + $200 takeout)</option>
+                                    <option value="500">Family event (cancellation + $500)</option>
+                                </select>
+                            </div>
+
+                            <div class="bg-stone-100 rounded p-4 flex items-center justify-between">
+                                <span class="text-sm text-stone-600">Total cost of waiting</span>
+                                <span class="text-2xl font-bold text-red-600" id="calc-total">$0</span>
+                            </div>
+
+                            <div class="flex items-center justify-between pt-2">
+                                <div>
+                                    <span class="text-sm text-stone-500 line-through">$85</span>
+                                    <span class="text-sm font-bold text-green-600 ml-1">$65 first call</span>
+                                </div>
+                                <button onclick="openModal()" class="bg-stone-900 text-white px-6 py-2.5 rounded text-sm font-medium hover:bg-stone-800 transition-colors">
+                                    Book Tonight
+                                </button>
+                            </div>
                         </div>
-                        <h3>Washing Machine Repair</h3>
                     </div>
-                    <p>Comprehensive repair services for all washing machine brands.</p>
+
+                    <div class="flex items-center space-x-6 text-sm text-stone-500">
+                        <div class="flex items-center space-x-2">
+                            <i data-lucide="phone-call" class="w-4 h-4"></i>
+                            <span>24/7 Live Answer</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i data-lucide="clock" class="w-4 h-4"></i>
+                            <span>Same-day service</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i data-lucide="shield-check" class="w-4 h-4"></i>
+                            <span>Price Match Guarantee</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=800&q=80" alt="Repair technician diagnosing an open refrigerator" loading="lazy" class="rounded-lg shadow-2xl w-full">
                     
-                    <ul>
-                        <li>24/7 emergency support</li>
-                        <li>Certified technicians</li>
-                        <li>Quick turnaround time</li>
-                    </ul>
-                    <a href="#contact" class="cta-button" aria-label="Learn more about washing machine repair">Learn More <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <div class="card oven" role="region" aria-label="Oven Repair Service">
-                    <i class="fas fa-fire-burner background-icon"></i>
-                    <div class="card-header">
-                        <div class="icon-wrapper">
-                            <i class="fas fa-fire-burner"></i>
+                    <div class="absolute -bottom-6 -left-6 bg-white rounded-lg shadow-xl p-4 max-w-xs">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="check" class="w-5 h-5 text-green-600"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-stone-900">The Johnson Residence</p>
+                                <p class="text-xs text-stone-500 mt-1">"Fridge fixed at 8:30 PM. Dinner saved. $400 of meat preserved."</p>
+                                <p class="text-xs text-stone-400 mt-2">— Michael R., 2nd repair with us</p>
+                            </div>
                         </div>
-                        <h3>Oven Repair</h3>
                     </div>
-                    <p>Expert oven repair to keep your kitchen running smoothly.</p>
-                    <ul>
-                        <li>Same-day service available</li>
-                        <li>Gas and electric oven repairs</li>
-                        <li>90-day repair guarantee</li>
-                    </ul>
-                    <a href="#contact" class="cta-button" aria-label="Learn more about oven repair">Learn More <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <div class="card cooktop" role="region" aria-label="Cooktop Repair Service">
-                    <i class="fas fa-fire background-icon"></i>
-                    <div class="card-header">
-                        <div class="icon-wrapper">
-                            <i class="fas fa-fire"></i>
-                        </div>
-                        <h3>Cooktop Repair</h3>
+
+                    <!-- Urgency badge -->
+                    <div class="absolute -top-4 -right-4 bg-red-600 text-white px-4 py-2 rounded-lg shadow-lg animate-pulse">
+                        <p class="text-xs font-bold">URGENT</p>
+                        <p class="text-sm">Only 2 slots left today</p>
                     </div>
-                    <p>Fast and reliable cooktop repair services. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                    <br>
-                    <ul>
-                        <li>All brands supported</li>
-                        <li>Expert diagnostics</li>
-                        <li>Flexible scheduling</li>
-                    </ul>
-                    <a href="#contact" class="cta-button" aria-label="Learn more about cooktop repair">Learn More <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <div class="card dishwasher" role="region" aria-label="Dishwasher Repair Service">
-                    <i class="fas fa-sink background-icon"></i>
-                    <div class="card-header">
-                        <div class="icon-wrapper">
-                            <i class="fas fa-sink"></i>
-                        </div>
-                        <h3>Dishwasher Repair</h3>
-                    </div>
-                    <p>Professional dishwasher repair for efficient cleaning.</p>
-                    <ul>
-                        <li>Leak and drainage solutions</li>
-                        <li>Energy-efficient repairs</li>
-                        <li>Extended warranty options</li>
-                    </ul>
-                    <a href="#contact" class="cta-button" aria-label="Learn more about dishwasher repair">Learn More <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <div class="card refrigerator" role="region" aria-label="Refrigerator Repair Service">
-                    <i class="fas fa-snowflake background-icon"></i>
-                    <div class="card-header">
-                        <div class="icon-wrapper">
-                            <i class="fas fa-snowflake"></i>
-                        </div>
-                        <h3>Refrigerator Repair</h3>
-                    </div>
-                    <p>Keep your fridge running with our expert repair services.</p>
-                    <ul>
-                        <li>Cooling system fixes</li>
-                        <li>Door seal replacements</li>
-                        <li>24/7 emergency repairs</li>
-                    </ul>
-                    <a href="#contact" class="cta-button" aria-label="Learn more about refrigerator repair">Learn More <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <div class="card hvac" role="region" aria-label="HVAC Maintenance Service">
-                    <i class="fas fa-fan background-icon"></i>
-                    <div class="card-header">
-                        <div class="icon-wrapper">
-                            <i class="fas fa-fan"></i>
-                        </div>
-                        <h3>HVAC Maintenance</h3>
-                    </div>
-                    <p>Regular maintenance and repair for your HVAC systems.</p>
-                    <ul>
-                        <li>Quarterly maintenance plans</li>
-                        <li>Air quality improvements</li>
-                        <li>Emergency repair support</li>
-                    </ul>
-                    <a href="#contact" class="cta-button" aria-label="Learn more about HVAC maintenance">Learn More <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Pricing Section -->
-<section id="pricing">
-    <div class="container">
-        <h2>Plans & Pricing</h2>
-        <div class="toggle-container">
-            <span class="toggle-label-yearly">Yearly</span>
-            <label class="toggle-switch">
-                <input type="checkbox" id="pricing-toggle" aria-label="Toggle between yearly and monthly pricing">
-                <span class="toggle-slider"></span>
-            </label>
-            <span class="toggle-label-monthly">Monthly</span>
-        </div>
-        <div class="grid">
-            <div class="card standard">
-                <div class="card-header">
-                    <div class="icon-wrapper">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Standard Plan</h3>
-                </div>
-                <div class="price">
-                    <span class="price-main" data-yearly="2,500 Dhs" data-monthly="208 Dhs">2,500 Dhs</span>
-                    <span class="price-sub" data-yearly="/ year (208 Dhs / month)" data-monthly="/ month">/ year (208 Dhs / month)</span>
-                </div>
-                <ul>
-                    <li>Covers 1 appliance (excl. refrigerators)</li>
-                    <li>Service call: 150 Dhs/visit</li>
-                </ul>
-                <a href="#contact" class="cta-button signup-button" aria-label="Sign up for Standard Plan" data-plan="Standard">Sign Up <i class="fas fa-arrow-right"></i></a>
-            </div>
-            <div class="card gold">
-                <div class="card-header">
-                    <div class="icon-wrapper">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <h3>Gold Plan</h3>
-                </div>
-                <div class="price">
-                    <span class="price-main" data-yearly="6,200 Dhs" data-monthly="516 Dhs">6,200 Dhs</span>
-                    <span class="price-sub" data-yearly="/ year (516 Dhs / month)" data-monthly="/ month">/ year (516 Dhs / month)</span>
-                </div>
-                <ul>
-                    <li>Covers washer, refrigerator, oven</li>
-                    <li>Service call: 100 Dhs/visit</li>
-                </ul>
-                <a href="#contact" class="cta-button signup-button" aria-label="Sign up for Gold Plan" data-plan="Gold">Sign Up <i class="fas fa-arrow-right"></i></a>
-            </div>
-            <div class="card platinum recommended">
-                <div class="card-header">
-                    <div class="icon-wrapper">
-                        <i class="fas fa-crown"></i>
-                    </div>
-                    <h3>Platinum Plan</h3>
-                </div>
-                <div class="price">
-                    <span class="price-main" data-yearly="12,500 Dhs" data-monthly="1,042 Dhs">12,500 Dhs</span>
-                    <span class="price-sub" data-yearly="/ year" data-monthly="/ month">/ year</span>
-                </div>
-                <ul>
-                    <li>Covers all appliances, cooktop, exhaust fan, HVAC</li>
-                    <li>Service call: 50 Dhs/visit</li>
-                </ul>
-                <a href="#contact" class="cta-button signup-button" aria-label="Sign up for Platinum Plan" data-plan="Platinum">Sign Up <i class="fas fa-arrow-right"></i></a>
-            </div>
-            <div class="card one-time">
-                <div class="card-header">
-                    <div class="icon-wrapper">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <h3>One-Time Repair</h3>
-                </div>
-                <div class="price">
-                    <span class="price-main">250 Dhs</span>
-                    <span class="price-sub">/ appliance</span>
-                </div>
-                <ul>
-                    <li>Walk-in repair service</li>
-                </ul>
-                <a href="#contact" class="cta-button signup-button" aria-label="Request a one-time repair" data-plan="One-Time">Request Repair <i class="fas fa-arrow-right"></i></a>
+    <!-- Brands We Service -->
+    <section class="py-12 bg-white border-y border-stone-200">
+        <div class="max-w-6xl mx-auto px-6">
+            <p class="text-center text-sm text-stone-500 mb-6 uppercase tracking-wider">Authorized service for all major brands</p>
+            <div class="grid grid-cols-3 md:grid-cols-6 gap-8 items-center justify-items-center opacity-60">
+                <div class="brand-logo font-bold text-stone-400">Whirlpool</div>
+                <div class="brand-logo font-bold text-stone-400">GE</div>
+                <div class="brand-logo font-bold text-stone-400">Samsung</div>
+                <div class="brand-logo font-bold text-stone-400">LG</div>
+                <div class="brand-logo font-bold text-stone-400">KitchenAid</div>
+                <div class="brand-logo font-bold text-stone-400">Maytag</div>
             </div>
         </div>
-        <!-- <div class="comparison-table">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Feature</th>
-                        <th>Standard</th>
-                        <th>Gold</th>
-                        <th class="highlight-header">Platinum</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Appliances Covered</td>
-                        <td>1 (excl. refrigerators)</td>
-                        <td>Washer, refrigerator, oven</td>
-                        <td class="highlight"><i class="fas fa-check-circle icon"></i> All appliances, cooktop, exhaust fan, HVAC</td>
-                    </tr>
-                    <tr>
-                        <td>Service Call Fee</td>
-                        <td>150 Dhs/visit</td>
-                        <td>100 Dhs/visit</td>
-                        <td class="highlight"><i class="fas fa-check-circle icon"></i> 50 Dhs/visit</td>
-                    </tr>
-                    <tr>
-                        <td>Emergency Support</td>
-                        <td><i class="fas fa-times-circle icon"></i> No</td>
-                        <td><i class="fas fa-check-circle icon"></i> Yes</td>
-                        <td class="highlight"><i class="fas fa-check-circle icon"></i> Yes</td>
-                    </tr>
-                    <tr>
-                        <td>Annual Inspections</td>
-                        <td><i class="fas fa-times-circle icon"></i> No</td>
-                        <td><i class="fas fa-times-circle icon"></i> No</td>
-                        <td class="highlight"><i class="fas fa-check-circle icon"></i> Yes</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div> -->
-    </div>
-</section>
+    </section>
 
-<!-- Popup Form -->
-<div id="signup-popup" class="popup">
-    <div class="popup-content">
-        <span class="close-btn">×</span>
-        <div class="popup-header">
-            <h3>Complete Your Signup</h3>
-            <div class="progress-steps">
-                <span class="step active">1. Enter Details</span>
-                <span class="step">2. Payment</span>
+    <!-- How It Works -->
+    <section id="how-it-works" class="py-20 bg-stone-50">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 fade-up">
+                <h2 class="serif text-3xl md:text-4xl font-semibold mb-4">How it works</h2>
+                <p class="text-stone-600">Three simple steps to get your appliance running</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg p-8 text-center hover-lift fade-up relative">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 bg-stone-900 text-white rounded-full flex items-center justify-center font-bold text-sm">1</div>
+                    <div class="w-16 h-16 bg-stone-100 rounded-full flex items-center justify-center mx-auto mb-4 mt-4">
+                        <i data-lucide="phone" class="w-8 h-8 text-stone-600"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">Book Online or Call</h3>
+                    <p class="text-stone-600 text-sm">24/7 live answer. Tell us the problem and your location. We give you a real arrival window.</p>
+                </div>
+
+                <div class="bg-white rounded-lg p-8 text-center hover-lift fade-up relative" style="transition-delay: 100ms;">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 bg-stone-900 text-white rounded-full flex items-center justify-center font-bold text-sm">2</div>
+                    <div class="w-16 h-16 bg-stone-100 rounded-full flex items-center justify-center mx-auto mb-4 mt-4">
+                        <i data-lucide="search" class="w-8 h-8 text-stone-600"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">We Diagnose</h3>
+                    <p class="text-stone-600 text-sm">$65 service call (first-time). We inspect, identify the issue, and give you a written estimate.</p>
+                </div>
+
+                <div class="bg-white rounded-lg p-8 text-center hover-lift fade-up relative" style="transition-delay: 200ms;">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 bg-stone-900 text-white rounded-full flex items-center justify-center font-bold text-sm">3</div>
+                    <div class="w-16 h-16 bg-stone-100 rounded-full flex items-center justify-center mx-auto mb-4 mt-4">
+                        <i data-lucide="wrench" class="w-8 h-8 text-stone-600"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">We Fix It</h3>
+                    <p class="text-stone-600 text-sm">Most repairs done same-day. You approve the work first. No surprises, no hidden fees.</p>
+                </div>
+            </div>
+
+            <div class="mt-12 bg-stone-900 rounded-lg p-8 text-center text-white fade-up">
+                <div class="flex items-center justify-center space-x-2 mb-4">
+                    <i data-lucide="shield-check" class="w-8 h-8 text-green-400"></i>
+                    <h3 class="text-xl font-semibold">Fair Price Guarantee</h3>
+                </div>
+                <p class="text-stone-300 max-w-2xl mx-auto">Find a lower written quote for the exact same repair? We'll match it. We believe in fair pricing for expert work.</p>
             </div>
         </div>
-        <form id="signup-form">
-  <!-- Step 1: User Info -->
-  <div id="step-one">
-    <div class="form-group">
-      <input type="text" id="name" name="name" required placeholder=" ">
-      <label for="name">Full Name</label>
-    </div>
-    <div class="form-group">
-      <input type="text" id="address" name="address" required placeholder=" ">
-      <label for="address">Address</label>
-    </div>
-    <div class="form-group">
-      <input type="tel" id="phone" name="phone" required placeholder=" ">
-      <label for="phone">Phone Number</label>
-    </div>
-    <div class="form-group">
-      <input type="email" id="email" name="email" required placeholder=" ">
-      <label for="email">Email Address</label>
-    </div>
-    <button type="button" id="next-button" class="cta-button">Next</button>
-  </div>
+    </section>
 
-  <!-- Step 2: Payment -->
-  <div id="payment" style="display: none;">
-    <div class="payment-method">
-      <p>Payment Method: Mobile Money</p>
-      <label>
-        <input type="radio" name="payment" value="mobile-money" checked>
-        Mobile Money
-      </label>
-    </div>
-    <div class="mobile-money-details">
-      <p class="payment-instruction">
-        Please send payment to: <strong>Company Mobile Number: +1234567890</strong>
-      </p>
-      <div class="form-group">
-        <input type="tel" id="mobile-money-phone" name="mobile-money-phone" required placeholder=" ">
-        <label for="mobile-money-phone">Your Mobile Money Phone Number</label>
-      </div>
-      <div class="form-group">
-        <input type="text" id="mobile-money-identifier" name="mobile-money-identifier" required placeholder=" ">
-        <label for="mobile-money-identifier">Mobile Money Identifier (Name)</label>
-      </div>
-    </div>
-    <button type="submit" class="cta-button">Submit & Proceed</button>
-  </div>
-</form>
+    <!-- Section : What You Avoid -->
+    <section id="why-us" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="serif text-3xl md:text-4xl font-semibold text-center mb-16 fade-up">
+                We're not an expense.<br>
+                <span class="text-stone-400">We're what you don't pay.</span>
+            </h2>
 
-    </div>
-</div>
-    <!-- Coverage Area Section -->
-    <!-- Coverage Area Section -->
-<section id="coverage-area">
-    <div class="container">
-        <h2>Service Coverage Area</h2>
-       
-        <section class="map-section">
-            <div id="map" role="region" aria-label="Map of service locations in Casablanca"></div>
-        </section>
-    </div>
-</section>
-
-
-    <!-- Contact Section -->
-<section id="contact">
-    <div class="container">
-        <h2>Contact Us</h2>
-        <div class="contact-wrapper">
-            <!-- Contact Information -->
-            <div class="contact-info">
-                <h3>Get in Touch</h3>
-                <ul>
-                    <li>
-                        <span class="icon">✉️</span>
-                        <span>Email: <a href="van11bvd@gmail.com">van11bvd@gmail.com</a></span>
-                    </li>
-                    <li>
-                        <span class="icon">📞</span>
-                        <span>Phone: +212 600 123 456</span>
-                    </li>
-                    <li>
-                        <span class="icon">📍</span>
-                        <span>Address: 123 Rue de la Liberté, Casablanca, Morocco</span>
-                    </li>
-                </ul>
-                <div class="qr-code">
-                    <img src="images/frame.png" alt="Map Placeholder" class="map-image">
-                </div> 
-            </div>
-            <!-- Contact Form -->
-            <div class="contact-form">
-                <h3>Send a Message</h3>
-                <form id="contact-form" action="https://formspree.io/f/mdobgzjy" method="POST">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required placeholder="Your Name">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="border border-stone-200 rounded-lg p-6 hover-lift fade-up">
+                    <div class="w-12 h-12 bg-red-50 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="phone-off" class="w-6 h-6 text-red-600"></i>
                     </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required placeholder="your@email.com">
+                    <h3 class="font-semibold text-lg mb-2">The 7 PM Voicemail</h3>
+                    <p class="text-stone-600 text-sm leading-relaxed">
+                        You call 4 numbers. 3 voicemails. The 4th says "Monday." 
+                        Your fridge doesn't know it's the weekend.
+                    </p>
+                    <div class="mt-4 pt-4 border-t border-stone-100">
+                        <span class="text-green-600 text-sm font-medium">✓ Us: We answer. 90 minutes.</span>
                     </div>
-                    <div class="form-group">
-                        <label for="subject">Subject</label>
-                        <input type="text" id="subject" name="subject" required placeholder="Subject">
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" required rows="5" placeholder="Your Message"></textarea>
-                    </div>
-                    <button type="submit">Send Message</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</section>
-
-    <!-- FAQs Section -->
-<section id="faqs-section">
-    <div class="container">
-        <h2>Frequently Asked Questions</h2>
-        <div class="faq-list">
-            <div class="faq-item">
-                <button class="faq-question">How do I sign up for a subscription plan?</button>
-                <div class="faq-answer">
-                    <p>You can easily sign up on our website or call our customer service to help you choose the best plan for your needs.</p>
                 </div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">What happens if I need a repair outside of my coverage?</button>
-                <div class="faq-answer">
-                    <p>We offer one-time repairs for non-members at a higher deductible. However, signing up for a plan will give you a discount on out-of-warranty repairs.</p>
+
+                <div class="border border-stone-200 rounded-lg p-6 hover-lift fade-up" style="transition-delay: 100ms;">
+                    <div class="w-12 h-12 bg-amber-50 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="help-circle" class="w-6 h-6 text-amber-600"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">"It's complicated, it'll be expensive"</h3>
+                    <p class="text-stone-600 text-sm leading-relaxed">
+                        You don't know if $400 is fair. You pay because you're helpless. 
+                        And because you have no choice.
+                    </p>
+                    <div class="mt-4 pt-4 border-t border-stone-100">
+                        <span class="text-green-600 text-sm font-medium">✓ Us: Upfront pricing. No surprises.</span>
+                    </div>
                 </div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">How do I schedule a service?</button>
-                <div class="faq-answer">
-                    <p>Simply contact us via our website or call our dispatch line. We will send a technician to your home at a time that suits you.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">What happens if my appliance needs to be replaced?</button>
-                <div class="faq-answer">
-                    <p>If the repair cost exceeds the value of a new unit, we offer the option to replace the appliance with a new one or provide a cash-in-lieu amount.</p>
+
+                <div class="border border-stone-200 rounded-lg p-6 hover-lift fade-up" style="transition-delay: 200ms;">
+                    <div class="w-12 h-12 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="repeat" class="w-6 h-6 text-stone-600"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">Repeating your story</h3>
+                    <p class="text-stone-600 text-sm leading-relaxed">
+                        "What's the model again? The problem?" Every breakdown, you start from zero.
+                    </p>
+                    <div class="mt-4 pt-4 border-t border-stone-100">
+                        <span class="text-green-600 text-sm font-medium">✓ Us: We remember. Everything.</span>
+                    </div>
                 </div>
             </div>
         </div>
+    </section>
+
+    <!-- Section History -->
+    <section class="py-20 bg-stone-900 text-stone-50">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="fade-up">
+                    <h2 class="serif text-3xl md:text-4xl font-semibold mb-6">
+                        Your home has a service history.<br>
+                        <span class="text-stone-400">Finally.</span>
+                    </h2>
+                    
+                    <p class="text-stone-300 mb-8 leading-relaxed">
+                        When Mike arrives for the 3rd time, 
+                        he doesn't ask "what's the problem again?" 
+                        He knows your washer overheats in summer. 
+                        He brought the part.
+                    </p>
+
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-8 h-8 rounded bg-stone-800 flex items-center justify-center flex-shrink-0 mt-1 text-sm text-stone-400">01</div>
+                            <div>
+                                <h4 class="font-medium mb-1">Complete Records</h4>
+                                <p class="text-sm text-stone-400">Every repair, every part. Accessible to you.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-8 h-8 rounded bg-stone-800 flex items-center justify-center flex-shrink-0 mt-1 text-sm text-stone-400">02</div>
+                            <div>
+                                <h4 class="font-medium mb-1">Prevention</h4>
+                                <p class="text-sm text-stone-400">"Your fridge is showing signs. Should we check?"</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-8 h-8 rounded bg-stone-800 flex items-center justify-center flex-shrink-0 mt-1 text-sm text-stone-400">03</div>
+                            <div>
+                                <h4 class="font-medium mb-1">Transferable</h4>
+                                <p class="text-sm text-stone-400">Selling your home? The service history adds value.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-stone-800 rounded-lg p-6 border border-stone-700 fade-up">
+                    <div class="flex items-center justify-between mb-6 pb-4 border-b border-stone-700">
+                        <span class="text-sm font-medium text-stone-400">THE JOHNSON RESIDENCE</span>
+                        <span class="text-xs bg-green-900 text-green-400 px-2 py-1 rounded">ACTIVE</span>
+                    </div>
+                    
+                    <div class="space-y-4 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-stone-400">Address</span>
+                            <span>123 Oak Street, Apt 12B</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-stone-400">Customer since</span>
+                            <span>March 2022 (3 years)</span>
+                        </div>
+                        
+                        <div class="pt-4 border-t border-stone-700">
+                            <p class="text-stone-400 mb-3">Appliances serviced</p>
+                            
+                            <div class="space-y-3">
+                                <div class="bg-stone-900 rounded p-3">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="font-medium">Samsung Washer WW80T</span>
+                                        <span class="text-xs text-green-400">● Optimal</span>
+                                    </div>
+                                    <p class="text-xs text-stone-500">3 service calls • Belt replaced 06/2023 • Vibration monitored</p>
+                                </div>
+                                
+                                <div class="bg-stone-900 rounded p-3">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="font-medium">Bosch Fridge KGN39</span>
+                                        <span class="text-xs text-amber-400">● Watching</span>
+                                    </div>
+                                    <p class="text-xs text-stone-500">1 service call • Thermostat monitored • Service 09/2024</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="pt-4 border-t border-stone-700 flex items-center justify-between">
+                            <span class="text-stone-400">Total savings vs replacement</span>
+                            <span class="text-2xl font-bold text-green-400">$2,400</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Area -->
+    <section id="areas" class="py-20 bg-stone-100">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="fade-up">
+                    <h2 class="serif text-3xl md:text-4xl font-semibold mb-6">
+                        Local technicians.<br>
+                        <span class="text-stone-400">Fast response across DC, MD & NoVA.</span>
+                    </h2>
+                    <p class="text-stone-600 mb-6">We live and work in your neighborhood. That's why we can get to you fast—usually within 2 hours.</p>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-white rounded p-4 border border-stone-200">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-stone-400 mb-2"></i>
+                            <p class="font-medium text-sm">Washington DC</p>
+                            <p class="text-xs text-stone-500">15 min avg</p>
+                        </div>
+                        <div class="bg-white rounded p-4 border border-stone-200">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-stone-400 mb-2"></i>
+                            <p class="font-medium text-sm">Maryland (PG, MoCo)</p>
+                            <p class="text-xs text-stone-500">20 min avg</p>
+                        </div>
+                        <div class="bg-white rounded p-4 border border-stone-200">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-stone-400 mb-2"></i>
+                            <p class="font-medium text-sm">Northern VA</p>
+                            <p class="text-xs text-stone-500">25 min avg</p>
+                        </div>
+                        <div class="bg-white rounded p-4 border border-stone-200">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-stone-400 mb-2"></i>
+                            <p class="font-medium text-sm">Arlington/Alexandria</p>
+                            <p class="text-xs text-stone-500">20 min avg</p>
+                        </div>
+                    </div>
+                    
+                    <p class="text-sm text-stone-500 mt-4">Serving all of DC, Maryland (Montgomery, Prince George's) and Northern Virginia (Fairfax, Arlington, Loudoun).</p>
+                    
+                    <div class="mt-6 flex items-center space-x-3">
+                        <a href="https://g.page/r/Cbc348KMbcH8EBM/review" target="_blank" class="inline-flex items-center space-x-2 bg-white border border-stone-300 rounded-full px-4 py-2 text-sm hover:border-stone-900 transition-colors">
+                            <i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i>
+                            <span>Leave us a review on Google</span>
+                            <i data-lucide="external-link" class="w-3 h-3"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="fade-up">
+                    <div class="w-full h-[400px] bg-stone-200 rounded-lg overflow-hidden shadow-lg">
+                        <iframe class="w-full h-full border-0" 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d49711.22146741178!2d-77.072375!3d38.8936708!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b7c6de5af6e45b%3A0xc2528a05b47c9239!2sWashington%2C%20DC!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
+                            allowfullscreen="" 
+                            referrerpolicy="no-referrer-when-downgrade"
+                            title="Service area map covering Washington DC, Maryland, Northern Virginia">
+                        </iframe>
+                    </div>
+                    <p class="text-xs text-stone-500 mt-2 text-center">Service radius: 50 miles around DC</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Commercial -->
+    <section id="commercial" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 fade-up">
+                <span class="text-sm font-medium text-stone-500 uppercase tracking-wider">Commercial Services</span>
+                <h2 class="serif text-3xl md:text-4xl font-semibold mt-4">
+                    A closed door costs more than a repair
+                </h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <div class="bg-stone-50 rounded-lg shadow-sm border border-stone-200 overflow-hidden hover-lift fade-up">
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80" alt="Commercial appliance repair for a restaurant kitchen" loading="lazy" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-semibold text-lg mb-2">Restaurants & Catering</h3>
+                        <p class="text-stone-600 text-sm mb-4">
+                            Friday 8 PM. Your walk-in cooler fails. 
+                            Do you open Saturday or close?
+                        </p>
+                        <ul class="space-y-2 text-sm mb-6">
+                            <li class="flex items-center space-x-2">
+                                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
+                                <span>Emergency 1-hour response</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
+                                <span>Loaner equipment if repair >4hrs</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
+                                <span>After-hours service</span>
+                            </li>
+                        </ul>
+                        <button onclick="openModal('restaurant')" class="w-full bg-stone-900 text-white py-3 rounded font-medium hover:bg-stone-800 transition-colors">
+                            Get Commercial Quote
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-stone-50 rounded-lg shadow-sm border border-stone-200 overflow-hidden hover-lift fade-up" style="transition-delay: 100ms;">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80" alt="Commercial appliance repair for a hotel kitchen" loading="lazy" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-semibold text-lg mb-2">Hotels & Hospitality</h3>
+                        <p class="text-stone-600 text-sm mb-4">
+                            One guest complaint about a broken AC. 
+                            How much does that bad review cost you?
+                        </p>
+                        <ul class="space-y-2 text-sm mb-6">
+                            <li class="flex items-center space-x-2">
+                                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
+                                <span>Dedicated technician (same face)</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
+                                <span>Multi-location, single invoice</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
+                                <span>Monthly maintenance reports</span>
+                            </li>
+                        </ul>
+                        <button onclick="openModal('hotel')" class="w-full bg-stone-900 text-white py-3 rounded font-medium hover:bg-stone-800 transition-colors">
+                            Schedule Assessment
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-stone-900 rounded-lg p-8 text-white fade-up">
+                <div class="grid md:grid-cols-3 gap-8 text-center">
+                    <div>
+                        <div class="text-3xl font-bold text-stone-400 mb-1" id="commercialClosures">0</div>
+                        <p class="text-sm text-stone-500">closures due to breakdown this quarter</p>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold text-stone-400 mb-1" id="commercialResponse">23</div>
+                        <p class="text-sm text-stone-500">average commercial response time</p>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold text-stone-400 mb-1" id="commercialProtected">47</div>
+                        <p class="text-sm text-stone-500">local businesses protected</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Pricing -->
+    <section id="pricing" class="py-20 bg-stone-50">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 fade-up">
+                <h2 class="serif text-3xl md:text-4xl font-semibold mb-4">
+                    Simple, transparent pricing
+                </h2>
+                <p class="text-stone-600">You pay per job. No monthly fees. No hidden charges.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Service Call -->
+                <div class="bg-white border border-stone-200 rounded-lg p-6 fade-up relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-green-600 text-white text-xs px-3 py-1 rounded-bl-lg font-medium">FIRST TIME $65</div>
+                    <h3 class="font-semibold text-lg mb-1 mt-2">Service Call</h3>
+                    <p class="text-sm text-stone-500 mb-4">Diagnosis & estimate</p>
+                    <div class="text-3xl font-bold mb-6">
+                        <span id="cmsStrike1" class="text-lg text-stone-400 line-through mr-2 hidden"></span>
+                        <span id="cmsPrice1">$65</span><span class="text-lg font-normal text-stone-500"> flat</span>
+                    </div>
+                    
+                    <ul class="space-y-3 text-sm mb-6">
+                        <li class="flex items-center space-x-2">
+                            <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
+                            <span>In-home diagnosis</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
+                            <span>Written estimate</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
+                            <span>No obligation</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
+                            <span>Applied to repair if approved</span>
+                        </li>
+                    </ul>
+                    
+                    <button onclick="openModal()" class="w-full border border-stone-900 text-stone-900 py-3 rounded font-medium hover:bg-stone-900 hover:text-white transition-colors">
+                        Book Now
+                    </button>
+                </div>
+
+                <!-- Standard Repair -->
+                <div class="bg-white border-2 border-stone-900 rounded-lg p-6 relative fade-up" style="transition-delay: 100ms;">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-stone-900 text-white px-4 py-1 rounded-full text-xs font-medium">
+                        Most Common
+                    </div>
+                    
+                    <h3 class="font-semibold text-lg mb-1">Standard Repair</h3>
+                    <p class="text-sm text-stone-500 mb-4">Labor + parts</p>
+                    <div class="text-3xl font-bold mb-6"><span id="cmsStrike2" class="text-lg text-stone-400 line-through mr-2 hidden"></span><span id="cmsPrice2">$150-350</span><span class="text-lg font-normal text-stone-500"> avg</span></div>
+                    
+                    <ul class="space-y-3 text-sm mb-6">
+                        <li class="flex items-center space-x-2">
+                            <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
+                            <span class="font-semibold">Includes service call fee</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
+                            <span>OEM parts</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
+                            <span>Same-day completion</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
+                            <span>Service history tracking</span>
+                        </li>
+                    </ul>
+                    
+                    <button onclick="openModal()" class="w-full bg-stone-900 text-white py-3 rounded font-medium hover:bg-stone-800 transition-colors">
+                        Get Estimate
+                    </button>
+                    
+                    <p class="text-xs text-center text-stone-500 mt-4">Average savings vs replacement: $800</p>
+                </div>
+
+                <!-- Major Repair -->
+                <div class="bg-white border border-stone-200 rounded-lg p-6 fade-up" style="transition-delay: 200ms;">
+                    <h3 class="font-semibold text-lg mb-1">Major Repair</h3>
+                    <p class="text-sm text-stone-500 mb-4">Complex jobs</p>
+                    <div class="text-3xl font-bold mb-6"><span id="cmsStrike3" class="text-lg text-stone-400 line-through mr-2 hidden"></span><span id="cmsPrice3">$400-800</span><span class="text-lg font-normal text-stone-500"> avg</span></div>
+                    
+                    <ul class="space-y-3 text-sm mb-6">
+                        <li class="flex items-center space-x-2">
+                            <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
+                            <span>Compressor, motor, control board</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
+                            <span>Priority scheduling</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
+                            <span>Replace vs repair advice</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i data-lucide="check" class="w-4 h-4 text-stone-900"></i>
+                            <span>Detailed service report</span>
+                        </li>
+                    </ul>
+                    
+                    <button onclick="openModal()" class="w-full border border-stone-900 text-stone-900 py-3 rounded font-medium hover:bg-stone-900 hover:text-white transition-colors">
+                        Discuss Options
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Objections/Responses -->
+    <section class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="serif text-3xl font-semibold text-center mb-12 fade-up">Your questions, our answers</h2>
+            
+            <div class="space-y-4" id="faq-container">
+                <div class="border border-stone-200 rounded-lg overflow-hidden fade-up">
+                    <button class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-stone-50 transition-colors" onclick="toggleFaq(this)">
+                        <span class="font-medium">"How much will it cost?"</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 transition-transform"></i>
+                    </button>
+                    <div class="hidden px-6 pb-4 text-stone-600 text-sm leading-relaxed">
+                        <p class="mb-3">$65 for first-time customers ($85 after that) for us to come diagnose. Then you get a written estimate before any work begins.</p>
+                        <p class="mb-3">Most repairs run $150-350 total (including the service call). Major repairs like compressors or control boards can run $400-800.</p>
+                        <p>If it makes more sense to replace, we'll tell you. We don't fix things that aren't worth fixing.</p>
+                    </div>
+                </div>
+
+                <div class="border border-stone-200 rounded-lg overflow-hidden fade-up" style="transition-delay: 50ms;">
+                    <button class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-stone-50 transition-colors" onclick="toggleFaq(this)">
+                        <span class="font-medium">"Do you charge extra for nights and weekends?"</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 transition-transform"></i>
+                    </button>
+                    <div class="hidden px-6 pb-4 text-stone-600 text-sm leading-relaxed">
+                        <p class="mb-3">No. We charge the same at 9 PM Saturday as 9 AM Tuesday.</p>
+                        <p class="mb-3">Most companies charge 1.5x or 2x for after-hours. We don't think you should pay more because your fridge broke at the wrong time.</p>
+                        <p>Emergency service is available 24/7 at standard rates.</p>
+                    </div>
+                </div>
+
+                <div class="border border-stone-200 rounded-lg overflow-hidden fade-up" style="transition-delay: 100ms;">
+                    <button class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-stone-50 transition-colors" onclick="toggleFaq(this)">
+                        <span class="font-medium">"How fast can you get here?"</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 transition-transform"></i>
+                    </button>
+                    <div class="hidden px-6 pb-4 text-stone-600 text-sm leading-relaxed">
+                        <p class="mb-3">Same day, usually within 2-4 hours. Emergencies within 90 minutes.</p>
+                        <p class="mb-3">We live here. We're not dispatching from three counties away.</p>
+                        <p>When you call, we give you a real arrival window. Not "sometime between 8 and 5."</p>
+                    </div>
+                </div>
+
+                <div class="border border-stone-200 rounded-lg overflow-hidden fade-up" style="transition-delay: 150ms;">
+                    <button class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-stone-50 transition-colors" onclick="toggleFaq(this)">
+                        <span class="font-medium">"Is it worth repairing or should I replace?"</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 transition-transform"></i>
+                    </button>
+                    <div class="hidden px-6 pb-4 text-stone-600 text-sm leading-relaxed">
+                        <p class="mb-3">We'll tell you straight. If a repair is more than half the cost of a new unit and your appliance is over 8 years old, replacement usually makes sense.</p>
+                        <p class="mb-3">But many "dead" appliances just need a $200 part. We've saved customers thousands by repairing when others said "replace."</p>
+                        <p>We give you the numbers. You decide.</p>
+                    </div>
+                </div>
+
+                <div class="border border-stone-200 rounded-lg overflow-hidden fade-up" style="transition-delay: 200ms;">
+                    <button class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-stone-50 transition-colors" onclick="toggleFaq(this)">
+                        <span class="font-medium">"What if it breaks again after you fix it?"</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 transition-transform"></i>
+                    </button>
+                    <div class="hidden px-6 pb-4 text-stone-600 text-sm leading-relaxed">
+                        <p class="mb-3">Call us. We'll come back and diagnose it. If it's the same issue we fixed, we'll make it right.</p>
+                        <p class="mb-3">We don't sell warranties—we sell good work. But we stand behind what we do. We've been here 15 years. We're not going anywhere.</p>
+                        <p>Fair warning: Sometimes appliances have multiple issues. We'll tell you if we see other problems brewing.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section class="py-20 bg-stone-900 text-white mobile-cta-spacer">
+        <div class="max-w-4xl mx-auto px-6 text-center fade-up">
+            <h2 class="serif text-3xl md:text-4xl font-semibold mb-6">
+                Peace of mind has a price.<br>So does regret.
+            </h2>
+            <p class="text-stone-400 mb-8 text-lg">
+                You can wait for the breakdown. And pay the emergency rate. And stress.<br>
+                Or call now. While it's calm.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button onclick="openModal()" class="bg-white text-stone-900 px-8 py-4 rounded font-semibold hover:bg-stone-200 transition-colors">
+                    Book Repair
+                </button>
+                <button onclick="openChat()" class="border border-white/30 text-white px-8 py-4 rounded font-medium hover:bg-white/10 transition-colors">
+                    Speak to a Technician
+                </button>
+            </div>
+            
+            <p class="text-sm text-stone-500 mt-6">
+                $65 first service call. Applied to repair if approved. No hidden fees.
+            </p>
+        </div>
+    </section>
+
+    <!-- Mobile Fixed CTA -->
+    <div class="mobile-cta">
+        <a href="#" onclick="openChat(); return false;" class="flex-1 bg-stone-100 text-stone-900 py-3 rounded font-semibold text-center flex items-center justify-center space-x-2">
+            <i data-lucide="phone" class="w-5 h-5"></i>
+            <span>Call Now</span>
+        </a>
+        <button onclick="openModal()" class="flex-1 bg-stone-900 text-white py-3 rounded font-semibold">
+            Book Online
+        </button>
     </div>
-</section>
+
     <!-- Footer -->
-<footer id="footer">
-    <div class="container">
-        <div class="footer-content">
-            <!-- Logo and Branding -->
-            <div class="footer-brand">
-                <!-- <a href="/" class="logo"><img src="images/logo2.png" alt="compagny logo"></a> -->
-                <p class="tagline">Your trusted appliance warranty service.</p>
-            </div>
-            <!-- Links -->
-            <div class="footer-links">
-                <div class="link-column">
-                    <h3>Company</h3>
-                    <ul>
-                        <li><a href="/about" target="_blank">About Us</a></li>
-                        <li><a href="/blog" target="_blank">Blog</a></li>
-                        <li><a href="/privacy-policy">Privacy Policy</a></li>
+    <footer class="bg-stone-950 text-stone-400 py-12 border-t border-stone-900 mobile-cta-spacer">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-2">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-8 h-8 bg-stone-800 rounded-sm flex items-center justify-center">
+                            <span class="text-stone-50 font-bold text-sm">C</span>
+                        </div>
+                        <span class="font-semibold text-stone-50">Central Appliance Repair</span>
+                    </div>
+                    <p class="text-sm mb-4">You don't call a repairman. You call someone who knows.</p>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="flex text-yellow-500">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <span class="text-sm text-stone-300">4.9 (247 reviews)</span>
+                        <a href="https://g.page/r/Cbc348KMbcH8EBM/review" target="_blank" class="text-xs text-stone-500 hover:text-stone-300 underline ml-2">Review us</a>
+                    </div>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-stone-800 flex items-center justify-center hover:bg-stone-700 transition-colors">
+                            <i data-lucide="facebook" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-stone-800 flex items-center justify-center hover:bg-stone-700 transition-colors">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-stone-800 flex items-center justify-center hover:bg-stone-700 transition-colors">
+                            <i data-lucide="linkedin" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-stone-50 font-medium mb-4">Services</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#services" class="hover:text-white transition-colors">Residential</a></li>
+                        <li><a href="#commercial" class="hover:text-white transition-colors">Restaurants</a></li>
+                        <li><a href="#commercial" class="hover:text-white transition-colors">Hotels</a></li>
+                        <li><a href="#commercial" class="hover:text-white transition-colors">Property Management</a></li>
                     </ul>
                 </div>
-                <div class="link-column">
-                    <h3>Get Involved</h3>
-                    <ul>
-                        <li><a href="mailto:info@yourcompany.com">Partner With Us</a></li>
-                        <li><a href="mailto:careers@yourcompany.com">Join Our Team</a></li>
+
+                <div>
+                    <h4 class="text-stone-50 font-medium mb-4">Contact</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center space-x-2">
+                            <i data-lucide="phone" class="w-4 h-4"></i>
+                            <span>(240) 923-6628</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i data-lucide="mail" class="w-4 h-4"></i>
+                            <span>service@centralappliancerepair.com</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i data-lucide="map-pin" class="w-4 h-4"></i>
+                            <span>Washington DC / MD / NoVA</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i data-lucide="clock" class="w-4 h-4"></i>
+                            <span>Open 24/7</span>
+                        </li>
                     </ul>
                 </div>
             </div>
-            <!-- Social Media -->
-            <div class="footer-social">
-                <h3>Follow Us</h3>
-                <div class="social-icons">
-                    <a href="https://facebook.com" target="_blank" aria-label="Facebook"><span class="icon">📘</span></a>
-                    <a href="https://twitter.com" target="_blank" aria-label="Twitter"><span class="icon">🐦</span></a>
-                    <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn"><span class="icon">💼</span></a>
+
+            <div class="border-t border-stone-900 pt-8 flex flex-col md:flex-row items-center justify-between text-sm">
+                <p>&copy; 2025 Central Appliance Repair. Serving Washington DC, Maryland, Northern Virginia.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms</a>
                 </div>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 AHWS. All rights reserved.</p>
+    </footer>
+
+    <!-- Modal -->
+    <div id="modal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 opacity-0" onclick="closeModal()"></div>
+        <div class="absolute inset-x-4 top-20 md:inset-x-auto md:left-1/2 md:-translate-x-1/2 md:w-full md:max-w-md bg-white rounded-lg shadow-2xl max-h-[80vh] overflow-y-auto transform transition-all duration-300 opacity-0 scale-95">
+            <div class="p-6 border-b border-stone-200 flex items-center justify-between">
+                <h3 class="font-semibold text-lg">Book a Repair</h3>
+                <button onclick="closeModal()" class="p-2 hover:bg-stone-100 rounded transition-colors">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            
+            <div class="p-6">
+                <form id="booking-form" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-stone-700 mb-1">You are</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button type="button" class="type-btn py-3 px-4 border border-stone-300 rounded text-sm hover:border-stone-900 transition-colors text-center" data-type="residential">
+                                Residential
+                            </button>
+                            <button type="button" class="type-btn py-3 px-4 border border-stone-300 rounded text-sm hover:border-stone-900 transition-colors text-center" data-type="commercial">
+                                Commercial
+                            </button>
+                        </div>
+                        <input type="hidden" name="customerType" id="customerType" value="">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="text" id="firstName" placeholder="First Name" required class="border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none">
+                        <input type="text" id="lastName" placeholder="Last Name" required class="border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none">
+                    </div>
+
+                    <input type="tel" id="phone" placeholder="Phone" required class="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none">
+                    
+                    <input type="email" id="email" placeholder="Email" required class="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none">
+
+                    <div class="relative flex items-center">
+                        <input type="text" id="address" placeholder="Address (city/zip)" required class="w-full border border-stone-300 rounded pl-3 pr-12 py-2 text-sm focus:border-stone-900 focus:outline-none">
+                        <button type="button" onclick="detectGPS()" class="absolute right-2 p-1 text-stone-400 hover:text-stone-900 transition-colors shadow-sm bg-stone-50 border border-stone-200 rounded" title="Auto-detect location">
+                            <i data-lucide="map-pin" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+
+                    <select id="appliance" class="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none bg-white">
+                        <option value="" disabled selected>Appliance Type</option>
+                        <option>Refrigerator/Freezer</option>
+                        <option>Washer</option>
+                        <option>Dryer</option>
+                        <option>Dishwasher</option>
+                        <option>Oven/Range</option>
+                        <option>Microwave</option>
+                        <option>Other</option>
+                    </select>
+
+                    <select id="urgency" class="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:border-stone-900 focus:outline-none bg-white">
+                        <option value="" disabled selected>Urgency</option>
+                        <option>Emergency (Tonight)</option>
+                        <option>Same Day (Today)</option>
+                        <option>Next Day (Tomorrow)</option>
+                        <option>This Week</option>
+                        <option>Just Planning</option>
+                    </select>
+
+                    <button type="submit" id="submit-btn" class="w-full bg-stone-900 text-white py-3 rounded font-medium hover:bg-stone-800 transition-colors flex items-center justify-center">
+                        <span>Request Callback</span>
+                    </button>
+                </form>
+
+                <p class="text-xs text-stone-500 text-center mt-4">
+                    We'll call within 30 minutes to confirm timing. No charge until we arrive.
+                </p>
+            </div>
         </div>
     </div>
-</footer>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="index.js"></script>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-4 right-4 bg-stone-900 text-white px-6 py-4 rounded-lg shadow-xl transform translate-y-20 opacity-0 transition-all duration-300 z-50 max-w-sm">
+        <div class="flex items-center space-x-3">
+            <i data-lucide="check-circle" class="w-5 h-5 text-green-400"></i>
+            <span id="toast-message">Message</span>
+        </div>
+    </div>
+
+    <!-- Chat Widget Elements will be added via JavaScript -->
+    <div id="chat-widget-container"></div>
+
+    <script src="script.js" defer></script>
+
+    <!-- Client Portal Auth Modal -->
+    <div id="portalAuthModal" class="fixed inset-0 z-[100] hidden">
+        <div class="absolute inset-0 bg-stone-900/60 backdrop-blur-sm transition-opacity opacity-0" onclick="closePortalAuth()"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-sm bg-white rounded-2xl shadow-2xl p-8 transform scale-95 opacity-0 transition-all duration-300 border border-stone-200">
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 bg-stone-100 rounded-full flex items-center justify-center mx-auto mb-3 text-stone-900">
+                    <i data-lucide="shield" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-xl font-bold tracking-tight text-stone-900">Client Portal</h3>
+                <p class="text-sm text-stone-500 mt-1">Enter your exact secure details to view your live tracking and history.</p>
+            </div>
+            <form id="portalAuthForm" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-stone-500 uppercase tracking-wider mb-1">First Name</label>
+                    <input type="text" id="authName" required class="w-full border border-stone-300 rounded-lg px-4 py-3 text-sm focus:border-stone-900 focus:outline-none transition bg-stone-50">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-stone-500 uppercase tracking-wider mb-1">Email Address</label>
+                    <input type="email" id="authEmail" required class="w-full border border-stone-300 rounded-lg px-4 py-3 text-sm focus:border-stone-900 focus:outline-none transition bg-stone-50">
+                </div>
+                <button type="submit" class="w-full bg-stone-900 text-white font-bold py-3 rounded-lg shadow-lg hover:bg-stone-800 transition">Access Secure Portal</button>
+            </form>
+            <button onclick="closePortalAuth()" class="absolute top-4 right-4 text-stone-400 hover:text-stone-900 bg-stone-100 p-2 rounded-full"><i data-lucide="x" class="w-4 h-4"></i></button>
+        </div>
+    </div>
+
+    <!-- Client Dashboard Modal -->
+    <div id="clientDashboardModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-stone-900/80 backdrop-blur-md transition-opacity opacity-0" onclick="closeClientDashboard()"></div>
+        <div class="relative w-full max-w-2xl max-h-[90vh] bg-white rounded-2xl shadow-2xl transform scale-95 opacity-0 transition-all duration-300 flex flex-col overflow-hidden">
+            <div class="p-6 md:p-8 border-b border-stone-100 flex justify-between items-center bg-stone-50">
+                <div>
+                    <h2 class="text-2xl font-[800] tracking-tight text-stone-900">Welcome, <span id="dashClientName">Client</span></h2>
+                    <p class="text-sm font-medium text-stone-500 mt-1"><i data-lucide="file-text" class="w-4 h-4 inline mr-1"></i>Secure Service Record</p>
+                </div>
+                <button onclick="closeClientDashboard()" class="text-stone-400 hover:text-stone-900 bg-white shadow-sm border border-stone-200 p-2 rounded-full transition hover:shadow-md"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            
+            <div class="p-6 md:p-8 overflow-y-auto bg-stone-100" id="dashBookingList">
+                <!-- Bookings injected here -->
+            </div>
+            
+            <div class="p-4 bg-white border-t border-stone-100 text-center text-xs font-bold text-stone-400 uppercase tracking-widest">
+                Central Appliance Repair &bull; Authenticated Session
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
